@@ -1,0 +1,295 @@
+.operations-root{
+    height: 120vh;  
+    width: 100%;
+    align-self: center;
+}
+
+.left-side-view{
+    height: 600px;
+    width: 50%;
+}
+
+.crane{
+    position: absolute;
+    width: 700px;
+    height: 550px;
+    left: 78px;
+    top: 160px;
+    z-index: 1;
+}
+
+.scaleX-controls{
+    position: absolute;
+}
+
+.kran-container{
+    z-index: 2;
+    
+}
+
+.upperKran{
+    transform: scaleX(1);
+    width: 280px;
+    height: 155px;
+    z-index: 9;
+}
+.lowerKran{
+    z-index: 2;
+}
+
+.flech{
+    position: absolute;
+    width: 270px;
+    height: 100px;
+    left: 65px;
+    top: 0px;
+    z-index: 8;
+}
+
+.arm{
+    position: absolute;
+    width: 290px;
+    height: 155px;
+    left: 23px;
+    top: 30px;
+    z-index: 3;
+}
+
+.midlle{
+    position: absolute;
+    width: 275px;
+    height: 153px;
+    left: 0px;
+    top: 93px;
+    z-index: 3;
+}
+
+.down{
+    position: absolute;
+    width: 255px;
+    height: 85px;
+    left: 12px;
+    top: 220px;
+    z-index: 2;
+}
+
+.rope-grabber{
+    z-index: 4;
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    z-index: 1000;
+    position: relative;
+}
+
+.grabber-container{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    position: absolute;
+}
+    
+
+.rope{
+    box-sizing: border-box;
+    position: absolute;
+    width: 4px;
+    height: 39px;
+    left: 240px;
+    top: 92px;
+    background: #D9D9D9;
+    border: 0.3px solid #000000;
+    z-index: 1000;
+}
+
+.grabber-container {
+    
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
+
+.grabber {
+    width: 50px;
+    height: 50px;
+    left: 77.4%;
+    top: 130px;
+    position: inherit;
+}
+
+
+.hopper-container{
+    position: relative;
+    width: 220px;
+    height: 220px;
+    left: 165px;
+    top: 0px;
+    z-index: 1;
+}
+
+.hopper{
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    left: 0px;
+    top: 215px;
+    z-index: 1;
+}
+
+.terminal-container{
+    z-index: 1;
+}
+
+.terminal{
+    height: 270px;
+    width: 200px;
+    background-color: #414345;
+    position: absolute;
+    top: 55%;
+    z-index: 1;
+    left: 0%;
+}
+
+.ocean{
+    width: 220px;
+    height: 72px;
+    position: absolute;
+    background-color: #0080ff;
+    top: 90%;
+    left: 200px;
+    z-index: 3;
+}
+
+.bulker{
+    width: 220px;
+    height: 220px;
+    z-index: 2;
+    position: relative;
+    left: 186px;
+    top: 200px;
+}
+
+
+.bulker-edit{
+    width: 160px;
+    height: 160px;
+    z-index: 2;
+   
+}
+
+.right-side-view{
+    height: 600px;
+    width: 50%;
+}
+
+.rotation-container {
+    display: flex;
+    /* height: 100%; Remove fixed height */
+    flex-grow: 1; /* Allow this container to grow */
+    width: 100%;
+    height: 500px;
+    top: 100px;
+}
+
+.terminal-column {
+    flex-basis: 50%;
+    display: flex;
+    flex-direction:row-reverse;
+    height: 500px;
+    background-color: #444; /* Fallback color */
+    top: 100px;
+    /* Simple grey gradient for terminal texture */
+    background-image: linear-gradient(to bottom, #5a5a5a, #404040);
+}
+
+.ocean-column {
+    flex-basis: 50%;
+    display: flex;
+    flex-direction:row;
+    justify-content: start;
+    align-items: start;
+    height: 100%;
+    background-color: #0077cc; /* Fallback color */
+    /* Simple blue gradient for ocean texture */
+    background-image: linear-gradient(to bottom, #1e90ff, #005f9e, #1e90ff);
+    overflow: visible;
+}
+
+.vessel-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.vessel-img {
+    width: 270px;
+    position: absolute;
+    left: 41%;
+    top: 60%;
+    transform: rotate(90deg) translate(-50%, 0);
+    z-index: 5;
+}
+
+.charbon{
+    height: 125px;
+    width: 125px;
+    background-color:black ;
+    border-radius: 125px;
+    align-self: center;
+    margin: 30px;
+}
+
+.rails-container {
+    height: 100%; /* Height for the rails area */
+    flex-shrink: 0; /* Prevent rails container from shrinking */
+    background-color: #6c757d; /* Slightly different background for contrast */
+    padding: 10px 20px; /* Padding around rails */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    position: relative;
+    width: 120px;
+}
+
+.rail {
+    width: 6px; /* Thickness of the rails */
+    background-color: #343a40; /* Dark color for rails */
+    border-radius: 2px;
+}
+
+.upper-img{
+    height: 150px;
+    display: flex; /* Changed from flex */
+    width: 150px;
+    justify-self: center;
+    position:absolute;
+    align-self: center; /* Keep for now, check vertical centering */
+    left: -16px; /* Adjusted to center the pivot point */
+    transform-origin: 75px 25px; /* Rotate around the center */
+    transform: rotate(0deg); /* Initial rotation angle */
+    transition: transform 0.3s ease; /* Smooth rotation transition */
+    z-index: 10; /* Higher z-index to appear in front of vessel */
+}
+
+.terminal-texture {
+    flex-grow: 1; /* Allow terminal texture area to fill remaining space */
+    /* Add other styles for terminal texture if needed */
+}
+
+.slider-controls {
+    flex-shrink: 0; /* Prevent slider controls from shrinking */
+    padding: 15px;
+    text-align: center;
+    background-color: #f0f0f0;
+    border-top: 1px solid #ccc;
+    position: absolute;
+    bottom: 340px;
+}

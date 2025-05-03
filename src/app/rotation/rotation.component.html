@@ -1,0 +1,33 @@
+<div class="main-layout">
+  <h2 class="engine-title">Engine: {{ engineCode }}</h2>
+  <div class="rotation-container position-relative">
+    <div class="vessel-container">
+      <img src="vessel.png" class="vessel-img" alt="Vessel View" />
+    </div>
+    <div class="terminal-column">
+      <div class="rails-container">
+        <img src="upperPart.svg" class="upper-img" srcset="" [style.transform]="'rotate(' + currentAngle + 'deg)'">
+        <div class="rail"></div>
+        <div class="rail"></div>
+      </div>
+      <div class="charbon">
+        
+      </div>
+      <div class="terminal-texture">
+        <!-- Content for terminal area can go here later -->
+      </div>
+    </div>
+    <div class="ocean-column">
+    </div>
+  </div>
+  <div class="slider-controls">
+    <label for="rotationSlider">Crane Angle: </label>
+    <input 
+      type="range" 
+      id="rotationSlider"
+      [min]="0"
+      [max]="possibleAngles.length - 1"
+      step="1"
+      [(ngModel)]="currentAngleIndex">
+    <span>{{ currentAngle }} degrees</span>
+</div>

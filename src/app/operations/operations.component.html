@@ -1,0 +1,95 @@
+<div class="container-fluid operations-root">
+    <div class="row">
+        <div class=" col-xl-6 left-side-view  ">
+                
+                <div class="crane">
+                    <div class="kran-container">
+                        <div class="upperKran" [style.transform]="'scaleX(' + currentScaleX + ')'">
+                            <div class="col-xl-12 ">
+                                <img class="flech" src="flech.svg" alt="flech">
+                            </div>
+                            <div class="col-xl-12">
+                                <img class="arm" src="arm.svg" alt="arm">
+                            
+                        </div>
+                        <div class="col-xl-12">
+                            <img class="midlle" src="midlle.svg" alt="midlle">
+                        </div>
+                        <div class="rope-grabber">
+                            <div class="col-xl-12 rope" [style.height.px]="ropeHeight"></div>
+                            <div class="col-xl-12 grabber-container">
+                                <img [src]="grabberImage" class="grabber" alt="grabber" [style.top.px]="grabberTop">
+                            </div>
+                        </div>
+                       
+                    </div>
+                    <div class="lowerKran">
+                        <div class="col-xl-12">
+                            <img class="down" src="down.svg" alt="down">
+                        </div>
+                        <div class="col-xl-12 hooper-container">
+                            <img class="hopper" src="hopper.svg" alt="hopper">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="terminal-container">    
+                        <div class="terminal"></div>
+                        <div class="ocean"> </div>
+                        <div class="bulker">
+                            <img src="bulker_edit.svg" class="bulker-edit" alt="bulker">
+                        </div>
+                    </div>
+                </div>
+                <div class="scaleX-controls">
+                    <label for="scaleXSlider">Scale X: </label>
+                    <input 
+                        type="range" 
+                        id="scaleXSlider"
+                        [min]="0"
+                        [max]="possibleScaleX.length - 1"
+                        step="1"
+                        [(ngModel)]="currentScaleXIndex">
+                    <span>{{ currentScaleX }} degrees</span>
+                </div>
+            
+            
+        </div>
+        <div class="right-side-view col-xl-6">
+            <div class="rotation-container position-relative">
+                <div class="vessel-container">
+                  <img src="vessel.png" class="vessel-img" alt="Vessel View" />
+                </div>
+                <div class="terminal-column">
+                  <div class="rails-container">
+                    <img src="upperPart.svg" class="upper-img" srcset="" [style.transform]="'rotate(' + currentAngle + 'deg)'">
+                    <div class="rail"></div>
+                    <div class="rail"></div>
+                  </div>
+                  <div class="charbon">
+                    
+                  </div>
+                  <div class="terminal-texture">
+                    <!-- Content for terminal area can go here later -->
+                  </div>
+                </div>
+                <div class="ocean-column">
+                </div>
+              </div>
+              <div class="slider-controls">
+                <label for="rotationSlider">Crane Angle: </label>
+                <input 
+                  type="range" 
+                  id="rotationSlider"
+                  [min]="0"
+                  [max]="possibleAngles.length - 1"
+                  step="1"
+                  [(ngModel)]="currentAngleIndex">
+                <span>{{ currentAngle }} degrees</span>
+            </div>
+
+        
+        </div>
+    </div>
+  
+</div>

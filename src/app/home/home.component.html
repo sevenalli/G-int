@@ -1,0 +1,87 @@
+<div class="container-fluid home-container p-3">
+  <div class="row g-3">
+    <!-- Loop through each crane -->
+    <div class="col-lg-3 col-md-6 mb-3" *ngFor="let crane of cranes">
+      <div class="crane-panel d-flex flex-column h-100" [routerLink]="['/rotate', crane.id]" style="cursor: pointer;">
+        <div class="row g-1 flex-grow-1">
+          <!-- Row 1 -->
+          <!-- Header Card -->
+          <div class="col-12">
+            <div class="card text-white header-card h-100">
+              <div class="card-body justify-content-start align-items-center flex-row">
+                <!-- Directly use img as getCranIconClass only returns images now -->
+                <img class="icon-placeholder-crane me-2" [src]="getCranIconClass().value" alt="Crane Icon">
+                <h6 class="card-title mb-0 fw-bold">{{ crane.id }}</h6>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notification Card -->
+          <div class="col-6">
+            <div class="card data-card h-100">
+              <div class="card-body p-1">
+                <p class="card-text label-text mb-0">Notifications</p>
+                <p class="card-text value-text">{{ crane.notifications }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hook Icon Card -->
+          <div class="col-6">
+            <div class="card data-card h-100">
+              <div class="card-body">
+                <!-- Use ng-container to avoid adding extra elements -->
+                <ng-container *ngIf="getHookIconInfo(crane.hookType) as iconInfo">
+                    <i *ngIf="iconInfo.type === 'icon'" class="icon-placeholder" [ngClass]="iconInfo.value"></i>
+                    <img *ngIf="iconInfo.type === 'image'" class="icon-placeholder" [src]="iconInfo.value" alt="Hook/Grabber">
+                </ng-container>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 2 -->
+          <!-- Status 1 Button Card -->
+          <div class="col-12">
+            <div class="card action-card h-100">
+              <div class="card-body">
+                {{ crane.status1 }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Status 2 Button Card -->
+          <div class="col-12">
+            <div class="card action-card h-100">
+              <div class="card-body">
+                {{ crane.status2 }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 3 -->
+          <!-- Power Button Card -->
+          <div class="col-12">
+            <div class="card action-card h-100">
+              <div class="card-body flex-row">
+                <i class="icon-placeholder me-2" [ngClass]="getPowerIconClass(crane.power)"></i> {{ crane.power }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Hours Card -->
+          <div class="col-12">
+            <div class="card data-card h-100">
+              <div class="card-body value-text large-value">
+                {{ crane.hours }}
+              </div>
+            </div>
+          </div>
+
+           <!-- Row 4 (Extra Card - Spans full width of panel) -->
+        
+
+        </div> <!-- End inner row g-1 -->
+      </div> <!-- End crane-panel -->
+    </div> <!-- End col-* -->
+  </div> <!-- End outer row g-3 -->
+</div>

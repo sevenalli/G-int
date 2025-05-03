@@ -1,0 +1,94 @@
+<div class="container-fluid">
+  <!-- SEARCH BAR -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <form class="d-flex" (submit)="onSearch($event)">
+        <input class="form-control me-2" type="search" placeholder="Search engine code..." [(ngModel)]="searchQuery" name="engineSearch" (input)="onInput()">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+      <div *ngIf="filteredEngines.length > 0 && searchQuery" class="list-group position-absolute w-50 zindex-dropdown">
+        <button type="button" class="list-group-item list-group-item-action" *ngFor="let engine of filteredEngines" (click)="selectEngine(engine)">{{ engine.id }}</button>
+      </div>
+    </div>
+  </div>
+  <!-- Engine Details Row -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <h5 class="mb-3">Engine Details</h5>
+      <div class="row row-cols-1 row-cols-md-4 g-2">
+        <div class="col" *ngIf="selectedEngine">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="fw-bold">ID</div>
+              <div>{{ selectedEngine.id }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col" *ngIf="selectedEngine">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="fw-bold">Notifications</div>
+              <div>{{ selectedEngine.notifications }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col" *ngIf="selectedEngine">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="fw-bold">Hook Type</div>
+              <div>{{ selectedEngine.hookType }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col" *ngIf="selectedEngine">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="fw-bold">Status 1</div>
+              <div>{{ selectedEngine.status1 }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col" *ngIf="selectedEngine">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="fw-bold">Status 2</div>
+              <div>{{ selectedEngine.status2 }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col" *ngIf="selectedEngine">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="fw-bold">Power</div>
+              <div>{{ selectedEngine.power }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col" *ngIf="selectedEngine">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="fw-bold">Hours</div>
+              <div>{{ selectedEngine.hours }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <!-- MAP PART -->
+   
+    <!-- CHART PART -->
+  
+    <!-- SVG MOTOR PART -->
+    <div class="col-12 col-md-12 mb-4 text-center">
+      <h5>Motor Control</h5>
+      <div [ngClass]="{'motor-on': motorState, 'motor-off': !motorState}">
+        <object type="image/svg+xml" data="/motor.svg" id="motorSvg" style="width:120px; height:120px;"></object>
+      </div>
+      <button class="btn btn-outline-primary mt-2" (click)="toggleMotor()">
+        Toggle Motor ({{ motorState ? 'ON' : 'OFF' }})
+      </button>
+    </div>
+  </div>
+</div>

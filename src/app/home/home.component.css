@@ -1,0 +1,225 @@
+:root {
+  --mm-primary: #003366;
+  --mm-secondary: #0072bb;
+  --mm-accent: #ffc72c;
+  --mm-white: #ffffff;
+  --mm-light-gray: #f4f4f4;
+  --mm-dark-gray: #222222;
+}
+
+:host {
+    display: block;
+    background-color: #ffffff; /* Dark background for the whole view */
+    min-height: calc(100vh - 70px); /* Ensure it fills vertical space below header */
+    padding: 10px;
+    width: 100%;
+
+}
+
+.home-container {
+    /* background-color: #343a40; */ /* Moved to :host */
+    /* Removed height and overflow - let content dictate height */
+}
+
+.crane-panel {
+    background-color: #4f95ff; /* Dark background for the panel itself */
+    padding: 10px; /* Small padding around the inner grid */
+    border: 1px solid #495057;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    border-radius: 12px;
+}
+
+.card {
+    border-radius: 12px;
+    border: 1.5px solid #003366;
+    color: #003366;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+}
+.card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+.header-card {
+    background-color: #fff;
+    color: #003366;
+    border-bottom: 2px solid #ffc72c;
+    font-weight: bold;
+}
+
+.header-card .fw-bold, .header-card .card-title {
+    color: #003366;
+}
+
+.data-card {
+    background-color: #f4f4f4;
+    color: #003366;
+}
+
+.action-card {
+    background-color: #0072bb;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.action-card:hover {
+    background-color: #003366;
+    color: #ffc72c;
+}
+
+.btn, .btn-primary, .btn-outline-success {
+    background: #0072bb;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+.btn:hover, .btn-primary:hover, .btn-outline-success:hover {
+    background: #003366;
+    color: #ffc72c;
+}
+
+.value-text {
+    color: #0072bb;
+    font-weight: bold;
+}
+
+.label-text {
+    color: #000000;
+}
+
+.icon-placeholder, .icon-placeholder-crane {
+    background-color: #ffc72c;
+    border-radius: 6px;
+    padding: 2px;
+}
+
+.card-body {
+    flex-grow: 1; /* Allow body to grow to fill card height */
+    display: flex; /* Use flexbox for content alignment */
+    flex-direction: column; /* Default to column layout */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    text-align: center; /* Ensure text is centered */
+    padding: 0.5rem; /* Base padding */
+    font-size: 0.9rem; /* Default font size */
+    line-height: 1.2;
+    
+}
+
+.card-body.flex-row {
+    flex-direction: row;
+}
+
+.header-card {
+    background-color: #0a69c9; /* Very dark header */
+    border: 1px solid #fff;
+    color: #fff;
+
+  }
+
+.header-card .card-body {
+    justify-content: center; /* Align items (icon, text) to the start */
+}
+
+.data-card {
+    /* background-color: #6c757d; */ /* Now default card background */
+}
+
+.action-card {
+    /* background-color: #6c757d; */ /* Now default card background */
+    cursor: pointer; /* Indicate interactivity */
+    transition: background-color 0.2s ease;
+}
+
+.action-card:hover {
+    background-color: #5a6268; /* Darken on hover */
+}
+
+/* Allow specific cards to override flex direction if needed */
+.card-body.align-items-start {
+    align-items: flex-start;
+}
+
+.icon-placeholder {
+    /* Removed font-size control, now using width/height for consistency */
+    width: 40px; /* Define consistent width */
+    height: 40px; /* Define consistent height */
+    color: #fff; /* White icon color (for icon font) */
+    flex-shrink: 0; /* Prevent icon/image from shrinking */
+    text-align: center;
+    line-height: 1; /* Helps vertical align for icon font */
+    vertical-align: middle; /* Align icon/image better with text */
+    object-fit: contain; /* Scale the image nicely within the dimensions */
+}
+.icon-placeholder-crane {
+    /* Removed font-size control, now using width/height for consistency */
+    width: 40px; /* Define consistent width */
+    height: 40px; /* Define consistent height */
+    color: #fff; /* White icon color (for icon font) */
+    flex-shrink: 0; /* Prevent icon/image from shrinking */
+    text-align: center;
+    line-height: 1; /* Helps vertical align for icon font */
+    vertical-align: middle; /* Align icon/image better with text */
+    object-fit: contain; /* Scale the image nicely within the dimensions */
+    background-color: #e9ecef;
+}
+
+.label-text {
+    font-size: 0.7rem; /* Smaller label */
+    margin-bottom: 0.1rem;
+    color: #005ab3;
+    line-height: 1;
+    font-weight: bold;
+    font-family: 'arial', sans-serif;
+}
+
+.value-text {
+    font-size: 1rem; /* Adjust value text size */
+    font-weight: bold;
+    margin-bottom: 0;                   
+    font-family: 'arial', sans-serif;
+}
+
+.large-value {
+    font-size: 1.1rem; /* Adjust large value size */
+    font-family: 'arial', sans-serif;
+}
+
+/* Remove specific font-size overrides as we use width/height now */
+.header-card .icon-placeholder {
+    width: 35px;
+    height: 35px;
+    /* font-size: 1.8rem; */
+}
+
+.data-card .icon-placeholder {
+    width: 40px;
+    height: 40px;
+    align-self: center;
+    
+    /* font-size: 2rem; */
+}
+
+.action-card .icon-placeholder {
+    width: 25px;
+    height: 25px;
+    align-self: center;
+    /* font-size: 1.2rem; */
+}
+
+/* Reduce padding further for notification card */
+.data-card .card-body.p-1 {
+    padding: 0.25rem !important;
+}
+
+/* Specific centering for ON button card */
+.action-card .card-body.on-button-body {
+    flex-direction: row; /* Align icon and text horizontally */
+}

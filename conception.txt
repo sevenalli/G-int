@@ -1,0 +1,132 @@
+# GRUE INTERFACE - DATABASE CONCEPTION
+
+## 1. DATA MODELS
+
+### Engine
+- id: string (primary key, e.g., 'G380003')
+- type: string (engine type/model)
+- notifications: number (count of active notifications)
+- hookType: string ('hook', 'grab-orange', 'grab-red')
+- status1: string (e.g., 'AFFECTE', 'STANDBY', 'MAINTENANCE')
+- status2: string (e.g., 'DRIVE', 'PARK', 'ANCRE')
+- power: string ('ON', 'OFF')
+- hours: string (operating hours)
+- lastUpdated: timestamp
+- location: {x: number, y: number} (coordinates)
+
+### RotationData
+- engineId: string (foreign key to Engine)
+- timestamp: timestamp
+- angle: number (current rotation angle)
+- operatorId: string (ID of operator making the change)
+- operation: string (description of operation)
+
+### Notification
+- id: string (primary key)
+- engineId: string (foreign key to Engine)
+- type: string ('warning', 'error', 'info')
+- message: string
+- timestamp: timestamp
+- isRead: boolean
+- priority: number (1-5)
+
+### Operator
+- id: string (primary key)
+- name: string
+- role: string
+- active: boolean
+- lastLogin: timestamp
+
+## 2. REAL-TIME IMPLEMENTATION
+
+### Firebase Realtime Database Structure
+```
+/engines/
+  /{engineId}/
+    /id
+    /type
+    /notifications
+    /hookType
+    /status1
+    /status2
+    /power
+    /hours
+    /lastUpdated
+    /location/
+      /x
+      /y
+
+/rotationData/
+  /{engineId}/
+    /current/
+      /angle
+      /timestamp
+      /operatorId
+    /history/
+      /{timestamp}/
+        /angle
+        /operatorId
+        /operation
+
+/notifications/
+  /{notificationId}/
+    /engineId
+    /type
+    /message
+    /timestamp
+    /isRead
+    /priority
+
+/operators/
+  /{operatorId}/
+    /name
+    /role
+    /active
+    /lastLogin
+```
+
+## 3. API ENDPOINTS
+
+### Engines
+- GET /api/engines - List all engines
+- GET /api/engines/{id} - Get specific engine
+- POST /api/engines - Create new engine
+- PUT /api/engines/{id} - Update engine
+- DELETE /api/engines/{id} - Delete engine
+
+### Rotation
+- GET /api/rotation/{engineId} - Get current rotation
+- GET /api/rotation/{engineId}/history - Get rotation history
+- POST /api/rotation/{engineId} - Update rotation
+
+### Notifications
+- GET /api/notifications - List all notifications
+- GET /api/notifications/{engineId} - Get notifications for engine
+- POST /api/notifications - Create notification
+- PUT /api/notifications/{id}/read - Mark notification as read
+
+## 4. REAL-TIME UPDATES
+
+Implement using Firebase Realtime Database or similar service with:
+- WebSocket connections for live updates
+- Listeners for data changes
+- Push notifications for critical alerts
+- Throttling to prevent UI overload
+
+## 5. AUTHENTICATION & SECURITY
+
+- JWT-based authentication
+- Role-based access control
+- Encrypted data transmission
+- Rate limiting for API endpoints
+- Audit logging for all operations
+
+## 6. IMPLEMENTATION PLAN
+
+1. Set up Firebase project and configure security rules
+2. Create Angular services for data access
+3. Implement real-time listeners in components
+4. Add authentication and user management
+5. Create admin interface for data management
+6. Implement notification system
+7. Add offline support with local storage
