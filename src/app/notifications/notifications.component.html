@@ -1,0 +1,125 @@
+<div class="container-fluid notification-container p-3">
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card header-card">
+        <div class="card-body d-flex justify-content-between align-items-center">
+          <div>
+            <h4 class="mb-0">
+              <i class="bi bi-bell-fill me-2"></i> Notifications & Alarms
+              <span *ngIf="selectedCraneId" class="badge rounded-pill bg-primary ms-2">{{ selectedCraneId }}</span>
+            </h4>
+            <p class="text-muted mb-0" *ngIf="!selectedCraneId">All alerts from port cranes GMAO system</p>
+            <p class="text-muted mb-0" *ngIf="selectedCraneId">Viewing alerts for crane {{ selectedCraneId }}</p>
+          </div>
+          <div class="d-flex">
+            <span class="badge rounded-pill bg-danger me-2">{{ getUnreadCount() }} Unread</span>
+            <button class="btn btn-sm btn-outline-secondary me-2" (click)="toggleUnreadOnly()">
+              <i class="bi" [ngClass]="showUnreadOnly ? 'bi-eye-slash' : 'bi-eye'"></i>
+              {{ showUnreadOnly ? 'Show All' : 'Unread Only' }}
+            </button>
+            <button class="btn btn-sm btn-outline-secondary" (click)="markAllAsRead()">
+              <i class="bi bi-check-all me-1"></i> Mark All Read
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filters Row -->
+  <div class="row mb-4">
+    <div class="col-md-3 mb-3 mb-md-0">
+      <div class="input-group">
+        <span class="input-group-text"><i class="bi bi-search"></i></span>
+        <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchText" (input)="search(searchText)">
+      </div>
+    </div>
+
+    <div class="col-md-3 mb-3 mb-md-0">
+      <div class="input-group">
+        <label class="input-group-text"><i class="bi bi-filter"></i></label>
+        <select class="form-select" [(ngModel)]="priorityFilter" (change)="applyFilters()">
+          <option value="all">All Priorities</option>
+          <option value="high">High Priority</option>
+          <option value="medium">Medium Priority</option>
+          <option value="low">Low Priority</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-md-3 mb-3 mb-md-0">
+      <div class="input-group">
+        <label class="input-group-text"><i class="bi bi-tag"></i></label>
+        <select class="form-select" [(ngModel)]="categoryFilter" (change)="applyFilters()">
+          <option value="all">All Categories</option>
+          <option value="maintenance">Maintenance</option>
+          <option value="operation">Operation</option>
+          <option value="system">System</option>
+          <option value="safety">Safety</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-md-3 text-md-end">
+      <a class="btn btn-secondary me-2" *ngIf="selectedCraneId" [routerLink]="['/notifications']">
+        <i class="bi bi-funnel me-1"></i> Clear Filter
+      </a>
+      <a class="btn btn-primary" [routerLink]="['/home']">
+        <i class="bi bi-house-door me-1"></i> Back to Dashboard
+      </a>
+    </div>
+  </div>
+
+  <!-- Notifications List -->
+  <div class="row">
+    <div class="col-12">
+      <div class="notification-list">
+        <!-- Empty state -->
+        <div class="text-center py-5" *ngIf="filteredNotifications.length === 0">
+          <i class="bi bi-bell-slash notification-empty-icon"></i>
+          <h5 class="mt-3">No notifications found</h5>
+          <p class="text-muted">Change your filters or check back later</p>
+        </div>
+
+        <!-- Notification Items -->
+        <div class="notification-item" *ngFor="let notification of filteredNotifications" [class.unread]="!notification.isRead">
+          <div class="row g-0">
+            <div class="col-auto notification-priority" [ngClass]="notification.priority">
+              <div class="priority-indicator"></div>
+            </div>
+            
+            <div class="col">
+              <div class="notification-content" (click)="markAsRead(notification.id)">
+                <div class="notification-header">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="notification-title mb-0">
+                      {{ notification.title }}
+                      <span class="ms-2" [class]="getPriorityClass(notification.priority)">{{ notification.priority }}</span>
+                    </h5>
+                    <span class="notification-time">{{ formatDate(notification.timestamp) }}</span>
+                  </div>
+                  <div class="notification-meta">
+                    <span class="badge bg-primary me-2">{{ notification.craneId }}</span>
+                    <span class="category">
+                      <i [class]="getCategoryIcon(notification.category)"></i>
+                      {{ notification.category }}
+                    </span>
+                  </div>
+                </div>
+                <div class="notification-body">
+                  <p class="mb-0">{{ notification.message }}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-auto notification-actions">
+              <button class="btn btn-sm btn-outline-secondary" (click)="markAsRead(notification.id)" *ngIf="!notification.isRead">
+                <i class="bi bi-check"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

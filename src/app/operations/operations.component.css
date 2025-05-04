@@ -18,9 +18,7 @@
     z-index: 1;
 }
 
-.scaleX-controls{
-    position: absolute;
-}
+
 
 .kran-container{
     z-index: 2;
@@ -46,6 +44,7 @@
     z-index: 8;
 }
 
+
 .arm{
     position: absolute;
     width: 290px;
@@ -53,6 +52,7 @@
     left: 23px;
     top: 30px;
     z-index: 3;
+    
 }
 
 .midlle{
@@ -74,22 +74,30 @@
 }
 
 .rope-grabber{
-    z-index: 4;
+    
     width: auto;
     height: auto;
     display: flex;
-    justify-content: center;
     z-index: 1000;
     position: relative;
+   
+
+    
 }
 
-.grabber-container{
-    top: 0;
-    left: 0;
+
+.controls{
+    
     width: 100%;
     height: 100%;
-    z-index: 1000;
+    display: flex;
+    flex-direction: column;
     position: absolute;
+    top: 120px;
+    left: 290px;
+    z-index: 1000;
+    font-size: 10px;
+   
 }
     
 
@@ -104,23 +112,27 @@
     border: 0.3px solid #000000;
     z-index: 1000;
 }
-
-.grabber-container {
+.grabber-container{
+    position: absolute;
+left: 235px;
+right: -7.43%;
+top:-129px;
     
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1000;
+}
+.grabber{
+    
+    position: absolute;
+    left: 259px;
+    transform: translateX(-50%);
+    right: 0;
+    top: 50%;
+    bottom: 32.19%;
+    height: 50px;
+    width: 50px;
+   
 }
 
-.grabber {
-    width: 50px;
-    height: 50px;
-    left: 77.4%;
-    top: 130px;
-    position: inherit;
-}
+
 
 
 .hopper-container{
@@ -282,6 +294,10 @@
 .terminal-texture {
     flex-grow: 1; /* Allow terminal texture area to fill remaining space */
     /* Add other styles for terminal texture if needed */
+}
+
+.slider-controls, .scaleX-controls, .unified-luffing-controls, .hoisting-controls {
+    margin-bottom: 10px;
 }
 
 .slider-controls {

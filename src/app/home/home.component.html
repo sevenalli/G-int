@@ -18,10 +18,13 @@
 
           <!-- Notification Card -->
           <div class="col-6">
-            <div class="card data-card h-100">
+            <div class="card data-card h-100" [routerLink]="['/notifications', crane.id]" style="cursor: pointer;" (click)="$event.stopPropagation()">
               <div class="card-body p-1">
                 <p class="card-text label-text mb-0">Notifications</p>
-                <p class="card-text value-text">{{ crane.notifications }}</p>
+                <p class="card-text value-text" [ngClass]="{'text-danger': hasNotifications(crane.notifications)}">
+                  <i class="bi bi-bell-fill me-1" *ngIf="hasNotifications(crane.notifications)"></i>
+                  {{ crane.notifications }}
+                </p>
               </div>
             </div>
           </div>

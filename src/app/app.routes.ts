@@ -3,6 +3,7 @@ import { HomeComponent } from './home/home.component';
 import { RotationComponent } from './rotation/rotation.component';
 import { OthersComponent } from './others/others.component';
 import { OperationsComponent } from './operations/operations.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -10,5 +11,7 @@ export const routes: Routes = [
   { path: 'rotate/:engineCode', component: RotationComponent },
   { path: 'others', component: OthersComponent },
   { path: 'operations', component: OperationsComponent },
+  { path: 'notifications', component: NotificationsComponent },
+  { path: 'notifications/:craneId', component: NotificationsComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];

@@ -1,24 +1,70 @@
+
 <div class="container-fluid operations-root">
     <div class="row">
         <div class=" col-xl-6 left-side-view  ">
+            <div class="controls">
+                <div class="scaleX-controls">
+                    <label for="scaleXSlider">Scale X: </label>
+                    <input 
+                        type="range" 
+                        id="scaleXSlider"
+                        [min]="0"
+                        [max]="possibleScaleX.length - 1"
+                        step="1"
+                        [(ngModel)]="currentScaleXIndex">
+                    <span>{{ currentScaleX }} degrees</span>
+                </div>
+                <div class="unified-luffing-controls">
+                    <label for="unifiedLuffingSlider">Unified Luffing Control: </label>
+                    <input 
+                        type="range" 
+                        id="unifiedLuffingSlider"
+                        min="0"
+                        max="100" 
+                        step="1"
+                        [(ngModel)]="unifiedLuffing">
+                    <span>{{ unifiedLuffing }}%</span>
+                </div>
                 
+                <div class="hoisting-controls">
+                    <label for="hoistingSlider">Hoisting Control: </label>
+                    <input 
+                        type="range" 
+                        id="hoistingSlider"
+                        min="0"
+                        max="100" 
+                        step="1"
+                        [(ngModel)]="hoisting">
+                    <span>{{ hoisting }}%</span>
+                </div>
+                <div class="current-positions">
+                    <!-- <div>Arm angle: {{ armLuffingAngle.toFixed(1) }}°</div>
+                    <div>Flech angle: {{ flecheLuffingAngle.toFixed(1) }}°</div>
+                    <div>Flech position: {{ flecheLuffingLeft.toFixed(1) }}px</div>
+                    <div>Grabber horizontal: {{ grabberLeftPos.toFixed(1) }}px</div>
+                    <div>Grabber vertical offset: {{ grabberTopPos.toFixed(1) }}px</div>
+                    <div>Rope height: {{ ropeHeight.toFixed(1) }}px</div>
+                    <div>Hoisting: {{ hoisting }}%</div>
+                    <div>ScaleX: {{ currentScaleX }}</div> -->
+                </div>
+               </div>
                 <div class="crane">
                     <div class="kran-container">
                         <div class="upperKran" [style.transform]="'scaleX(' + currentScaleX + ')'">
                             <div class="col-xl-12 ">
-                                <img class="flech" src="flech.svg" alt="flech">
+                                <img class="flech" src="flech.svg" alt="flech" [ngStyle]="flecheLuffingStyle">
                             </div>
                             <div class="col-xl-12">
-                                <img class="arm" src="arm.svg" alt="arm">
+                                <img class="arm" src="arm.svg" alt="arm" [ngStyle]="armLuffingStyle">
                             
                         </div>
                         <div class="col-xl-12">
                             <img class="midlle" src="midlle.svg" alt="midlle">
                         </div>
-                        <div class="rope-grabber">
-                            <div class="col-xl-12 rope" [style.height.px]="ropeHeight"></div>
-                            <div class="col-xl-12 grabber-container">
-                                <img [src]="grabberImage" class="grabber" alt="grabber" [style.top.px]="grabberTop">
+                        <div class="rope-grabber" [style.top.px]="ropeGrabbertop" >
+                            <div class="col-xl-12 rope" [style.height.px]="ropeHeight" [style.top.px]="ropeTopPos" [style.left.px]="ropeLeftPos"></div>
+                            <div class="col-xl-12 grabber-container" [style.top.px]="grabberTop" [style.left.px]="grabberLeftPos">
+                                <img [src]="grabberImage" class="grabber" alt="grabber" >
                             </div>
                         </div>
                        
@@ -32,6 +78,7 @@
                         </div>
                     </div>
                 </div>
+                
 
                 <div class="terminal-container">    
                         <div class="terminal"></div>
@@ -40,20 +87,7 @@
                             <img src="bulker_edit.svg" class="bulker-edit" alt="bulker">
                         </div>
                     </div>
-                </div>
-                <div class="scaleX-controls">
-                    <label for="scaleXSlider">Scale X: </label>
-                    <input 
-                        type="range" 
-                        id="scaleXSlider"
-                        [min]="0"
-                        [max]="possibleScaleX.length - 1"
-                        step="1"
-                        [(ngModel)]="currentScaleXIndex">
-                    <span>{{ currentScaleX }} degrees</span>
-                </div>
-            
-            
+                </div>   
         </div>
         <div class="right-side-view col-xl-6">
             <div class="rotation-container position-relative">
@@ -92,4 +126,5 @@
         </div>
     </div>
   
-</div>
+
+

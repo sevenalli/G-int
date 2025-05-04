@@ -1,0 +1,171 @@
+.notification-container {
+  background-color: #ffffff;
+  min-height: calc(100vh - 70px);
+}
+
+.header-card {
+  background-color: #72b4f7;
+  border: 1px solid #fff;
+  color: #fff;
+  border-radius: 12px;
+  border-bottom: 2px solid #ffc72c;
+}
+
+.notification-list {
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  padding: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.notification-item {
+  background-color: #ffffff;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.notification-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.notification-item.unread {
+  background-color: #f0f7ff;
+  border-left: 3px solid #0072bb;
+}
+
+.notification-priority {
+  width: 6px;
+  display: flex;
+  align-items: stretch;
+}
+
+.notification-priority.high {
+  background-color: #dc3545;
+}
+
+.notification-priority.medium {
+  background-color: #ffc107;
+}
+
+.notification-priority.low {
+  background-color: #17a2b8;
+}
+
+.notification-content {
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.notification-header {
+  margin-bottom: 0.5rem;
+}
+
+.notification-title {
+  color: #003366;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.notification-meta {
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  color: #6c757d;
+}
+
+.notification-time {
+  font-size: 0.75rem;
+  color: #6c757d;
+}
+
+.notification-body {
+  color: #212529;
+  font-size: 0.9rem;
+}
+
+.notification-actions {
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.category {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.8rem;
+  color: #6c757d;
+  text-transform: capitalize;
+}
+
+.category i {
+  margin-right: 0.25rem;
+}
+
+.badge {
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.notification-empty-icon {
+  font-size: 3rem;
+  color: #adb5bd;
+}
+
+/* Input styles matching the project design */
+.input-group {
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.input-group-text {
+  background-color: #0072bb;
+  color: #ffffff;
+  border: none;
+}
+
+.form-control, .form-select {
+  border: 1px solid #ced4da;
+  color: #003366;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #0072bb;
+  box-shadow: 0 0 0 0.25rem rgba(0, 114, 187, 0.25);
+}
+
+/* Button styles */
+.btn-primary {
+  background-color: #0072bb;
+  border-color: #0072bb;
+}
+
+.btn-primary:hover {
+  background-color: #003366;
+  border-color: #003366;
+  color: #ffc72c;
+}
+
+.btn-outline-secondary {
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #ffffff;
+  color: #0072bb;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .notification-content {
+    padding: 0.75rem;
+  }
+  
+  .notification-actions {
+    padding: 0 0.5rem;
+  }
+}

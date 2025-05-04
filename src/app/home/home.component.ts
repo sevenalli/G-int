@@ -116,4 +116,15 @@ export class HomeComponent {
   getPowerIconClass(powerStatus: string): string {
       return 'bi bi-power'; // Icon remains the same, state handled by text
   }
+  
+  // Helper to check if there are notifications (handles both number and string values)
+  hasNotifications(notifications: number | string): boolean {
+    if (typeof notifications === 'number') {
+      return notifications > 0;
+    } else if (typeof notifications === 'string') {
+      // If it's a string like 'M', consider it as having notifications
+      return notifications !== '0';
+    }
+    return false;
+  }
 }
