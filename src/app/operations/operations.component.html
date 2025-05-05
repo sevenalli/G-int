@@ -1,53 +1,8 @@
 
 <div class="container-fluid operations-root">
-    <div class="row">
-        <div class=" col-xl-6 left-side-view  ">
-            <div class="controls">
-                <div class="scaleX-controls">
-                    <label for="scaleXSlider">Scale X: </label>
-                    <input 
-                        type="range" 
-                        id="scaleXSlider"
-                        [min]="0"
-                        [max]="possibleScaleX.length - 1"
-                        step="1"
-                        [(ngModel)]="currentScaleXIndex">
-                    <span>{{ currentScaleX }} degrees</span>
-                </div>
-                <div class="unified-luffing-controls">
-                    <label for="unifiedLuffingSlider">Unified Luffing Control: </label>
-                    <input 
-                        type="range" 
-                        id="unifiedLuffingSlider"
-                        min="0"
-                        max="100" 
-                        step="1"
-                        [(ngModel)]="unifiedLuffing">
-                    <span>{{ unifiedLuffing }}%</span>
-                </div>
-                
-                <div class="hoisting-controls">
-                    <label for="hoistingSlider">Hoisting Control: </label>
-                    <input 
-                        type="range" 
-                        id="hoistingSlider"
-                        min="0"
-                        max="100" 
-                        step="1"
-                        [(ngModel)]="hoisting">
-                    <span>{{ hoisting }}%</span>
-                </div>
-                <div class="current-positions">
-                    <!-- <div>Arm angle: {{ armLuffingAngle.toFixed(1) }}°</div>
-                    <div>Flech angle: {{ flecheLuffingAngle.toFixed(1) }}°</div>
-                    <div>Flech position: {{ flecheLuffingLeft.toFixed(1) }}px</div>
-                    <div>Grabber horizontal: {{ grabberLeftPos.toFixed(1) }}px</div>
-                    <div>Grabber vertical offset: {{ grabberTopPos.toFixed(1) }}px</div>
-                    <div>Rope height: {{ ropeHeight.toFixed(1) }}px</div>
-                    <div>Hoisting: {{ hoisting }}%</div>
-                    <div>ScaleX: {{ currentScaleX }}</div> -->
-                </div>
-               </div>
+    <div class="row gx-5">
+        <!-- Left Column - Crane View -->
+        <div class="col-xl-4 left-side-view px-4">
                 <div class="crane">
                     <div class="kran-container">
                         <div class="upperKran" [style.transform]="'scaleX(' + currentScaleX + ')'">
@@ -73,6 +28,27 @@
                         <div class="col-xl-12">
                             <img class="down" src="down.svg" alt="down">
                         </div>
+                        <!-- Position grid markers above hopper -->
+                        <div class="position-grid">
+                            <div class="grid-markers">
+                                
+                            </div>
+                            <!-- Meter measurement grid lines -->
+                            <div class="meter-grid">
+                                <div class="meter-lines">
+                                    <div class="meter-line"><span class="meter-label">0m</span></div>
+                                    <div class="meter-line"><span class="meter-label">5m</span></div>
+                                    <div class="meter-line"><span class="meter-label">10m</span></div>
+                                    <div class="meter-line"><span class="meter-label">15m</span></div>
+                                    <div class="meter-line"><span class="meter-label">20m</span></div>
+                                </div>
+                                <div class="horizontal-meter-lines">
+                                    <div class="h-meter-line"><span class="h-meter-label">0m</span></div>
+                                    <div class="h-meter-line"><span class="h-meter-label">5m</span></div>
+                                    <div class="h-meter-line"><span class="h-meter-label">10m</span></div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-xl-12 hooper-container">
                             <img class="hopper" src="hopper.svg" alt="hopper">
                         </div>
@@ -84,13 +60,93 @@
                         <div class="terminal"></div>
                         <div class="ocean"> </div>
                         <div class="bulker">
-                            <img src="bulker_edit.svg" class="bulker-edit" alt="bulker">
+                            <img src="bulker.svg" class="bulker-edit" alt="bulker">
                         </div>
                     </div>
                 </div>   
         </div>
-        <div class="right-side-view col-xl-6">
-            <div class="rotation-container position-relative">
+        
+        <!-- Middle Column - Controls -->
+        <div class="col-xl-4 controls-column px-4">
+            <div class="controls-panel">
+                <h4 class="controls-title">Crane Controls</h4>
+                
+                <!-- Unified Rotation Control replaces individual scaleX and angle controls -->
+                <div class="control-group">
+                    <div class="unified-rotation-controls">
+                        <label for="unifiedRotationSlider">Unified Rotation Control: </label>
+                        <input 
+                            type="range" 
+                            id="unifiedRotationSlider"
+                            min="0"
+                            max="100" 
+                            step="1"
+                            [(ngModel)]="unifiedRotation">
+                        <div class="rotation-values">
+                            <span>Angle: {{ currentAngle }}°</span>
+                            <span>Scale X: {{ currentScaleX }}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div class="unified-luffing-controls">
+                        <label for="unifiedLuffingSlider">Unified Luffing Control: </label>
+                        <input 
+                            type="range" 
+                            id="unifiedLuffingSlider"
+                            min="0"
+                            max="100" 
+                            step="1"
+                            [(ngModel)]="unifiedLuffing">
+                        <span>{{ unifiedLuffing }}%</span>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div class="hoisting-controls">
+                        <label for="hoistingSlider">Hoisting Control: </label>
+                        <input 
+                            type="range" 
+                            id="hoistingSlider"
+                            min="0"
+                            max="100" 
+                            step="1"
+                            [(ngModel)]="hoisting">
+                        <span>{{ hoisting }}%</span>
+                    </div>
+                </div>
+                
+                <!-- Removed individual rotation control as it's now part of the unified control -->
+                
+                <div class="current-positions">
+                    <!-- Position information can be added here if needed -->
+                </div>
+                
+                <!-- Slewing Button -->
+                <div class="control-group">
+                    <button class="btn btn-primary slewing-btn" routerLink="/slewing">
+                        <i class="fas fa-sync-alt"></i> Go to Slewing Mode
+                    </button>
+                </div>
+                
+                <!-- Hoisting Button -->
+                <div class="control-group">
+                    <button class="btn btn-info hoisting-btn" routerLink="/hoisting">
+                        <i class="fas fa-arrow-up"></i> Go to Hoisting Mode
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Column - Rotation View -->
+        <div class="right-side-view col-xl-4 px-4">
+            <div class="rotation-container position-relative col-12">
+                <!-- Rotation tracker circle -->
+                <div class="rotation-tracker">
+                   
+                </div>
+                
                 <div class="vessel-container">
                   <img src="vessel.png" class="vessel-img" alt="Vessel View" />
                 </div>
@@ -109,22 +165,5 @@
                 </div>
                 <div class="ocean-column">
                 </div>
-              </div>
-              <div class="slider-controls">
-                <label for="rotationSlider">Crane Angle: </label>
-                <input 
-                  type="range" 
-                  id="rotationSlider"
-                  [min]="0"
-                  [max]="possibleAngles.length - 1"
-                  step="1"
-                  [(ngModel)]="currentAngleIndex">
-                <span>{{ currentAngle }} degrees</span>
             </div>
-
-        
         </div>
-    </div>
-  
-
-

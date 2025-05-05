@@ -1,0 +1,67 @@
+<div class="container-fluid hoisting-root">
+    <div class="row gx-5">
+        <!-- Left Column - Hoisting View with Scale Grid -->
+        <div class="col-xl-8 hoisting-view px-4">
+            <div class="hoisting-container">
+                <!-- Vertical Scale Grid -->
+                <div class="scale-grid">
+                    <div class="meter-markers">
+                        <ng-container *ngFor="let marker of gridMarkers">
+                            <div class="meter-marker" [style.bottom.%]="(marker / maxHeight) * 100">
+                                <span class="marker-label">{{ marker }}m</span>
+                                <div class="marker-line"></div>
+                            </div>
+                        </ng-container>
+                    </div>
+                    
+                    <!-- Rope and Grabber -->
+                    <div class="hoisting-mechanism">
+                        <div class="rope" [ngStyle]="ropeStyle"></div>
+                        <div class="grabber-container" [ngStyle]="grabberStyle">
+                            <img [src]="grabberImage" class="grabber" alt="grabber">
+                        </div>
+                    </div>
+                    
+                    <!-- Current Height Indicator -->
+                    <div class="height-indicator">
+                        <div class="current-height">
+                            <span>Current Height: {{ currentHeight | number:'1.1-1' }} meters</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Column - Controls -->
+        <div class="col-xl-4 controls-column px-4">
+            <div class="controls-panel">
+                <h4 class="controls-title">Hoisting Controls</h4>
+                
+                <!-- Hoisting Control -->
+                <div class="control-group">
+                    <div class="hoisting-controls">
+                        <label for="hoistingSlider">Hoisting Control: </label>
+                        <input 
+                            type="range" 
+                            id="hoistingSlider"
+                            min="0"
+                            max="100" 
+                            step="1"
+                            [(ngModel)]="hoistingValue">
+                        <div class="hoisting-values">
+                            <span>Value: {{ hoistingValue }}%</span>
+                            <span>Height: {{ currentHeight | number:'1.1-1' }}m</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Return Button -->
+                <div class="control-group">
+                    <button class="btn btn-secondary return-btn" routerLink="/operations">
+                        <i class="fas fa-arrow-left"></i> Return to Operations
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

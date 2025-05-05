@@ -2,11 +2,32 @@
     height: 120vh;  
     width: 100%;
     align-self: center;
+    padding: 20px 0;
+}
+
+/* Column spacing */
+.operations-root .row.gx-5 {
+    --bs-gutter-x: 40rem; /* Increased Bootstrap 5 variable for horizontal gutter */
+}
+
+/* Add visual separation between columns */
+.operations-root .col-xl-4:not(:last-child) {
+    position: relative;
+}
+
+.operations-root .col-xl-4:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 10%;
+    height: 80%;
+    width: 1px;
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .left-side-view{
     height: 600px;
-    width: 50%;
+    position: relative;
 }
 
 .crane{
@@ -52,6 +73,8 @@
     left: 23px;
     top: 30px;
     z-index: 3;
+    transform-origin: bottom center;
+
     
 }
 
@@ -74,30 +97,107 @@
 }
 
 .rope-grabber{
-    
     width: auto;
     height: auto;
     display: flex;
-    z-index: 1000;
+    z-index: 5000; /* Highest z-index to appear in front of all elements */
     position: relative;
-   
-
-    
 }
 
 
-.controls{
-    
-    width: 100%;
+/* Controls Column Styling */
+.controls-column {
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.controls-panel {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
     height: 100%;
     display: flex;
     flex-direction: column;
-    position: absolute;
-    top: 120px;
-    left: 290px;
-    z-index: 1000;
-    font-size: 10px;
-   
+    gap: 20px;
+}
+
+.controls-title {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e6ed;
+    text-align: center;
+}
+
+.control-group {
+    background-color: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    margin-bottom: 15px;
+}
+
+.scaleX-controls,
+.unified-luffing-controls,
+.hoisting-controls,
+.rotation-controls,
+.unified-rotation-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.scaleX-controls label,
+.unified-luffing-controls label,
+.hoisting-controls label,
+.rotation-controls label,
+.unified-rotation-controls label {
+    font-weight: 500;
+    color: #34495e;
+    font-size: 0.9rem;
+}
+
+.scaleX-controls input,
+.unified-luffing-controls input,
+.hoisting-controls input,
+.rotation-controls input,
+.unified-rotation-controls input {
+    width: 100%;
+    margin: 5px 0;
+}
+
+.scaleX-controls span,
+.unified-luffing-controls span,
+.hoisting-controls span,
+.rotation-controls span,
+.unified-rotation-controls span {
+    font-size: 0.85rem;
+    color: #7f8c8d;
+    text-align: right;
+}
+
+/* Unified Rotation Control specific styles */
+.unified-rotation-controls {
+  background-color: #f0f8ff; /* Light blue background to highlight it */
+  border-left: 3px solid #4f95ff; /* Blue accent border */
+  padding-left: 15px;
+}
+
+.rotation-values {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.rotation-values span {
+  font-size: 0.85rem;
+  color: #34495e;
+  font-weight: 500;
 }
     
 
@@ -114,22 +214,22 @@
 }
 .grabber-container{
     position: absolute;
-left: 235px;
-right: -7.43%;
-top:-129px;
-    
+    left: 235px;
+    right: -7.43%;
+    top: -129px;
+    z-index: 2000; /* Ensure grabber container is above other elements */
 }
 .grabber{
-    
     position: absolute;
     left: 259px;
     transform: translateX(-50%);
     right: 0;
     top: 50%;
     bottom: 32.19%;
-    height: 50px;
-    width: 50px;
-   
+    height: 60px; /* Increased size for better visibility */
+    width: 60px;
+    z-index: 2000; /* Ensure grabber is above other elements */
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)); /* Add shadow for better visibility */
 }
 
 
@@ -177,26 +277,124 @@ top:-129px;
     z-index: 3;
 }
 
-.bulker{
-    width: 220px;
-    height: 220px;
-    z-index: 2;
-    position: relative;
-    left: 186px;
-    top: 200px;
+.bulker {
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    z-index: 10; /* Lower z-index than grabber */
+    left: 180px;
+    top: 250px;
+    margin-right: 30px; /* Add spacing */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-
-.bulker-edit{
-    width: 160px;
-    height: 160px;
+.bulker-edit {
+    position: absolute;
+    width: 260px;
+    height: 260px;
     z-index: 2;
-   
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .right-side-view{
     height: 600px;
-    width: 50%;
+}
+
+/* Position grid styling */
+.position-grid {
+    position: relative;
+    margin-bottom: 5px;
+    z-index: 1500;
+}
+
+.grid-markers {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.grid-marker {
+    width: 4px;
+    height: 4px;
+    background-color: #4f95ff;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Meter measurement grid styling */
+.meter-grid {
+    position: relative;
+    height: 120px;
+    width: 140px;
+}
+
+.meter-lines {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+
+.meter-line {
+    width: 1px;
+    height: 100%;
+    background-color: rgba(79, 149, 255, 0.7);
+    position: relative;
+}
+
+.meter-label {
+    position: absolute;
+    top: -20px;
+    left: -10px;
+    font-size: 10px;
+    color: #4f95ff;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 2px 4px;
+    border-radius: 2px;
+}
+
+.horizontal-meter-lines {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+
+.h-meter-line {
+    width: 100%;
+    height: 1px;
+    background-color: rgba(79, 149, 255, 0.7);
+    position: relative;
+}
+
+.h-meter-label {
+    position: absolute;
+    left: -25px;
+    top: -10px;
+    font-size: 10px;
+    color: #4f95ff;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 2px 4px;
+    border-radius: 2px;
 }
 
 .rotation-container {
@@ -243,7 +441,7 @@ top:-129px;
 .vessel-img {
     width: 270px;
     position: absolute;
-    left: 41%;
+    left: 37%;
     top: 60%;
     transform: rotate(90deg) translate(-50%, 0);
     z-index: 5;
@@ -256,6 +454,7 @@ top:-129px;
     border-radius: 125px;
     align-self: center;
     margin: 30px;
+    
 }
 
 .rails-container {
@@ -306,6 +505,25 @@ top:-129px;
     text-align: center;
     background-color: #f0f0f0;
     border-top: 1px solid #ccc;
-    position: absolute;
+       position: relative;
+       top: 120px;
     bottom: 340px;
+    z-index: 1000;
+}
+
+/* Slewing button styling */
+.slewing-btn {
+    width: 100%;
+    padding: 12px;
+    font-weight: bold;
+    background-color: #4f95ff;
+    border-color: #3a7bd5;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+}
+
+.slewing-btn:hover {
+    background-color: #3a7bd5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

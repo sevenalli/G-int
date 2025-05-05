@@ -1,80 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        /* crane */
-        .crane{
-        position: absolute;
-        width: 87.5px;
-        height: 203.5px;
-        left: 158px;
-        top: 35px;
-        
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .arm-container {
+      position: relative;
+    }
+    .arm-container img {
+      position: absolute;
+      top: 100px;
+      left: 50%;
+      transform-origin: bottom center;
+      transform: rotate(0deg);
+      transition: 0.5s;
+    }
+    .arm-container:hover img {
+      transform: scalex(-1) rotate(360deg);    }
 
-
-
-/* flech */
-
-.flech{
-position: absolute;
-width: 50.5px;
-height: 55px;
-left: 37px;
-top: 0px;
-background: url(flech.svg);
-
-}
-
-
-    /* arm */
-.arm{      
-position: absolute;
-width: 61px;
-height: 86.5px;
-left: 13px;
-top: 16px;
-background: url(arm.svg);
-
-}
-
-
-/* midlle */
-
-.midle{
-position: absolute;
-width: 53px;
-height: 85px;
-left: 0px;
-top: 52px;
-background: url(midlle.svg);
-
-}
-
-/* down */
-
-.down{
-position: absolute;
-width: 41px;
-height: 47px;
-left: 7px;
-top: 124px;
-background: url(down.svg);
-}
-    </style>
+  </style>
 </head>
 <body>
-    
-  <div class="crane">
-    <div class="flech"></div>
-    <div class="arm"></div>
-    <div class="midlle"></div>
-    <div class="down"></div>
+  <div class="arm-container" >
+    <img src="arm.svg" alt="" srcset="">
   </div>
- 
-    
+  
 </body>
 </html>

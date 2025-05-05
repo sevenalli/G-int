@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RouterLink, RouterLinkActive, Router } from '@angular/router';
+
 
 
 @Component({
   selector: 'app-operations',
-  imports: [ CommonModule, FormsModule ],
+  imports: [ CommonModule, FormsModule , RouterLink,
+    RouterLinkActive],
   templateUrl: './operations.component.html',
   styleUrl: './operations.component.css'
 })
@@ -17,15 +20,21 @@ export class OperationsComponent {
   // Hoisting Control (0 = fully raised, 100 = fully lowered)
   hoistingValue: number = 0;
   
+  // Unified Rotation Control (0 = initial position, 100 = final position)
+  unifiedRotationValue: number = 0;
+  
   // Luffing Angle (e.g., 0 = high, 75 = low)
   // These will be calculated based on unifiedLuffingValue
-  armLuffingAngle: number = 9; 
-  flecheLuffingAngle: number = -23; 
-  flecheLuffingLeft: number = 95; 
-  grabberTopPos: number = -5; // Initial position
-  ropeLeftPos: number = 287;
-  grabberLeftPos: number = 30;
-  ropeTopPos: number = 87; // Initial position
+  armLuffingAngle: number = 40; 
+  armLuffingTop: number = 39;
+  
+  flecheLuffingAngle: number = 10; 
+  flecheLuffingLeft: number = 165; 
+  flecheLuffingTop: number = 55; 
+  grabberTopPos: number = 75; // Initial position
+  ropeLeftPos: number = 332;
+  grabberLeftPos: number = 75;
+  ropeTopPos: number = 167; // Initial position
   baseRopeHeight: number = 39; // Initial height
   ropeGrabbertop: number = -9;
 
@@ -33,17 +42,31 @@ export class OperationsComponent {
 
   possibleAngles: number[] = this.generateAngles(-360, 360, 5);
   
-  // Index for the current angle in the possibleAngles array
-  // Find the index corresponding to 30 degrees
-  initialAngle = 70;
-  currentAngleIndex: number = this.possibleAngles.findIndex(angle => angle === this.initialAngle);
+  // Initial and final angles for rotation
+  initialAngle = 285;
+  finalAngle = 90;
+  
+  // Private property for angle index
+  private _currentAngleIndex: number = this.possibleAngles.findIndex(angle => angle === this.initialAngle);
 
-  // Getter for the current angle based on the index
+  // Getter for the current angle based on unified rotation value
   get currentAngle(): number {
-    // Handle case where initial angle wasn't found exactly (shouldn't happen with steps of 5)
-    const index = this.currentAngleIndex >= 0 ? this.currentAngleIndex : 0; 
-
-    return this.possibleAngles[index];
+    // Calculate angle based on unified rotation value
+    return Math.round(this.lerp(this.initialAngle, this.finalAngle, this.unifiedRotationValue / 100));
+  }
+  
+  // Getter for angle index
+  get currentAngleIndex(): number {
+    return this._currentAngleIndex;
+  }
+  
+  // Setter for the angle index - updates the unified rotation value
+  set currentAngleIndex(index: number) {
+    this._currentAngleIndex = index;
+    const angle = this.possibleAngles[index];
+    // Calculate progress between initial and final angles
+    const progress = this.calculateProgress(this.initialAngle, this.finalAngle, angle);
+    this.unifiedRotation = progress * 100;
   }
 
   // Helper function to generate the angle array
@@ -56,16 +79,31 @@ export class OperationsComponent {
   }
   possibleScaleX: number[] = this.generateScaleX(-1, 1, 0.1);
 
+  // Initial and final scaleX values
   initialScaleX = 1;
+  finalScaleX = -1;
+  
+  // Private property for scaleX index
+  private _currentScaleXIndex: number = this.possibleScaleX.findIndex(scale => scale === this.initialScaleX);
 
-  currentScaleXIndex: number = this.possibleScaleX.findIndex(scale => scale === this.initialScaleX);
-
-  // Getter for the current angle based on the index
+  // Getter for the current scaleX based on unified rotation value
   get currentScaleX(): number {
-    // Handle case where initial angle wasn't found exactly (shouldn't happen with steps of 5)
-    const index = this.currentScaleXIndex >= 0 ? this.currentScaleXIndex : 0; 
-
-    return this.possibleScaleX[index];
+    // Calculate scaleX based on unified rotation value
+    return Number(this.lerp(this.initialScaleX, this.finalScaleX, this.unifiedRotationValue / 100).toFixed(1));
+  }
+  
+  // Getter for scaleX index
+  get currentScaleXIndex(): number {
+    return this._currentScaleXIndex;
+  }
+  
+  // Setter for the scaleX index - updates the unified rotation value
+  set currentScaleXIndex(index: number) {
+    this._currentScaleXIndex = index;
+    const scale = this.possibleScaleX[index];
+    // Calculate progress between initial and final scaleX
+    const progress = this.calculateProgress(this.initialScaleX, this.finalScaleX, scale);
+    this.unifiedRotation = progress * 100;
   }
 
   // Helper function to generate the scaleX array
@@ -74,7 +112,9 @@ export class OperationsComponent {
     for (let x = min; x <= max; x += step) {
       // Fix potential floating point inaccuracies
       scaleX.push(Math.round(x * 10) / 10); 
+
     }
+
     return scaleX;
   }
 
@@ -108,9 +148,13 @@ export class OperationsComponent {
     // Assuming 0 degrees is the base position in the SVG
     const rotate = this.flecheLuffingAngle;
     const left = this.flecheLuffingLeft;
+    const top = this.flecheLuffingTop;
+
     return {
       'transform': `rotate(${rotate}deg)`,
-      'left': `${left}px`
+      'left': `${left}px`,
+      'top': `${top}px`
+
     };
   }
 
@@ -136,13 +180,15 @@ export class OperationsComponent {
     // Initial: arm 0deg, flech 0deg, flech-left 65px, grabber-left 0px
     // Final: arm -5deg, flech 22deg, flech-left 55px, grabber-left -30px
     
-    this.armLuffingAngle = this.lerp(5, -5, progress);
-    this.flecheLuffingAngle = this.lerp(-23, 22, progress);
-    this.flecheLuffingLeft = this.lerp(95, 55, progress);
-    this.grabberLeftPos = this.lerp(30, -49, progress);  
-    this.grabberTopPos = this.lerp(-5, -7, progress); 
-    this.ropeLeftPos = this.lerp(287, 210, progress); 
+    this.armLuffingAngle = this.lerp(40, 0, progress);
+    this.flecheLuffingAngle = this.lerp(10, 5, progress);
+    this.flecheLuffingLeft = this.lerp(165, 65, progress);
+    this.grabberLeftPos = this.lerp(75, -24, progress);  
+    this.grabberTopPos = this.lerp(75, -10, progress); 
+    this.ropeLeftPos = this.lerp(332, 235, progress); 
     this.ropeGrabbertop = this.lerp(-9, 20, progress);
+    this.ropeTopPos = this.lerp(167, 80, progress);
+    this.flecheLuffingTop = this.lerp(55,0,progress);
    
     
   }
@@ -177,6 +223,21 @@ export class OperationsComponent {
   
   get unifiedLuffing(): number {
     return this.unifiedLuffingValue;
+  }
+  
+  // Set unified rotation value and update both angle and scaleX
+  set unifiedRotation(value: number) {
+    this.unifiedRotationValue = value;
+    // No need to call any update methods as the getters handle the calculations
+  }
+  
+  get unifiedRotation(): number {
+    return this.unifiedRotationValue;
+  }
+  
+  // Helper function to calculate progress between start and end values
+  private calculateProgress(start: number, end: number, current: number): number {
+    return Math.max(0, Math.min(1, (current - start) / (end - start)));
   }
 
 

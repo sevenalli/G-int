@@ -1,0 +1,87 @@
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+@Component({
+  selector: 'app-slewing',
+  templateUrl: './slewing.component.html',
+  styleUrls: ['./slewing.component.css'],
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterModule]
+})
+export class SlewingComponent {
+  // Rope and grabber properties
+  ropeGrabbertop = 150;
+  ropeHeight = 100;
+  ropeTopPos = 92;
+  ropeLeftPos = 240;
+  grabberTop = 130;
+  grabberLeftPos = 235;
+  grabberImage = 'grabber.svg';
+  
+  // Luffing extension control (0-100%)
+  luffingExtension = 50;
+  minArmWidth = 50;
+  maxArmWidth = 250;
+  
+  // Unified luffing control (0-100%)
+  unifiedLuffing = 50;
+  
+  // Unified rotation control (0-100%)
+  unifiedRotationValue = 50;
+  initialAngle = 0;
+  finalAngle = 360;
+  initialScaleX = 1;
+  finalScaleX = -1;
+  
+  // Computed styles for arm and fleche
+  get flecheLuffingStyle() {
+    return {
+      transform: `rotate(${this.currentLuffingAngle}deg)`
+    };
+  }
+  
+  get armLuffingStyle() {
+    return {
+      transform: `rotate(${this.currentLuffingAngle}deg)`
+    };
+  }
+  
+  // Computed current values based on unified controls
+  get currentLuffingAngle(): number {
+    return Math.round(this.lerp(0, 45, this.unifiedLuffing / 100));
+  }
+  
+  // Computed arm width based on luffing extension
+  get currentArmWidth(): number {
+    return Math.round(this.lerp(this.minArmWidth, this.maxArmWidth, this.luffingExtension / 100));
+  }
+  
+  get currentAngle(): number {
+    return Math.round(this.lerp(this.initialAngle, this.finalAngle, this.unifiedRotationValue / 100));
+  }
+  
+  get currentScaleX(): number {
+    return this.lerp(this.initialScaleX, this.finalScaleX, this.unifiedRotationValue / 100);
+  }
+  
+  // Unified rotation control getter/setter
+  get unifiedRotation(): number {
+    return this.unifiedRotationValue;
+  }
+  
+  set unifiedRotation(value: number) {
+    this.unifiedRotationValue = value;
+  }
+  
+  // Linear interpolation helper function
+  lerp(start: number, end: number, t: number): number {
+    return start * (1 - t) + end * t;
+  }
+  
+  // Return to operations page
+  returnToOperations() {
+    // Navigation handled by routerLink in template
+  }
+}

@@ -1,0 +1,23 @@
+<div class="container-fluid acceuil-container">
+  <div class="dashboard-header">
+    <h1>Tableau de bord</h1>
+  </div>
+  
+  <div class="row">
+    <div class="col-lg-10 offset-lg-1">
+      <div class="menu-grid">
+        <div class="menu-button" *ngFor="let item of menuItems; let i = index" (click)="navigateTo(item.route)">
+          <div class="button-content">
+            <div class="icon-container">
+              <i class="bi" [ngClass]="getIconClass(i)"></i>
+            </div>
+            <span class="menu-title">{{ item.title }}</span>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+</div>

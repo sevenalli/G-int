@@ -1,0 +1,95 @@
+<div class="container-fluid slewing-root">
+    <div class="row gx-5">
+        <!-- Left Column - Slewing View -->
+        <div class="col-xl-8 slewing-view px-4">
+            <div class="slewing-container">
+                <!-- Circular slewing area -->
+                <div class="slewing-circle">
+                    <!-- Slewing markers -->
+                    <div class="slewing-marker north">N</div>
+                    <div class="slewing-marker east">E</div>
+                    <div class="slewing-marker south">S</div>
+                    <div class="slewing-marker west">W</div>
+                    
+                    <!-- Grid lines -->
+                    <div class="grid-line horizontal"></div>
+                    <div class="grid-line vertical"></div>
+                    <div class="grid-circle outer"></div>
+                    <div class="grid-circle middle"></div>
+                    <div class="grid-circle inner"></div>
+                    
+                    <!-- Rope and grabber elements -->
+                   
+                    
+                    <!-- Slewing arm that rotates -->
+                    <div class="slewing-arm" [style.transform]="'rotate(' + currentAngle + 'deg)'">
+                        <div class="arm-base"></div>
+                        <div class="arm-extension" [style.width.px]="currentArmWidth"></div>
+                    </div>
+                </div>
+                
+                <!-- Position grid markers -->
+                <div class="position-grid">
+                    <div class="meter-grid">
+                        <div class="meter-lines">
+                            <div class="meter-line"><span class="meter-label">0m</span></div>
+                            <div class="meter-line"><span class="meter-label">5m</span></div>
+                            <div class="meter-line"><span class="meter-label">10m</span></div>
+                            <div class="meter-line"><span class="meter-label">15m</span></div>
+                            <div class="meter-line"><span class="meter-label">20m</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Column - Controls -->
+        <div class="col-xl-4 controls-column px-4">
+            <div class="controls-panel">
+                <h4 class="controls-title">Slewing Controls</h4>
+                
+                <!-- Unified Rotation Control -->
+                <div class="control-group">
+                    <div class="unified-rotation-controls">
+                        <label for="unifiedRotationSlider">Slewing Rotation Control: </label>
+                        <input 
+                            type="range" 
+                            id="unifiedRotationSlider"
+                            min="0"
+                            max="100" 
+                            step="1"
+                            [(ngModel)]="unifiedRotation">
+                        <div class="rotation-values">
+                            <span>Angle: {{ currentAngle }}°</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Luffing Control for Arm Extension -->
+                <div class="control-group">
+                    <div class="luffing-controls">
+                        <label for="luffingSlider">Arm Extension Control: </label>
+                        <input 
+                            type="range" 
+                            id="luffingSlider"
+                            min="0"
+                            max="100" 
+                            step="1"
+                            [(ngModel)]="luffingExtension">
+                        <div class="extension-values">
+                            <span>Extension: {{ luffingExtension }}%</span>
+                            <span>Width: {{ currentArmWidth }}px</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Return Button -->
+                <div class="control-group">
+                    <button class="btn btn-secondary return-btn" routerLink="/operations">
+                        <i class="fas fa-arrow-left"></i> Return to Operations
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
