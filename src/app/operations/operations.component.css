@@ -461,7 +461,7 @@
     height: 100%; /* Height for the rails area */
     flex-shrink: 0; /* Prevent rails container from shrinking */
     background-color: #6c757d; /* Slightly different background for contrast */
-    padding: 10px 20px; /* Padding around rails */
+     padding: 0px 0px; 
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
@@ -470,10 +470,21 @@
     width: 120px;
 }
 
+/* Crane foot styling */
+.pieds-img {
+    height: 80px;
+    width:70px;
+    position: absolute;
+    bottom: 259px;
+    left: 25px;
+    z-index: 10; /* Between rails (5) and upper-img (15) */
+}
+
 .rail {
     width: 6px; /* Thickness of the rails */
     background-color: #343a40; /* Dark color for rails */
     border-radius: 2px;
+    z-index: 5; /* Base z-index for rails */
 }
 
 .upper-img{
@@ -487,7 +498,7 @@
     transform-origin: 75px 25px; /* Rotate around the center */
     transform: rotate(0deg); /* Initial rotation angle */
     transition: transform 0.3s ease; /* Smooth rotation transition */
-    z-index: 10; /* Higher z-index to appear in front of vessel */
+    z-index: 15; /* Higher z-index to appear in front of pieds */
 }
 
 .terminal-texture {

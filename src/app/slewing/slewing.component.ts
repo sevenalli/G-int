@@ -22,8 +22,8 @@ export class SlewingComponent {
   
   // Luffing extension control (0-100%)
   luffingExtension = 50;
-  minArmWidth = 50;
-  maxArmWidth = 250;
+  minArmWidth = 360;
+  maxArmWidth = 160;
   
   // Unified luffing control (0-100%)
   unifiedLuffing = 50;
@@ -53,9 +53,10 @@ export class SlewingComponent {
     return Math.round(this.lerp(0, 45, this.unifiedLuffing / 100));
   }
   
-  // Computed arm width based on luffing extension
-  get currentArmWidth(): number {
-    return Math.round(this.lerp(this.minArmWidth, this.maxArmWidth, this.luffingExtension / 100));
+  // Computed arm height based on luffing extension percentage
+  get currentArmHeight(): number {
+    // Map the luffing extension (0-100%) to a height range (150-450px)
+    return 160 + (this.luffingExtension / 100) * 300;
   }
   
   get currentAngle(): number {

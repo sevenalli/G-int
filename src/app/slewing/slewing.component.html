@@ -23,8 +23,8 @@
                     
                     <!-- Slewing arm that rotates -->
                     <div class="slewing-arm" [style.transform]="'rotate(' + currentAngle + 'deg)'">
-                        <div class="arm-base"></div>
-                        <div class="arm-extension" [style.width.px]="currentArmWidth"></div>
+                        <img src="base.svg" class="arm-base" alt="Crane Base">
+                        <img src="extention.svg" class="arm-extension" alt="Crane Extension" [style.height.px]="currentArmHeight">
                     </div>
                 </div>
                 
@@ -78,7 +78,7 @@
                             [(ngModel)]="luffingExtension">
                         <div class="extension-values">
                             <span>Extension: {{ luffingExtension }}%</span>
-                            <span>Width: {{ currentArmWidth }}px</span>
+                            <span>Height: {{ currentArmHeight }}px</span>
                         </div>
                     </div>
                 </div>

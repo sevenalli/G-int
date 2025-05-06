@@ -7,6 +7,8 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { AcceuilComponent } from './acceuil/acceuil.component';
 import { SlewingComponent } from './slewing/slewing.component';
 import { HoistingComponent } from './hoisting/hoisting.component';
+import { SupensionComponent } from './supension/supension.component';
+
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -19,6 +21,8 @@ export const routes: Routes = [
   { path: 'hoisting', component: HoistingComponent },
   { path: 'notifications', component: NotificationsComponent },
   { path: 'notifications/:craneId', component: NotificationsComponent },
+  { path: 'supension', component: SupensionComponent },
+
   
   { path: '', redirectTo: 'accueil', pathMatch: 'full' }
 ];
