@@ -1,18 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+
 
 
 
 @Component({
   selector: 'app-operations',
   imports: [ CommonModule, FormsModule , RouterLink,
-    RouterLinkActive],
+    ],
   templateUrl: './operations.component.html',
   styleUrl: './operations.component.css'
 })
-export class OperationsComponent {
+export class OperationsComponent implements OnInit {
+  engineCode: string = '';
+  
+  
+
+  constructor(private route: ActivatedRoute) {}
+  
+  ngOnInit() {
+    // Get the engineCode from route parameters
+    this.route.paramMap.subscribe(params => {
+      this.engineCode = params.get('engineCode') || '';
+      console.log('Engine Code:', this.engineCode);
+      // Here you would typically load engine-specific data
+    });
+  }
    
   // Unified Luffing Control (0 = initial position, 100 = final position)
   unifiedLuffingValue: number = 0;

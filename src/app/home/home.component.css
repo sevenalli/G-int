@@ -1,103 +1,293 @@
+/* Use theme variables from the global theme.css */
 :root {
-  --mm-primary: #003366;
-  --mm-secondary: #0072bb;
-  --mm-accent: #ffc72c;
+  --mm-primary: var(--primary-color, #005aaa);       /* Marsa Maroc primary blue */
+  --mm-secondary: var(--secondary-color, #0078d4);    /* Brighter blue for accents */
+  --mm-tertiary: var(--tertiary-color, #d0e6ff);     /* Light blue for backgrounds */
+  --mm-accent: var(--accent-color, #ff9800);       /* Orange accent for highlights */
   --mm-white: #ffffff;
-  --mm-light-gray: #f4f4f4;
-  --mm-dark-gray: #222222;
+  --mm-light-blue: var(--card-bg, #e0f0ff);   /* Very light blue for backgrounds */
+  --mm-medium-blue: var(--panel-bg, #c2dcf2);  /* Medium blue for cards */
+  --mm-dark-blue: var(--primary-color, #004080);    /* Dark blue for emphasis */
+  --mm-dark-gray: var(--text-color, #2c3e50);    /* Dark blue-gray for text */
+  --mm-border-radius: 12px;   /* Rounded corners for neumorphic design */
+  --mm-border-color: var(--border-color, #0056b3); /* Border color for cards */
+  --mm-border-width: 2px;     /* Standard border width */
+  
+  /* Neumorphic shadow variables - using global theme variables */
+  --nm-shadow-light: var(--nm-shadow-light, rgba(255, 255, 255, 0.8));
+  --nm-shadow-dark: var(--nm-shadow-dark, rgba(0, 90, 170, 0.15));
+  --nm-distance: 8px;
+  --nm-blur: 12px;
+  --nm-pressed-distance: 4px;
+  --nm-pressed-blur: 6px;
 }
 
 :host {
     display: block;
-    background-color: #ffffff; /* Dark background for the whole view */
+    background-color: var(--body-bg, var(--mm-medium-blue));
+    background-image: linear-gradient(135deg, var(--body-bg, var(--mm-medium-blue)) 0%, var(--card-bg, var(--mm-light-blue)) 100%);
     min-height: calc(100vh - 70px); /* Ensure it fills vertical space below header */
-    padding: 10px;
+    padding: 20px;
     width: 100%;
+    position: relative;
+    overflow: hidden;
+}
 
+:host::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--mm-primary), var(--mm-secondary));
+    z-index: 1;
 }
 
 .home-container {
-    /* background-color: #343a40; */ /* Moved to :host */
-    /* Removed height and overflow - let content dictate height */
+    position: relative;
+    z-index: 1;
 }
 
 .crane-panel {
-    background-color: #4f95ff; /* Dark background for the panel itself */
-    padding: 10px; /* Small padding around the inner grid */
-    border: 1px solid #495057;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    border-radius: 12px;
+    background-color: var(--mm-light-blue);
+    padding: 14px;
+    border: 3px solid rgb(174, 219, 248);
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    /* Neumorphic shadow effect */
+    box-shadow: 
+        var(--nm-distance) var(--nm-distance) var(--nm-blur) var(--nm-shadow-dark),
+        calc(-1 * var(--nm-distance)) calc(-1 * var(--nm-distance)) var(--nm-blur) var(--nm-shadow-light),
+        inset 1px 1px 1px rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+    outline: 1px solid rgba(0, 90, 170, 0.3);
+    outline-offset: -6px;
+    background-image: linear-gradient(135deg, rgba(0, 90, 170, 0.05) 0%, rgba(0, 90, 170, 0.1) 100%);
+}
+
+.crane-panel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, var(--mm-primary), var(--mm-secondary));
+}
+
+.crane-panel:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+        calc(var(--nm-distance) * 1.5) calc(var(--nm-distance) * 1.5) calc(var(--nm-blur) * 1.5) var(--nm-shadow-dark),
+        calc(-1 * var(--nm-distance) * 1.5) calc(-1 * var(--nm-distance) * 1.5) calc(var(--nm-blur) * 1.5) var(--nm-shadow-light),
+        inset 1px 1px 1px rgba(255, 255, 255, 0.2);
+    border-color: var(--mm-secondary);
 }
 
 .card {
-    border-radius: 12px;
-    border: 1.5px solid #003366;
-    color: #003366;
+    border-radius: var(--mm-border-radius);
+    color: var(--mm-dark-gray);
     font-weight: 500;
     display: flex;
     flex-direction: column;
-    background-color: #fff;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    background-color: var(--mm-tertiary);
     overflow: hidden;
-    transition: box-shadow 0.2s;
+    transition: all 0.3s ease;
+    /* Neumorphic shadow effect */
+    box-shadow: 
+        5px 5px 10px var(--nm-shadow-dark),
+        -5px -5px 10px var(--nm-shadow-light),
+        inset 1px 1px 0 rgba(255, 255, 255, 0.3);
+    margin-bottom: 8px;
+    position: relative;
+    outline: 1px solid rgba(0, 90, 170, 0.2);
+    outline-offset: -4px;
+    background-image: linear-gradient(135deg, rgba(0, 90, 170, 0.05) 0%, rgba(0, 90, 170, 0.1) 100%);
 }
+
 .card:hover {
-    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    box-shadow: 
+        7px 7px 14px var(--nm-shadow-dark),
+        -7px -7px 14px var(--nm-shadow-light),
+        inset 1px 1px 0 rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    outline-color: rgba(0, 120, 212, 0.4);
 }
 
 .header-card {
-    background-color: #fff;
-    color: #003366;
-    border-bottom: 2px solid #ffc72c;
+    background: linear-gradient(135deg, var(--mm-dark-blue), var(--mm-primary));
+    color: var(--mm-white);
     font-weight: bold;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 90, 170, 0.3);
+    overflow: hidden;
+    outline: 1px solid rgba(255, 255, 255, 0.3);
+    outline-offset: -3px;
+}
+
+.header-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    pointer-events: none;
 }
 
 .header-card .fw-bold, .header-card .card-title {
-    color: #003366;
+    color: var(--mm-white);
 }
 
 .data-card {
-    background-color: #f4f4f4;
-    color: #003366;
+    background-color: var(--mm-tertiary);
+    color: var(--mm-dark-gray);
+    position: relative;
+    overflow: hidden;
+    border: 2px solid var(--mm-secondary);
+    border-left: 4px solid var(--mm-secondary);
+    background-image: linear-gradient(135deg, rgba(0, 120, 212, 0.05) 0%, rgba(0, 120, 212, 0.15) 100%);
 }
 
+/* Removed the before pseudo-element since we now have a left border */
+
 .action-card {
-    background-color: #0072bb;
-    color: #fff;
+    background: linear-gradient(145deg, var(--mm-secondary), var(--mm-dark-blue));
+    color: var(--mm-white);
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.3s ease;
+    border: 2px solid var(--mm-primary);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 90, 170, 0.3);
+    outline: 1px solid rgba(255, 255, 255, 0.3);
+    outline-offset: -3px;
 }
+
+.action-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    pointer-events: none;
+}
+
 .action-card:hover {
-    background-color: #003366;
-    color: #ffc72c;
+    background: linear-gradient(145deg, var(--mm-dark-blue), var(--mm-secondary));
+    color: var(--mm-white);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 90, 170, 0.4);
+}
+
+.action-card:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 90, 170, 0.2);
+    background: var(--mm-primary);
 }
 
 .btn, .btn-primary, .btn-outline-success {
-    background: #0072bb;
-    color: #fff;
+    background: linear-gradient(145deg, var(--mm-secondary), var(--mm-primary));
+    color: var(--mm-white);
     border: none;
-    border-radius: 6px;
-    font-weight: 500;
-    transition: background 0.2s;
+    border-radius: var(--mm-border-radius);
+    font-weight: 600;
+    transition: all 0.3s ease;
+    padding: 0.6rem 1.2rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        5px 5px 10px var(--nm-shadow-dark),
+        -5px -5px 10px var(--nm-shadow-light);
 }
+
+.btn::after, .btn-primary::after, .btn-outline-success::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    pointer-events: none;
+}
+
 .btn:hover, .btn-primary:hover, .btn-outline-success:hover {
-    background: #003366;
-    color: #ffc72c;
+    background: linear-gradient(145deg, var(--mm-primary), var(--mm-secondary));
+    color: var(--mm-white);
+    transform: translateY(-2px);
+    box-shadow: 
+        7px 7px 14px var(--nm-shadow-dark),
+        -7px -7px 14px var(--nm-shadow-light);
+}
+
+.btn:active, .btn-primary:active, .btn-outline-success:active {
+    transform: translateY(1px);
+    box-shadow: 
+        3px 3px 6px var(--nm-shadow-dark),
+        -3px -3px 6px var(--nm-shadow-light),
+        inset 1px 1px 3px var(--nm-shadow-dark),
+        inset -1px -1px 3px var(--nm-shadow-light);
 }
 
 .value-text {
-    color: #0072bb;
-    font-weight: bold;
+    color: var(--mm-primary);
+    font-weight: 600;
 }
 
 .label-text {
-    color: #000000;
+    color: #6c757d; /* Softer gray for labels */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.7rem;
 }
 
-.icon-placeholder, .icon-placeholder-crane {
-    background-color: #ffc72c;
-    border-radius: 6px;
-    padding: 2px;
+.icon-placeholder {
+    background-color: var(--mm-tertiary);
+    border-radius: 50%;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 
+        3px 3px 6px var(--nm-shadow-dark),
+        -3px -3px 6px var(--nm-shadow-light),
+        inset 1px 1px 1px rgba(255, 255, 255, 0.2);
+    border: 2px solid var(--mm-primary);
+    background-image: radial-gradient(circle at center, rgba(0, 90, 170, 0.1) 0%, rgba(0, 90, 170, 0.2) 100%);
+}
+
+.icon-placeholder-crane {
+    background-color: beige;
+    border-radius: 50%;
+    padding: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 
+        3px 3px 6px var(--nm-shadow-dark),
+        -3px -3px 6px var(--nm-shadow-light),
+        inset 1px 1px 1px rgba(255, 255, 255, 0.2);
+    border: 1px solid rgb(0, 81, 255);
+    position: relative;
+    overflow: hidden;
+    background-image: radial-gradient(circle at center, rgba(0, 90, 170, 0.1) 0%, rgba(0, 90, 170, 0.2) 100%);
+}
+
+.icon-placeholder-crane::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
+    background: radial-gradient(circle at center, rgba(0, 90, 170, 0.1) 0%, transparent 70%);
+    pointer-events: none;
 }
 
 .card-body {
@@ -114,15 +304,21 @@
 }
 
 .card-body.flex-row {
+    --bs-gutter-x: 0.75rem;
     flex-direction: row;
 }
 
 .header-card {
-    background-color: #0a69c9; /* Very dark header */
-    border: 1px solid #fff;
-    color: #fff;
-
-  }
+    background: linear-gradient(135deg, var(--mm-primary), var(--mm-secondary));
+    border: 2px solid var(--mm-primary);
+    color: var(--mm-white);
+    border-radius: var(--mm-border-radius) var(--mm-border-radius) 0 0;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 4px 8px rgba(0, 90, 170, 0.3);
+    outline: 1px solid rgba(255, 255, 255, 0.3);
+    outline-offset: -3px;
+}
 
 .header-card .card-body {
     justify-content: center; /* Align items (icon, text) to the start */
@@ -139,7 +335,9 @@
 }
 
 .action-card:hover {
-    background-color: #5a6268; /* Darken on hover */
+    background: linear-gradient(145deg, var(--mm-primary), var(--mm-secondary));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 90, 170, 0.3);
 }
 
 /* Allow specific cards to override flex direction if needed */
@@ -148,48 +346,63 @@
 }
 
 .icon-placeholder {
-    /* Removed font-size control, now using width/height for consistency */
-    width: 40px; /* Define consistent width */
-    height: 40px; /* Define consistent height */
-    color: #fff; /* White icon color (for icon font) */
-    flex-shrink: 0; /* Prevent icon/image from shrinking */
+    width: 40px;
+    height: 40px;
+    color: var(--mm-primary);
+    flex-shrink: 0;
     text-align: center;
-    line-height: 1; /* Helps vertical align for icon font */
-    vertical-align: middle; /* Align icon/image better with text */
-    object-fit: contain; /* Scale the image nicely within the dimensions */
+    line-height: 1;
+    vertical-align: middle;
+    object-fit: contain;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
 }
 .icon-placeholder-crane {
-    /* Removed font-size control, now using width/height for consistency */
-    width: 40px; /* Define consistent width */
-    height: 40px; /* Define consistent height */
-    color: #fff; /* White icon color (for icon font) */
-    flex-shrink: 0; /* Prevent icon/image from shrinking */
+    width: 40px;
+    height: 40px;
+    color: var(--mm-primary);
+    flex-shrink: 0;
     text-align: center;
-    line-height: 1; /* Helps vertical align for icon font */
-    vertical-align: middle; /* Align icon/image better with text */
-    object-fit: contain; /* Scale the image nicely within the dimensions */
-    background-color: #e9ecef;
+    line-height: 1;
+    vertical-align: middle;
+    object-fit: contain;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
 }
 
 .label-text {
-    font-size: 0.7rem; /* Smaller label */
-    margin-bottom: 0.1rem;
-    color: #005ab3;
+    font-size: 0.7rem;
+    margin-bottom: 0.2rem;
+    color: #6c757d; /* Softer gray for better readability */
     line-height: 1;
-    font-weight: bold;
-    font-family: 'arial', sans-serif;
+    font-weight: 500;
+    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .value-text {
-    font-size: 1rem; /* Adjust value text size */
-    font-weight: bold;
-    margin-bottom: 0;                   
-    font-family: 'arial', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0;
+    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    color: var(--mm-dark-blue);
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
 }
 
 .large-value {
-    font-size: 1.1rem; /* Adjust large value size */
-    font-family: 'arial', sans-serif;
+    font-size: 1.3rem;
+    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    font-weight: 700;
+    color: var(--mm-dark-blue);
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+    letter-spacing: 0.5px;
 }
 
 /* Remove specific font-size overrides as we use width/height now */

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'app-app-header',
@@ -16,7 +17,7 @@ import { CommonModule } from '@angular/common';
 export class AppHeaderComponent {
   isNavbarCollapsed: boolean = true;
   
-  constructor(private router: Router) {}
+  constructor(private router: Router, public themeService: ThemeService) {}
 
   toggleNavbar() {
     this.isNavbarCollapsed = !this.isNavbarCollapsed;

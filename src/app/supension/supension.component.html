@@ -1,10 +1,11 @@
 <div class="dashboard-container">
     <!-- Dashboard Header -->
     <div class="dashboard-header">
-        <h2>Suspension </h2>
+        <h2>Suspension Control Panel</h2>
         <div class="system-status">
             <span class="status-indicator online"></span>
             System Online
+            <span class="last-update">Last update: {{currentDate | date:'medium'}}</span>
         </div>
     </div>
     
@@ -15,21 +16,33 @@
             <!-- Motor Status Card -->
             <div class="dashboard-card motor-status-card">
                 <div class="card-header">
-                    <h4><i class="fas fa-cog"></i> Motor Status</h4>
-                    <span class="status-badge operational">Operational</span>
+                    <h4><i class="fas fa-cog fa-spin-pulse"></i> Motor Status</h4>
+                    <div class="header-right">
+                        <span class="status-badge operational">Operational</span>
+                        <span class="engine-code-badge">Engine: {{ engineCode || 'Main' }}</span>
+                    </div>
                 </div>
                 <div class="card-content">
                     <div class="motor-display">
-                        <img [src]="motorImage" alt="Motor Status" class="motor">
-                        <div class="isssue">
-                            <button 
-                            class="status-toggle-btn btn bg-secondary "
-                            (click)="toggleMotorImage()"
-                        >
-                            Toggle Issue
-                        </button>
+                        <div class="motor-image-container">
+                            <img [src]="motorImage" alt="Motor Status" class="motor">
+                            <div class="motor-overlay" [class.active]="motorImage === 'red.jpg'">
+                                <div class="motor-status-indicator" [class.warning]="motorImage === 'red.jpg'">
+                                    <i class="fas" [class.fa-check-circle]="motorImage === 'green.png'" [class.fa-exclamation-triangle]="motorImage === 'red.jpg'"></i>
+                                </div>
+                            </div>
                         </div>
-                       
+                        <div class="motor-controls">
+                            <button 
+                                class="status-toggle-btn"
+                                (click)="toggleMotorImage()"
+                            >
+                                <i class="fas fa-sync-alt"></i> Simulate Issue
+                            </button>
+                            <div class="motor-status-text" [class.warning-text]="motorImage === 'red.jpg'">
+                                {{ motorImage === 'green.png' ? 'System Normal' : 'Warning: Issue Detected' }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -38,7 +51,11 @@
             <div class="dashboard-card gauges-card">
                 <div class="card-header">
                     <h4><i class="fas fa-tachometer-alt"></i> Motor Parameters</h4>
-                    <span class="refresh-indicator">Auto-refresh: <span class="blink">●</span></span>
+                    <div class="refresh-indicator">
+                        <span class="refresh-text">Auto-refresh</span>
+                        <span class="blink">●</span>
+                        <span class="refresh-interval">2s</span>
+                    </div>
                 </div>
                 <div class="card-content">
                     <div class="gauges-row">
@@ -88,37 +105,45 @@
             <div class="dashboard-card chart-card">
                 <div class="card-header">
                     <h4><i class="fas fa-chart-line"></i> Load Monitoring</h4>
-                    <div class="time-controls">
-                        <button
-                            (click)="updateOptions('1m')"
-                            [class.active]="activeOptionButton=='1m'"
-                        >
-                            1M
-                        </button>
-                        <button
-                            (click)="updateOptions('6m')"
-                            [class.active]="activeOptionButton=='6m'"
-                        >
-                            6M
-                        </button>
-                        <button
-                            (click)="updateOptions('1y')"
-                            [class.active]="activeOptionButton=='1y'"
-                        >
-                            1Y
-                        </button>
-                        <button
-                            (click)="updateOptions('1yd')"
-                            [class.active]="activeOptionButton=='1yd'"
-                        >
-                            YTD
-                        </button>
-                        <button
-                            (click)="updateOptions('all')"
-                            [class.active]="activeOptionButton=='all'"
-                        >
-                            All
-                        </button>
+                    <div class="time-controls-wrapper">
+                        <div class="time-label">Time Range:</div>
+                        <div class="time-controls">
+                            <button
+                                (click)="updateOptions('1m')"
+                                [class.active]="activeOptionButton=='1m'"
+                                title="Show data for April 2025"
+                            >
+                                <i class="fas fa-calendar-week"></i> 1M
+                            </button>
+                            <button
+                                (click)="updateOptions('6m')"
+                                [class.active]="activeOptionButton=='6m'"
+                                title="Show data from January to May 2025"
+                            >
+                                <i class="fas fa-calendar-alt"></i> 6M
+                            </button>
+                            <button
+                                (click)="updateOptions('1y')"
+                                [class.active]="activeOptionButton=='1y'"
+                                title="Show data for the entire year"
+                            >
+                                <i class="fas fa-calendar"></i> 1Y
+                            </button>
+                            <button
+                                (click)="updateOptions('YTD')"
+                                [class.active]="activeOptionButton=='YTD'"
+                                title="Show data from January to current date"
+                            >
+                                <i class="fas fa-calendar-day"></i> YTD
+                            </button>
+                            <button
+                                (click)="updateOptions('all')"
+                                [class.active]="activeOptionButton=='all'"
+                                title="Show all available data"
+                            >
+                                <i class="fas fa-expand-alt"></i> All
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="card-content">
@@ -149,24 +174,33 @@
             <div class="dashboard-card info-card">
                 <div class="card-header">
                     <h4><i class="fas fa-info-circle"></i> System Information</h4>
+                    <button class="refresh-info-btn" title="Refresh system information">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
                 </div>
                 <div class="card-content">
                     <div class="info-grid">
                         <div class="info-item">
-                            <span class="info-label">Last Maintenance:</span>
-                            <span class="info-value">2025-04-15</span>
+                            <span class="info-label"><i class="fas fa-tools"></i> Last Maintenance:</span>
+                            <span class="info-value info-date">2025-04-15</span>
                         </div>
                         <div class="info-item">
-                            <span class="info-label">Next Inspection:</span>
-                            <span class="info-value">2025-07-15</span>
+                            <span class="info-label"><i class="fas fa-calendar-check"></i> Next Inspection:</span>
+                            <span class="info-value info-date">2025-07-15</span>
+                            <span class="info-badge">Scheduled</span>
                         </div>
                         <div class="info-item">
-                            <span class="info-label">Operating Hours:</span>
+                            <span class="info-label"><i class="fas fa-clock"></i> Operating Hours:</span>
                             <span class="info-value">1,245 hrs</span>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 62%;"></div>
+                            </div>
+                            <span class="progress-text">62% of service interval</span>
                         </div>
                         <div class="info-item">
-                            <span class="info-label">System Health:</span>
-                            <span class="info-value health-good">Good</span>
+                            <span class="info-label"><i class="fas fa-heartbeat"></i> System Health:</span>
+                            <span class="info-value health-good"><i class="fas fa-check-circle"></i> Good</span>
+                            <span class="health-details">All systems nominal</span>
                         </div>
                     </div>
                 </div>

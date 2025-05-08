@@ -2,15 +2,15 @@
   <div class="row g-3">
     <!-- Loop through each crane -->
     <div class="col-lg-3 col-md-6 mb-3" *ngFor="let crane of cranes">
-      <div class="crane-panel d-flex flex-column h-100" [routerLink]="['/rotate', crane.id]" style="cursor: pointer;">
+      <div class="crane-panel d-flex flex-column h-100" >
         <div class="row g-1 flex-grow-1">
           <!-- Row 1 -->
           <!-- Header Card -->
-          <div class="col-12">
-            <div class="card text-white header-card h-100">
+          <div class="col-12" [routerLink]="['/operations', crane.id]" style="cursor: pointer;">
+            <div class="card text-primary header-card h-100">
               <div class="card-body justify-content-start align-items-center flex-row">
                 <!-- Directly use img as getCranIconClass only returns images now -->
-                <img class="icon-placeholder-crane me-2" [src]="getCranIconClass().value" alt="Crane Icon">
+                <img class="icon-placeholder-crane me-2" [src]="getCranIconClass(crane.craneType).value" alt="Crane Icon">
                 <h6 class="card-title mb-0 fw-bold">{{ crane.id }}</h6>
               </div>
             </div>
@@ -72,7 +72,7 @@
           </div>
 
           <!-- Hours Card -->
-          <div class="col-12">
+          <div class="col-12" [routerLink]="['/supension', crane.id]" style="cursor: pointer;">
             <div class="card data-card h-100">
               <div class="card-body value-text large-value">
                 {{ crane.hours }}

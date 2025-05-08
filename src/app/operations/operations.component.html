@@ -1,8 +1,22 @@
 
 <div class="container-fluid operations-root">
+    <!-- Floating Navigation Bar -->
+    <div class="floating-navbar">
+        <div class="nav-item">
+            <button class="btn btn-primary slewing-btn" [routerLink]="['/slewing' ,engineCode]" title="Slewing"></button>
+        </div>
+        <div class="nav-item">
+            <button class="btn btn-info hoisting-btn" [routerLink]="['/hoisting', engineCode]" title="Hoisting"></button>
+        </div>
+        <div class="nav-item">
+            <button class="btn btn-warning suspension-btn" [routerLink]="['/supension', engineCode]" title="Suspension"></button>
+        </div>
+    </div>
     <div class="row gx-5">
         <!-- Left Column - Crane View -->
         <div class="col-xl-4 left-side-view px-4">
+            <h2 class="engine-title">Engine: {{ engineCode }}</h2>
+
                 <div class="crane">
                     <div class="kran-container">
                         <div class="upperKran" [style.transform]="'scaleX(' + currentScaleX + ')'">
@@ -115,7 +129,12 @@
                             [(ngModel)]="hoisting">
                         <span>{{ hoisting }}%</span>
                     </div>
+                    <button class="btn btn-secondary return-btn" routerLink="/home">
+                        <i class="fas fa-arrow-left"></i> Return 
+                    </button>
                 </div>
+
+                
                 
                 <!-- Removed individual rotation control as it's now part of the unified control -->
                 
@@ -123,19 +142,7 @@
                     <!-- Position information can be added here if needed -->
                 </div>
                 
-                <!-- Slewing Button -->
-                <div class="control-group">
-                    <button class="btn btn-primary slewing-btn" routerLink="/slewing">
-                        <i class="fas fa-sync-alt"></i> Go to Slewing Mode
-                    </button>
-                </div>
-                
-                <!-- Hoisting Button -->
-                <div class="control-group">
-                    <button class="btn btn-info hoisting-btn" routerLink="/hoisting">
-                        <i class="fas fa-arrow-up"></i> Go to Hoisting Mode
-                    </button>
-                </div>
+
             </div>
         </div>
         

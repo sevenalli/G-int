@@ -2,6 +2,8 @@
     <div class="row gx-5">
         <!-- Left Column - Slewing View -->
         <div class="col-xl-8 slewing-view px-4">
+            <h2 class="engine-title">Engine: {{ engineCode }}</h2>
+
             <div class="slewing-container">
                 <!-- Circular slewing area -->
                 <div class="slewing-circle">
@@ -85,7 +87,7 @@
                 
                 <!-- Return Button -->
                 <div class="control-group">
-                    <button class="btn btn-secondary return-btn" routerLink="/operations">
+                    <button class="btn btn-secondary return-btn" [routerLink]="['/operations',engineCode]">
                         <i class="fas fa-arrow-left"></i> Return to Operations
                     </button>
                 </div>

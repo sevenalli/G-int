@@ -1,0 +1,153 @@
+/* Base theme variables (light theme by default) */
+:root {
+  /* Primary colors */
+  --primary-color: #005aaa;
+  --secondary-color: #0078d4;
+  --tertiary-color: #d0e6ff;
+  --accent-color: #ff9800;
+  
+  /* Background colors */
+  --body-bg: #ffffff;
+  --card-bg: #e0f0ff;
+  --panel-bg: #e0f0ff;
+  
+  /* Text colors */
+  --text-color: #2c3e50;
+  --text-light: #6c757d;
+  --text-white: #ffffff;
+  
+  /* UI elements */
+  --navbar-bg: #ffffff;
+  --nav-link-color: #333333;
+  --nav-link-hover-color: #005aaa;
+  --nav-link-active-color: #005aaa;
+  
+  /* Theme toggle */
+  --theme-toggle-bg: #f0f8ff;
+  --theme-toggle-color: #005aaa;
+  --theme-toggle-border: #0078d4;
+  --theme-toggle-hover-bg: #e0f0ff;
+  
+  /* Shadows and borders */
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --border-color: #e0e0e0;
+  
+  /* Neumorphic shadows */
+  --nm-shadow-light: rgba(255, 255, 255, 0.8);
+  --nm-shadow-dark: rgba(0, 90, 170, 0.15);
+}
+
+/* Dark theme variables */
+body.dark-theme, html[data-theme='dark'] {
+  /* Primary colors */
+  --primary-color: #2196f3;
+  --secondary-color: #64b5f6;
+  --tertiary-color: #1a2c38;
+  --accent-color: #ffa726;
+  
+  /* Background colors */
+  --body-bg: #2c2b2b;
+  --card-bg: #1e2a38;
+  --panel-bg: #1e2a38;
+  
+  /* Text colors */
+  --text-color: #e0e0e0;
+  --text-light: #b0b0b0;
+  --text-white: #ffffff;
+  
+  /* UI elements */
+  --navbar-bg: #1a1a2e;
+  --nav-link-color: #e0e0e0;
+  --nav-link-hover-color: #64b5f6;
+  --nav-link-active-color: #2196f3;
+  
+  /* Theme toggle */
+  --theme-toggle-bg: #2c3e50;
+  --theme-toggle-color: #64b5f6;
+  --theme-toggle-border: #2196f3;
+  --theme-toggle-hover-bg: #3a4d60;
+  
+  /* Shadows and borders */
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --border-color: #2c3e50;
+  
+  /* Neumorphic shadows */
+  --nm-shadow-light: rgba(40, 40, 40, 0.5);
+  --nm-shadow-dark: rgba(0, 0, 0, 0.7);
+}
+
+/* Apply theme variables to body */
+body {
+  background-color: var(--body-bg);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Force immediate application of theme */
+body.dark-theme *, html[data-theme='dark'] * {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Override specific components for dark theme */
+body.dark-theme .navbar, html[data-theme='dark'] .navbar {
+  background-color: var(--navbar-bg) !important;
+  color: var(--text-white);
+}
+
+body.dark-theme .card, html[data-theme='dark'] .card {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+body.dark-theme .action-card, html[data-theme='dark'] .action-card {
+  background: linear-gradient(145deg, var(--secondary-color), var(--primary-color));
+}
+
+body.dark-theme .crane-panel, html[data-theme='dark'] .crane-panel {
+  background-color: var(--panel-bg);
+  border-color: var(--border-color);
+}
+
+/* Apply theme to app container */
+app-root {
+  background-color: var(--body-bg);
+}
+
+/* Override bootstrap container background */
+.container, .container-fluid {
+  background-color: var(--body-bg);
+}
+
+/* Theme-aware cards */
+.card {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+  color: var(--text-color);
+}
+
+/* Theme-aware buttons */
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+/* Theme-aware text */
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+.text-secondary {
+  color: var(--secondary-color) !important;
+}
+
+/* Theme-aware inputs */
+input, select, textarea {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+/* Theme transition */
+*, *::before, *::after {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}

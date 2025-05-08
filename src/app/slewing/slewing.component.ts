@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-slewing',
   templateUrl: './slewing.component.html',
@@ -10,7 +10,20 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule]
 })
-export class SlewingComponent {
+export class SlewingComponent implements OnInit {
+  engineCode: string = '';
+
+  
+  constructor(private route: ActivatedRoute) {}
+  
+  ngOnInit() {
+    // Get the engineCode from route parameters
+    this.route.paramMap.subscribe(params => {
+      this.engineCode = params.get('engineCode') || '';
+      console.log('Engine Code:', this.engineCode);
+      // Here you would typically load engine-specific data
+    });
+  }
   // Rope and grabber properties
   ropeGrabbertop = 150;
   ropeHeight = 100;

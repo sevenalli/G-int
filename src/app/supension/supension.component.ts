@@ -1,4 +1,4 @@
-import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   ChartComponent,
@@ -17,6 +17,7 @@ import {
 } from "ng-apexcharts";
 import { NgxGaugeModule } from 'ngx-gauge';
 import { data } from "./series-data";
+import { ActivatedRoute } from '@angular/router';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -43,7 +44,27 @@ export type ChartOptions = {
   // Add Font Awesome CDN in the component head
   encapsulation: ViewEncapsulation.None
 })
-export class SupensionComponent {
+export class SupensionComponent implements OnInit {
+
+  engineCode: string = '';
+  currentDate: Date = new Date();
+  
+  
+
+  constructor(private route: ActivatedRoute) {
+    this.initChart();
+    this.simulateGaugeUpdates();
+  }
+  
+  ngOnInit() {
+    // Get the engineCode from route parameters
+    this.route.paramMap.subscribe(params => {
+      this.engineCode = params.get('engineCode') || '';
+      console.log('Engine Code:', this.engineCode);
+      // Here you would typically load engine-specific data
+    });
+  }
+  
   @ViewChild("chart", { static: false }) chart!: ChartComponent;
   public chartOptions: ChartOptions | undefined;
   public activeOptionButton = "all";
@@ -70,32 +91,32 @@ export class SupensionComponent {
   public updateOptionsData: Record<string, { xaxis: { min: number | undefined; max: number | undefined } }> = {
     "1m": {
       xaxis: {
-        min: new Date("28 Jan 2024").getTime(),
-        max: new Date("27 Feb 2024").getTime()
+        min: new Date("01 Apr 2025").getTime(),
+        max: new Date("30 Apr 2025").getTime()
       }
     },
     "6m": {
       xaxis: {
-        min: new Date("27 Sep 2024").getTime(),
-        max: new Date("27 Feb 2024").getTime()
+        min: new Date("01 Jan 2025").getTime(),
+        max: new Date("30 May 2025").getTime()
       }
     },
     "1y": {
       xaxis: {
-        min: new Date("27 Feb 2024").getTime(),
-        max: new Date("27 Feb 2024").getTime()
+        min: new Date("01 Jan 2025").getTime(),
+        max: new Date("30 May 2025").getTime()
       }
     },
-    "1yd": {
+    "YTD": {
       xaxis: {
-        min: new Date("01 Jan 2024").getTime(),
-        max: new Date("27 Feb 2024").getTime()
+        min: new Date("01 Jan 2025").getTime(),
+        max: new Date("07 May 2025").getTime()
       }
     },
     all: {
       xaxis: {
-        min: undefined,
-        max: undefined
+        min: new Date("01 Jan 2025").getTime(),
+        max: new Date("30 May 2025").getTime()
       }
     }
   };
@@ -105,12 +126,11 @@ export class SupensionComponent {
   
   toggleMotorImage() {
     this.motorImage = this.motorImage === 'green.png' ? 'red.jpg' : 'green.png';
+    // Update current date when toggling to simulate real-time updates
+    this.currentDate = new Date();
   }
 
-  constructor() {
-    this.initChart();
-    this.simulateGaugeUpdates();
-  }
+  // Constructor is now merged with the one above
   
   // Method to simulate dynamic gauge updates
   simulateGaugeUpdates() {
@@ -137,7 +157,7 @@ export class SupensionComponent {
       annotations: {
         yaxis: [
           {
-            y: 30,
+            y: 40,
             borderColor: "#999",
             label: {
               text: "Support",
@@ -150,7 +170,7 @@ export class SupensionComponent {
         ],
         xaxis: [
           {
-            x: new Date("14 Nov 2024").getTime(),
+            x: new Date("15 Mar 2025").getTime(),
             borderColor: "#999",
             label: {
               text: "Rally",
@@ -170,7 +190,8 @@ export class SupensionComponent {
       },
       xaxis: {
         type: "datetime",
-        min: new Date("01 Mar 2024").getTime(),
+        min: new Date("01 Jan 2025").getTime(),
+        max: new Date("30 May 2025").getTime(),
         tickAmount: 6
       },
       tooltip: {
@@ -208,7 +229,7 @@ export class SupensionComponent {
     };
   }
 
-  public updateOptions(option: '1m' | '6m' | '1y' | '1yd' | 'all'): void {
+  public updateOptions(option: '1m' | '6m' | '1y' | 'YTD' | 'all'): void {
     this.activeOptionButton = option;
     if (this.chart) {
       this.chart.updateOptions(this.updateOptionsData[option], false, true, true);

@@ -3,6 +3,7 @@
     width: 100%;
     align-self: center;
     padding: 20px 0;
+    position: relative; /* For absolute positioning of floating navbar */
 }
 
 /* Column spacing */
@@ -522,19 +523,78 @@
     z-index: 1000;
 }
 
+/* Floating Navbar Styling */
+.floating-navbar {
+    position: fixed;
+    right: 0;
+    top: 20%;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    background-color: rgba(40, 44, 52, 0.75);
+    padding: 12px 15px;
+    border-radius: 25px 0 0 25px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    transition: all 0.3s ease;
+}
+
+.floating-navbar:hover {
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.floating-navbar .nav-item {
+    margin-right: 10px;
+}
+
+.floating-navbar .nav-item:last-child {
+    margin-right: 0;
+}
+
+/* Button Styling */
+.floating-navbar button {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    transition: all 0.3s ease;
+    border-radius: 50%;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    background-color: rgb(255, 255, 255);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 32px 32px;
+}
+
 /* Slewing button styling */
 .slewing-btn {
-    width: 100%;
-    padding: 12px;
-    font-weight: bold;
-    background-color: #4f95ff;
-    border-color: #3a7bd5;
-    transition: all 0.3s ease;
-    margin-top: 15px;
+    background-image: url('/slewing_btn_inact.svg');
 }
 
 .slewing-btn:hover {
-    background-color: #3a7bd5;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: rgba(79, 149, 255, 0.2);
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Hoisting button styling */
+.hoisting-btn {
+    background-image: url('/hoisting_btn_inact.svg');
+}
+
+.hoisting-btn:hover {
+    background-color: rgba(23, 162, 184, 0.2);
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Suspension button styling */
+.suspension-btn {
+    background-image: url('/setting_btn_inact.svg');
+}
+
+.suspension-btn:hover {
+    background-color: rgba(255, 193, 7, 0.2);
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

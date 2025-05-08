@@ -2,6 +2,8 @@
     <div class="row gx-5">
         <!-- Left Column - Hoisting View with Scale Grid -->
         <div class="col-xl-8 hoisting-view px-4">
+            <h2 class="engine-title">Engine: {{ engineCode }}</h2>
+
             <div class="hoisting-container">
                 <!-- Vertical Scale Grid -->
                 <div class="scale-grid">
@@ -57,7 +59,7 @@
                 
                 <!-- Return Button -->
                 <div class="control-group">
-                    <button class="btn btn-secondary return-btn" routerLink="/operations">
+                    <button class="btn btn-secondary return-btn" [routerLink]="['/operations',engineCode]">
                         <i class="fas fa-arrow-left"></i> Return to Operations
                     </button>
                 </div>

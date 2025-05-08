@@ -14,7 +14,8 @@ export class HomeComponent {
     {
       id: 'G380003',
       notifications: 0,
-      hookType: 'hook',
+      craneType :'G38',
+      hookType: 'Crochet',
       status1: 'AFFECTE',
       status2: 'DRIVE',
       power: 'ON',
@@ -24,7 +25,8 @@ export class HomeComponent {
     {
       id: 'G400001',
       notifications: 3,
-      hookType: 'grab-orange',
+      craneType :'G40',
+      hookType: 'Benne',
       status1: 'STANDBY',
       status2: 'PARK',
       power: 'ON',
@@ -34,7 +36,8 @@ export class HomeComponent {
     {
       id: 'G400005',
       notifications: 'M',
-      hookType: 'grab-red',
+      craneType :'G40',
+      hookType: 'Grappin',
       status1: 'MAINTENANCE',
       status2: 'ANCRE',
       power: 'OFF',
@@ -44,7 +47,8 @@ export class HomeComponent {
     {
       id: 'M630001',
       notifications: 0,
-      hookType: 'grab-orange',
+      craneType :'M63',
+      hookType: 'Benne Motorisée',
       status1: 'AFFECTE',
       status2: 'DRIVE',
       power: 'ON',
@@ -54,7 +58,8 @@ export class HomeComponent {
     {
       id: 'G380003',
       notifications: 0,
-      hookType: 'hook',
+      craneType :'G38',
+      hookType: 'Crochet',
       status1: 'AFFECTE',
       status2: 'DRIVE',
       power: 'ON',
@@ -64,7 +69,8 @@ export class HomeComponent {
     {
       id: 'G400001',
       notifications: 3,
-      hookType: 'grab-orange',
+      craneType :'G40',
+      hookType: 'Benne',
       status1: 'STANDBY',
       status2: 'PARK',
       power: 'ON',
@@ -74,7 +80,8 @@ export class HomeComponent {
     {
       id: 'G400005',
       notifications: 'M',
-      hookType: 'grab-red',
+      craneType :'G40',
+      hookType: 'Grappin',
       status1: 'MAINTENANCE',
       status2: 'ANCRE',
       power: 'OFF',
@@ -83,30 +90,43 @@ export class HomeComponent {
     },
     {
       id: 'M630001',
+      craneType :'M63',
       notifications: 0,
-      hookType: 'grab-orange',
+      hookType: 'Benne Motorisée',
       status1: 'AFFECTE',
       status2: 'DRIVE',
       power: 'ON',
       hours: '46 389 H',
       extra: 'EXTRA 4'
-    }
+    },
   ];
 
   // Helper to get the main crane icon class
-  getCranIconClass(): { type:  'image'; value: string } {
-    return { type: 'image', value: 'crane40.png' }
+  getCranIconClass(craneType: string): { type: 'image'; value: string } {
+    switch (craneType) {
+      case 'G38':
+        return { type: 'image', value: 'G38.png' };
+        case 'M63':
+        return { type: 'image', value: 'M63.png' };
+        case 'G40':
+        return { type: 'image', value: 'G40.png' };
+       
+      default:
+        return { type: 'image', value: 'default-crane.png' };
+    }
   }
 
   // Helper returns object indicating if it's an icon or image
   getHookIconInfo(hookType: string): { type: 'icon' | 'image'; value: string } {
     switch (hookType) {
-      case 'hook':
-        return { type: 'image', value: 'hook.png' }
-      case 'grab-orange':
-        return { type: 'image', value: 'grabber.png' };
-      case 'grab-red':
-        return { type: 'image', value: 'redgrabber.png' }
+      case 'Crochet':
+        return { type: 'image', value: 'Crochet.png' }
+      case 'Benne':
+        return { type: 'image', value: 'Benne.png' };
+        case 'Grappin':
+        return { type: 'image', value: 'Grappin.png' };
+      case 'Benne Motorisée':
+        return { type: 'image', value: 'Benne Motorisée.png' }
       default:
         return { type: 'image', value: 'no wifi.png' }
     }

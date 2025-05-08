@@ -1,0 +1,20 @@
+<div class="container-fluid acceuil-container">
+    
+    
+    <div class="row">
+      <div class="col-lg-10 offset-lg-1">
+        <div class="menu-grid">
+          <div class="menu-button" *ngFor="let port of ports; let i = index" (click)="navigateTo(port.route)">
+            <div class="button-content">
+              
+              <span class="menu-title">{{ port.title }}</span>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+  </div>
+  

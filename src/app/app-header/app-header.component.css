@@ -14,7 +14,7 @@
 }
 
 .navbar {
-  background: #fff !important;
+  background: var(--navbar-bg, #fff) !important;
   box-shadow: 0 2px 8px rgba(0,0,0,0.07);
   padding: 0.5rem 1rem;
   position: relative;
@@ -170,6 +170,47 @@ body.navbar-open {
 :host {
   padding-top: 70px;
   display: block;
+}
+
+/* Theme toggle button */
+.theme-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--theme-toggle-bg, #f0f8ff);
+  color: var(--theme-toggle-color, #005aaa);
+  border: 2px solid var(--theme-toggle-border, #0078d4);
+  border-radius: 20px;
+  padding: 0.4rem 0.8rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--theme-toggle-hover-bg, #e0f0ff);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.theme-toggle-btn i {
+  font-size: 1.2rem;
+}
+
+/* Adjust navbar text color based on theme */
+.navbar .nav-link {
+  color: var(--nav-link-color, #333);
+}
+
+.navbar .nav-link:hover {
+  color: var(--nav-link-hover-color, #005aaa);
+}
+
+.navbar .nav-link.active {
+  color: var(--nav-link-active-color, #005aaa);
+  font-weight: bold;
 }
 
 .logo {

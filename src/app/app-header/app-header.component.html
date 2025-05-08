@@ -12,27 +12,33 @@
     <!-- Collapsible Navigation Menu -->
     <div class="collapse navbar-collapse" [ngClass]="{'show': !isNavbarCollapsed}" id="navbarNav">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link px-3" routerLink="/accueil" routerLinkActive="active" (click)="closeNavbar()">Acceuil</a>
         </li>
         <li class="nav-item">
           <a class="nav-link px-3" routerLink="/home" routerLinkActive="active" (click)="closeNavbar()">Engines</a>
-        </li>
-        <li class="nav-item">
+        </li> -->
+        <!-- <li class="nav-item">
           <a class="nav-link px-3" routerLink="/rotation" routerLinkActive="active" (click)="closeNavbar()">Rotation</a>
-        </li>
-        <li class="nav-item">
+        </li> -->
+        <!-- <li class="nav-item">
           <a class="nav-link px-3" routerLink="/others" routerLinkActive="active" (click)="closeNavbar()">Others</a>
-        </li>
-        <li class="nav-item">
+        </li> -->
+        <!-- <li class="nav-item">
           <a class="nav-link px-3" routerLink="/operations" routerLinkActive="active" (click)="closeNavbar()">Operations</a>
         </li>
         <li class="nav-item">
           <a class="nav-link px-3" routerLink="/notifications" routerLinkActive="active" (click)="closeNavbar()">Notifications</a>
         </li>
-        
-        <li class="nav-item">
+         -->
+        <!-- <li class="nav-item">
           <a class="nav-link px-3" routerLink="/supension" routerLinkActive="active" (click)="closeNavbar()">Supension</a>
+        </li> -->
+        <li class="nav-item ms-2">
+          <button class="btn theme-toggle-btn" (click)="themeService.toggleTheme()" aria-label="Toggle theme">
+            <i class="bi" [ngClass]="{'bi-moon-stars-fill': themeService.isDarkTheme(), 'bi-brightness-high-fill': !themeService.isDarkTheme()}"></i>
+            <span class="ms-1 d-none d-md-inline">{{ themeService.isDarkTheme() ? 'Light Mode' : 'Dark Mode' }}</span>
+          </button>
         </li>
       </ul>
     </div>

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-hoisting',
@@ -10,7 +11,20 @@ import { RouterModule } from '@angular/router';
   templateUrl: './hoisting.component.html',
   styleUrl: './hoisting.component.css'
 })
-export class HoistingComponent {
+export class HoistingComponent implements OnInit {
+  engineCode: string = '';
+
+  
+  constructor(private route: ActivatedRoute) {}
+  
+  ngOnInit() {
+    // Get the engineCode from route parameters
+    this.route.paramMap.subscribe(params => {
+      this.engineCode = params.get('engineCode') || '';
+      console.log('Engine Code:', this.engineCode);
+      // Here you would typically load engine-specific data
+    });
+  }
   // Hoisting control properties
   hoistingValue = 50;
   minHeight = 0;

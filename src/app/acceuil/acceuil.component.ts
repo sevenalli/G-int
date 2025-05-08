@@ -12,15 +12,15 @@ import { RouterModule } from '@angular/router';
 })
 export class AcceuilComponent {
   menuItems = [
-    { title: '3D Temps réel', route: '/operations' },
-    { title: '3D Play Back', route: '/operations' },
-    { title: 'Monitoring des engins', route: '/operations' },
-    { title: 'Maintenance', route: '/operations' },
-    { title: 'Exploitation', route: '/operations' },
-    { title: 'Performance', route: '/operations' },
-    { title: 'Sécurité', route: '/operations' },
-    { title: 'Diagnostique', route: '/operations' },
-    { title: 'RSE', route: '/operations' }
+    { title: '3D Temps réel', route: '#' },
+    { title: '3D Play Back', route: '#' },
+    { title: 'Monitoring des engins', route: '/enginesTypes' },
+    { title: 'Maintenance', route: '#' },
+    { title: 'Exploitation', route: '#' },
+    { title: 'Performance', route: '#' },
+    { title: 'Sécurité', route: '#' },
+    { title: 'Diagnostique', route: '#' },
+    { title: 'RSE', route: '# ' }
   ];
 
   constructor(private router: Router) {}
