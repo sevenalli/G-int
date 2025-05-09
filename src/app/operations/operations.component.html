@@ -129,9 +129,20 @@
                             [(ngModel)]="hoisting">
                         <span>{{ hoisting }}%</span>
                     </div>
-                    <button class="btn btn-secondary return-btn" routerLink="/home">
-                        <i class="fas fa-arrow-left"></i> Return 
-                    </button>
+                </div>
+                
+                <!-- Grabber Control Button -->
+                <div class="control-group">
+                    <div class="grabber-controls">
+                        <label>Grabber Control: </label>
+                        <button 
+                            class="btn grabber-toggle-btn" 
+                            [ngClass]="{'btn-success': isGrabberOpen, 'btn-danger': !isGrabberOpen}"
+                            (click)="toggleGrabber()">
+                            <i class="fas" [ngClass]="{'fa-hand-paper': !isGrabberOpen, 'fa-hand-rock': isGrabberOpen}"></i>
+                            {{ isGrabberOpen ? 'Close Grabber' : 'Open Grabber' }}
+                        </button>
+                    </div>
                 </div>
 
                 
@@ -140,6 +151,9 @@
                 
                 <div class="current-positions">
                     <!-- Position information can be added here if needed -->
+                    <button class="btn btn-secondary return-btn" routerLink="/home">
+                        <i class="fas fa-arrow-left"></i> Return 
+                    </button>
                 </div>
                 
 

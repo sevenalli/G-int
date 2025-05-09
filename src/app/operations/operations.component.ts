@@ -141,8 +141,17 @@ export class OperationsComponent implements OnInit {
   // This could be extended to load engine-specific rotation data
 
 
+  // Property to control grabber state directly
+  isGrabberOpen: boolean = false;
+
+  // Toggle grabber state
+  toggleGrabber(): void {
+    this.isGrabberOpen = !this.isGrabberOpen;
+  }
+
   get grabberImage(): string {
-    return this.currentScaleX === -1 ? 'opened.svg' : 'grabber.svg';
+    // Use the direct control property if it's set, otherwise fall back to the scale-based logic
+    return this.isGrabberOpen ? 'opened.svg' : 'grabber.svg';
   }
 
   get ropeHeight(): number {

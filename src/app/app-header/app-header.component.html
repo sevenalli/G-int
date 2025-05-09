@@ -1,17 +1,21 @@
-<nav class="navbar navbar-expand-lg bg-white shadow-sm py-2">
+<nav class="navbar navbar-expand-lg shadow-sm py-2">
   <div class="container-fluid align-items-center">
     <a class="navbar-brand d-flex align-items-center gap-2" href="#">
       <img src="logo.png" alt="Marsa Maroc Logo" style="height:48px; width:auto;" />
     </a>
-    
-    <!-- Burger Menu Button -->
-    <button class="navbar-toggler" type="button" (click)="toggleNavbar()" aria-controls="navbarNav" [attr.aria-expanded]="isNavbarCollapsed ? 'false' : 'true'" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    <button class="btn theme-toggle-btn" (click)="themeService.toggleTheme()" aria-label="Toggle theme">
+      <i class="bi" [ngClass]="{'bi-moon-stars-fill': themeService.isDarkTheme(), 'bi-brightness-high-fill': !themeService.isDarkTheme()}"></i>
+      <span class="ms-1 d-none d-md-inline">{{ themeService.isDarkTheme() ? 'Light Mode' : 'Dark Mode' }}</span>
     </button>
     
+    <!-- Burger Menu Button -->
+    <!-- <button class="navbar-toggler" type="button" (click)="toggleNavbar()" aria-controls="navbarNav" [attr.aria-expanded]="isNavbarCollapsed ? 'false' : 'true'" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button> -->
+    
     <!-- Collapsible Navigation Menu -->
-    <div class="collapse navbar-collapse" [ngClass]="{'show': !isNavbarCollapsed}" id="navbarNav">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+    <!-- <div class="collapse navbar-collapse" [ngClass]="{'show': !isNavbarCollapsed}" id="navbarNav"> -->
+      <!-- <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center"> -->
         <!-- <li class="nav-item">
           <a class="nav-link px-3" routerLink="/accueil" routerLinkActive="active" (click)="closeNavbar()">Acceuil</a>
         </li>
@@ -34,17 +38,15 @@
         <!-- <li class="nav-item">
           <a class="nav-link px-3" routerLink="/supension" routerLinkActive="active" (click)="closeNavbar()">Supension</a>
         </li> -->
-        <li class="nav-item ms-2">
-          <button class="btn theme-toggle-btn" (click)="themeService.toggleTheme()" aria-label="Toggle theme">
-            <i class="bi" [ngClass]="{'bi-moon-stars-fill': themeService.isDarkTheme(), 'bi-brightness-high-fill': !themeService.isDarkTheme()}"></i>
-            <span class="ms-1 d-none d-md-inline">{{ themeService.isDarkTheme() ? 'Light Mode' : 'Dark Mode' }}</span>
-          </button>
+        <!-- <li class="nav-item ms-2">
+         
         </li>
-      </ul>
-    </div>
+      </ul> -->
+      
+    <!-- </div> -->
   </div>
 </nav>
 
 <!-- Overlay for mobile menu -->
-<div class="navbar-overlay" [ngClass]="{'active': !isNavbarCollapsed}" (click)="closeNavbar()"></div>
+<!-- <div class="navbar-overlay" [ngClass]="{'active': !isNavbarCollapsed}" (click)="closeNavbar()"></div> -->
 

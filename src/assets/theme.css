@@ -74,6 +74,9 @@ body.dark-theme, html[data-theme='dark'] {
   /* Neumorphic shadows */
   --nm-shadow-light: rgba(40, 40, 40, 0.5);
   --nm-shadow-dark: rgba(0, 0, 0, 0.7);
+  
+  /* Icon filter for dark mode */
+  --icon-filter: brightness(0.85) invert(0.85);
 }
 
 /* Apply theme variables to body */
@@ -129,6 +132,35 @@ app-root {
 .btn-primary {
   background-color: var(--primary-color);
   border-color: var(--primary-color);
+}
+
+/* Dark mode specific styles */
+body.dark-theme .floating-navbar button, html[data-theme='dark'] .floating-navbar button {
+  background-color: #3a4d60;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Logo styling for dark mode */
+body.dark-theme .navbar-brand img, html[data-theme='dark'] .navbar-brand img {
+  filter: brightness(1.8);
+  background-color: transparent;
+}
+
+/* Navbar brand container in dark mode */
+body.dark-theme .navbar-brand, html[data-theme='dark'] .navbar-brand {
+  background-color: transparent;
+}
+
+body.dark-theme .slewing-btn:hover, html[data-theme='dark'] .slewing-btn:hover {
+  background-color: rgba(33, 150, 243, 0.3);
+}
+
+body.dark-theme .hoisting-btn:hover, html[data-theme='dark'] .hoisting-btn:hover {
+  background-color: rgba(100, 181, 246, 0.3);
+}
+
+body.dark-theme .suspension-btn:hover, html[data-theme='dark'] .suspension-btn:hover {
+  background-color: rgba(255, 167, 38, 0.3);
 }
 
 /* Theme-aware text */

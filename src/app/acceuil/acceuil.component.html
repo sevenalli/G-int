@@ -1,23 +1,86 @@
 <div class="container-fluid acceuil-container">
-  <div class="dashboard-header">
-    <h1>Tableau de bord</h1>
-  </div>
-  
-  <div class="row">
-    <div class="col-lg-10 offset-lg-1">
-      <div class="menu-grid">
-        <div class="menu-button" *ngFor="let item of menuItems; let i = index" (click)="navigateTo(item.route)">
-          <div class="button-content">
-            <div class="icon-container">
-              <i class="bi" [ngClass]="getIconClass(i)"></i>
-            </div>
-            <span class="menu-title">{{ item.title }}</span>
-            
+  <!-- Welcome Section with Animation -->
+  <div class="welcome-section">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="welcome-content">
+          <h1 class="welcome-title">Tableau de bord <span class="highlight">BUM</span></h1>
+          <p class="welcome-subtitle">Plateforme de gestion intelligente des opérations portuaires</p>
+          <div class="date-display">
+            <i class="bi bi-calendar3"></i> {{ getCurrentDate() }}
+          </div>
+          <div class="welcome-actions">
+            <button class="btn action-btn primary" (click)="navigateTo('ports')">
+              <i class="bi bi-badge-3d"></i> Démarrer 3D Temps réel
+            </button>
+            <button class="btn action-btn secondary" (click)="navigateTo('/enginesTypes')">
+              <i class="bi bi-display"></i> Monitoring des engins
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5 d-none d-md-block">
+        <div class="dashboard-visual">
+          <!-- Visual element with animation -->
+          <div class="visual-element">
+            <i class="bi bi-hdd-network"></i>
           </div>
         </div>
       </div>
     </div>
   </div>
   
+  <!-- Main Menu Grid -->
+  <div class="main-section">
+    <h2 class="section-title">Fonctionnalités <span class="highlight">principales</span></h2>
+    
+    <div class="row">
+      <div class="col-lg-10 offset-lg-1">
+        <div class="menu-grid">
+          <div class="menu-button" *ngFor="let item of menuItems; let i = index" (click)="navigateTo(item.route)">
+            <div class="button-content">
+              <div class="icon-container">
+                <i class="bi" [ngClass]="getIconClass(i)"></i>
+              </div>
+              <span class="menu-title">{{ item.title }}</span>
+              <div class="menu-indicator">
+                <i class="bi bi-arrow-right"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   
+  <!-- Status Section -->
+  <div class="status-section">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="status-card">
+          <div class="status-indicator online"></div>
+          <h5>Système en ligne</h5>
+          <span class="status-text">Tous les services fonctionnent normalement</span>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="quick-stats">
+          <div class="row">
+            <div class="col-6">
+              <div class="stat-item">
+                <span class="stat-label">Engins actifs</span>
+                <span class="stat-value">24</span>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="stat-item">
+                <span class="stat-label">Opérations en cours</span>
+                <span class="stat-value">8</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -10,6 +10,7 @@ import { HoistingComponent } from './hoisting/hoisting.component';
 import { SupensionComponent } from './supension/supension.component';
 import { PortsComponent } from './ports/ports.component';
 import { EnginesTypesComponent } from './engines-types/engines-types.component';
+import { ThreedTempsReelPageComponent } from './threed-temps-reel-page/threed-temps-reel-page.component';
 
 
 export const routes: Routes = [
@@ -30,7 +31,9 @@ export const routes: Routes = [
   { path: 'notifications', component: NotificationsComponent },
   { path: 'notifications/:craneId', component: NotificationsComponent },
   { path: 'supension', component: SupensionComponent },
+  { path: 'threedTempsReelPage', component: ThreedTempsReelPageComponent },
+
 
   
-  { path: '', redirectTo: 'ports', pathMatch: 'full' }
+  { path: '', redirectTo: 'accueil', pathMatch: 'full' }
 ];

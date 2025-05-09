@@ -12,7 +12,7 @@ import { RouterModule } from '@angular/router';
 })
 export class AcceuilComponent {
   menuItems = [
-    { title: '3D Temps réel', route: '#' },
+    { title: '3D Temps réel', route: 'threedTempsReelPage' },
     { title: '3D Play Back', route: '#' },
     { title: 'Monitoring des engins', route: '/enginesTypes' },
     { title: 'Maintenance', route: '#' },

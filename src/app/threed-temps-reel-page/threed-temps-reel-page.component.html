@@ -1,0 +1,152 @@
+<div class="threed-container">
+  <!-- Header with breadcrumb and title -->
+  <div class="page-header">
+    <div class="breadcrumb-container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/accueil">Tableau de bord</a></li>
+          <li class="breadcrumb-item active">3D Temps réel</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="page-title">
+      <h1><i class="bi bi-badge-3d"></i> Sélection d'équipement - 3D Temps réel</h1>
+    </div>
+  </div>
+
+  <!-- Selection Summary Panel -->
+  <div class="selection-summary" *ngIf="selectedTerminal || selectedCategory || selectedEquipment">
+    <div class="summary-content">
+      <div class="summary-icon">
+        <i class="bi bi-check-circle-fill"></i>
+      </div>
+      <div class="summary-text">
+        <span class="summary-label">Sélection actuelle:</span>
+        <span class="summary-path">{{ getSelectionSummary() }}</span>
+      </div>
+    </div>
+    <button class="btn proceed-btn" [disabled]="!canProceed()" (click)="proceedToVisualization()">
+      <i class="bi bi-arrow-right-circle"></i> Procéder à la visualisation
+    </button>
+  </div>
+
+  <!-- Main Selection Interface -->
+  <div class="selection-interface">
+    <div class="row">
+      <!-- Terminal Selection Column -->
+      <div class="col-md-4">
+        <div class="selection-panel terminal-panel">
+          <div class="panel-header">
+            <h2><i class="bi bi-building"></i> Terminal</h2>
+            <div class="step-indicator">1</div>
+          </div>
+          <div class="panel-body">
+            <div class="selection-list">
+              <div class="selection-item" *ngFor="let terminal of terminals" 
+                   [class.selected]="isTerminalSelected(terminal)"
+                   (click)="selectTerminal(terminal)">
+                <div class="item-icon">
+                  <i class="bi bi-building"></i>
+                </div>
+                <div class="item-content">
+                  <div class="item-title">{{ terminal.name }}</div>
+                </div>
+                <div class="item-action">
+                  <i class="bi bi-chevron-right"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Selection Column -->
+      <div class="col-md-4">
+        <div class="selection-panel category-panel" [class.disabled]="!selectedTerminal">
+          <div class="panel-header">
+            <h2><i class="bi bi-collection"></i> Catégorie</h2>
+            <div class="step-indicator">2</div>
+          </div>
+          <div class="panel-body">
+            <div class="selection-list" *ngIf="selectedTerminal">
+              <div class="selection-item" *ngFor="let category of selectedTerminal.categories" 
+                   [class.selected]="isCategorySelected(category)"
+                   (click)="selectCategory(category)">
+                <div class="item-icon">
+                  <i class="bi" [ngClass]="category.icon"></i>
+                </div>
+                <div class="item-content">
+                  <div class="item-title">{{ category.name }}</div>
+                </div>
+                <div class="item-action">
+                  <i class="bi bi-chevron-right"></i>
+                </div>
+              </div>
+            </div>
+            <div class="empty-state" *ngIf="!selectedTerminal">
+              <i class="bi bi-arrow-left-circle"></i>
+              <p>Veuillez sélectionner un terminal</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Equipment Selection Column -->
+      <div class="col-md-4">
+        <div class="selection-panel equipment-panel" [class.disabled]="!selectedCategory">
+          <div class="panel-header">
+            <h2><i class="bi bi-tools"></i> Équipement</h2>
+            <div class="step-indicator">3</div>
+          </div>
+          <div class="panel-body">
+            <div class="selection-list" *ngIf="selectedCategory">
+              <div class="selection-item" *ngFor="let equipment of selectedCategory.equipments" 
+                   [class.selected]="isEquipmentSelected(equipment)"
+                   (click)="selectEquipment(equipment)">
+                <div class="item-icon">
+                  <i class="bi" [ngClass]="equipment.icon || 'bi-gear'"></i>
+                </div>
+                <div class="item-content">
+                  <div class="item-title">{{ equipment.name }}</div>
+                </div>
+                <div class="item-action">
+                  <i class="bi bi-check-circle" *ngIf="isEquipmentSelected(equipment)"></i>
+                </div>
+              </div>
+            </div>
+            <div class="empty-state" *ngIf="!selectedCategory">
+              <i class="bi bi-arrow-left-circle"></i>
+              <p>Veuillez sélectionner une catégorie</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Information Panel -->
+  <div class="info-panel" *ngIf="selectedTerminal && selectedCategory && selectedEquipment">
+    <div class="info-header">
+      <h3><i class="bi bi-info-circle"></i> Information sur l'équipement sélectionné</h3>
+    </div>
+    <div class="info-body">
+      <div class="info-item">
+        <span class="info-label">Terminal:</span>
+        <span class="info-value">{{ selectedTerminal.name }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Catégorie:</span>
+        <span class="info-value">{{ selectedCategory.name }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Équipement:</span>
+        <span class="info-value">{{ selectedEquipment.name }}</span>
+      </div>
+    </div>
+    <div class="info-footer">
+      <button class="btn btn-primary" (click)="proceedToVisualization()">
+        <i class="bi bi-eye"></i> Visualiser en 3D
+      </button>
+    </div>
+  </div>
+</div>
