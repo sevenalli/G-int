@@ -16,53 +16,53 @@ export class PortsComponent {
  ports = [
     { 
       title: 'DEPJL', 
-      route: '#', 
+      route: 'threedTempsReelPage', 
       image: 'jerfLasfar.jpg'
     },
     { 
       title: 'DEPA', 
-      route: '#', 
+      route: 'threedTempsReelPage', 
       image: 'depa.png'
     },
     { 
       title: 'SMA', 
-      route: '#', 
+      route: 'threedTempsReelPage', 
       image: 'sma.png'
     },
     
     { 
       title: 'DEPT', 
-      route: '#', 
+      route: 'threedTempsReelPage', 
       image: 'dept.png'
     },
     { 
       title: 'TC3PC', 
-      route: '#', 
+      route: 'threedTempsReelPage', 
       image: 'tc3pc.png'
     },
     { 
       title: 'DEPL', 
-      route: '#', 
+      route: 'threedTempsReelPage', 
       image: 'depl.png'
     },
     { 
       title: 'DEPN', 
-      route: '#', 
+      route: 'threedTempsReelPage', 
       image: 'depn.png'
     },
     { 
       title: 'DEPS', 
-      route: '#', 
+      route: 'threedTempsReelPage', 
       image: 'deps.png'
     },
      { 
       title: 'DEPM', 
-      route: '#', 
+      route: 'threedTempsReelPage', 
       image: 'depm.png'
     },
     { 
       title: 'DEPD', 
-      route: '#', 
+      route: 'threedTempsReelPage', 
       image: 'depd.png'
     },
 
