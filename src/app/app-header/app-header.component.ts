@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ThemeService } from '../services/theme.service';
 
@@ -8,8 +8,7 @@ import { ThemeService } from '../services/theme.service';
   standalone: true,
   imports: [
     CommonModule,
-    RouterLink,
-    RouterLinkActive
+  
   ],
   templateUrl: './app-header.component.html',
   styleUrl: './app-header.component.css'
