@@ -11,6 +11,9 @@ import { SupensionComponent } from './supension/supension.component';
 import { PortsComponent } from './ports/ports.component';
 import { EnginesTypesComponent } from './engines-types/engines-types.component';
 import { ThreedTempsReelPageComponent } from './threed-temps-reel-page/threed-temps-reel-page.component';
+import { PortSupervisionComponent } from './port-supervision/port-supervision.component';
+import { ChoixSupervisionComponent } from './choix-supervision/choix-supervision.component';
+import { TestComponent } from './test/test.component';
 
 
 export const routes: Routes = [
@@ -22,6 +25,8 @@ export const routes: Routes = [
   { path: 'supension/:engineCode', component: SupensionComponent},
   {path:'ports' , component:PortsComponent},
   {path:'enginesTypes' , component:EnginesTypesComponent},
+  {path:'portSupervision' , component:PortSupervisionComponent},
+  { path: 'choixSupervision' , component:ChoixSupervisionComponent},
   { path: 'others', component: OthersComponent },
   { path: 'operations', component: OperationsComponent },
   { path: 'slewing', component: SlewingComponent },
@@ -32,6 +37,7 @@ export const routes: Routes = [
   { path: 'notifications/:craneId', component: NotificationsComponent },
   { path: 'supension', component: SupensionComponent },
   { path: 'threedTempsReelPage', component: ThreedTempsReelPageComponent },
+  {path: 'test' , component: TestComponent},
 
 
   

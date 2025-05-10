@@ -1,0 +1,293 @@
+<div class="threed-container">
+    <!-- Header with breadcrumb and title -->
+    <div class="page-header">
+      <div class="breadcrumb-container">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/accueil">Tableau de bord</a></li>
+            <li class="breadcrumb-item"><a href="/ports">Port</a></li>
+            <li class="breadcrumb-item active">Monitoring des engins</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="page-title-row">
+        <div class="page-title">
+          <h1><i class="bi bi-display"></i> Sélection d'équipement - Monitoring des engins</h1>
+        </div>
+        <div class="selection-mode-toggle">
+          <div class="toggle-label" [class.active]="!multiSelectionMode">Sélection unique</div>
+          <div class="toggle-switch" (click)="toggleSelectionMode()">
+            <div class="toggle-slider" [class.active]="multiSelectionMode"></div>
+          </div>
+          <div class="toggle-label" [class.active]="multiSelectionMode">Sélection multiple</div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Selection Summary Panel -->
+    <div class="selection-summary" *ngIf="getSelectedItemsCount() > 0">
+      <div class="summary-content">
+        <div class="summary-icon">
+          <i class="bi" [ngClass]="{'bi-check-circle-fill': !multiSelectionMode, 'bi-collection-fill': multiSelectionMode}"></i>
+        </div>
+        <div class="summary-text">
+          <span class="summary-label">{{ multiSelectionMode ? 'Sélections actuelles:' : 'Sélection actuelle:' }}</span>
+          <span class="summary-path">{{ getSelectionSummary() }}</span>
+        </div>
+        <div class="selection-badge" *ngIf="multiSelectionMode && getSelectedItemsCount() > 0">
+          {{ getSelectedItemsCount() }}
+        </div>
+      </div>
+      <button class="btn proceed-btn" [disabled]="!canProceed()" (click)="proceedToVisualization()">
+        <i class="bi bi-arrow-right-circle"></i> Procéder à la visualisation
+      </button>
+    </div>
+  
+    <!-- Main Selection Interface -->
+    <div class="selection-interface">
+      <div class="row">
+        <!-- Terminal Selection Column -->
+        <div class="col-md-4">
+          <div class="selection-panel terminal-panel">
+            <div class="panel-header">
+              <h2><i class="bi bi-building"></i> Terminal</h2>
+              <div class="step-indicator">1</div>
+            </div>
+            <div class="panel-body">
+              <div class="selection-list">
+                <div class="selection-item" *ngFor="let terminal of terminals" 
+                     [class.selected]="isTerminalSelected(terminal)"
+                     (click)="selectTerminal(terminal)">
+                  <div class="item-icon">
+                    <i class="bi bi-building"></i>
+                  </div>
+                  <div class="item-content">
+                    <div class="item-title">{{ terminal.name }}</div>
+                  </div>
+                  <div class="item-action">
+                    <i class="bi" [ngClass]="{
+                      'bi-chevron-right': !multiSelectionMode && !isTerminalSelected(terminal),
+                      'bi-check-circle-fill': !multiSelectionMode && isTerminalSelected(terminal),
+                      'bi-square': multiSelectionMode && !isTerminalSelected(terminal),
+                      'bi-check-square-fill': multiSelectionMode && isTerminalSelected(terminal)
+                    }"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Category Selection Column -->
+        <div class="col-md-4">
+          <div class="selection-panel category-panel" [class.disabled]="!multiSelectionMode && !selectedTerminal">
+            <div class="panel-header">
+              <h2><i class="bi bi-collection"></i> Catégorie</h2>
+              <div class="step-indicator">2</div>
+            </div>
+            <div class="panel-body">
+              <!-- Single selection mode categories -->
+              <div class="selection-list" *ngIf="!multiSelectionMode && selectedTerminal">
+                <div class="selection-item" *ngFor="let category of selectedTerminal.categories" 
+                     [class.selected]="isCategorySelected(category)"
+                     (click)="selectCategory(category)">
+                  <div class="item-icon">
+                    <i class="bi" [ngClass]="category.icon"></i>
+                  </div>
+                  <div class="item-content">
+                    <div class="item-title">{{ category.name }}</div>
+                  </div>
+                  <div class="item-action">
+                    <i class="bi" [ngClass]="{
+                      'bi-chevron-right': !multiSelectionMode && !isCategorySelected(category),
+                      'bi-check-circle-fill': !multiSelectionMode && isCategorySelected(category),
+                      'bi-square': multiSelectionMode && !isCategorySelected(category),
+                      'bi-check-square-fill': multiSelectionMode && isCategorySelected(category)
+                    }"></i>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Multi selection mode categories from all selected terminals -->
+              <div class="selection-list" *ngIf="multiSelectionMode && allCategories.length > 0">
+                <div class="selection-item" *ngFor="let category of allCategories" 
+                     [class.selected]="isCategorySelected(category)"
+                     (click)="selectCategory(category)">
+                  <div class="item-icon">
+                    <i class="bi" [ngClass]="category.icon"></i>
+                  </div>
+                  <div class="item-content">
+                    <div class="item-title">{{ category.name }}</div>
+                  </div>
+                  <div class="item-action">
+                    <i class="bi" [ngClass]="{
+                      'bi-chevron-right': !multiSelectionMode && !isCategorySelected(category),
+                      'bi-check-circle-fill': !multiSelectionMode && isCategorySelected(category),
+                      'bi-square': multiSelectionMode && !isCategorySelected(category),
+                      'bi-check-square-fill': multiSelectionMode && isCategorySelected(category)
+                    }"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="empty-state" *ngIf="!multiSelectionMode && !selectedTerminal">
+                <i class="bi bi-arrow-left-circle"></i>
+                <p>Veuillez sélectionner un terminal</p>
+              </div>
+              <div class="empty-state" *ngIf="multiSelectionMode && selectedTerminals.length === 0">
+                <i class="bi bi-collection"></i>
+                <p>Veuillez sélectionner au moins un terminal</p>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Equipment Selection Column -->
+        <div class="col-md-4">
+          <div class="selection-panel equipment-panel" [class.disabled]="!multiSelectionMode && !selectedCategory">
+            <div class="panel-header">
+              <h2><i class="bi bi-tools"></i> Équipement</h2>
+              <div class="step-indicator">3</div>
+            </div>
+            <div class="panel-body">
+              <!-- Single selection mode equipment -->
+              <div class="selection-list" *ngIf="!multiSelectionMode && selectedCategory">
+                <div class="selection-item" *ngFor="let equipment of selectedCategory.equipments" 
+                     [class.selected]="isEquipmentSelected(equipment)"
+                     (click)="selectEquipment(equipment)">
+                  <div class="item-icon">
+                    <i class="bi" [ngClass]="equipment.icon || 'bi-gear'"></i>
+                  </div>
+                  <div class="item-content">
+                    <div class="item-title">{{ equipment.name }}</div>
+                  </div>
+                  <div class="item-action">
+                    <i class="bi" [ngClass]="{
+                      'bi-check-circle-fill': !multiSelectionMode && isEquipmentSelected(equipment),
+                      'bi-circle': !multiSelectionMode && !isEquipmentSelected(equipment),
+                      'bi-square': multiSelectionMode && !isEquipmentSelected(equipment),
+                      'bi-check-square-fill': multiSelectionMode && isEquipmentSelected(equipment)
+                    }"></i>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Multi selection mode equipment from all selected categories -->
+              <div class="selection-list" *ngIf="multiSelectionMode && allEquipments.length > 0">
+                <div class="selection-item" *ngFor="let equipment of allEquipments" 
+                     [class.selected]="isEquipmentSelected(equipment)"
+                     (click)="selectEquipment(equipment)">
+                  <div class="item-icon">
+                    <i class="bi" [ngClass]="equipment.icon || 'bi-gear'"></i>
+                  </div>
+                  <div class="item-content">
+                    <div class="item-title">{{ equipment.name }}</div>
+                  </div>
+                  <div class="item-action">
+                    <i class="bi" [ngClass]="{
+                      'bi-check-circle-fill': !multiSelectionMode && isEquipmentSelected(equipment),
+                      'bi-circle': !multiSelectionMode && !isEquipmentSelected(equipment),
+                      'bi-square': multiSelectionMode && !isEquipmentSelected(equipment),
+                      'bi-check-square-fill': multiSelectionMode && isEquipmentSelected(equipment)
+                    }"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="empty-state" *ngIf="!multiSelectionMode && !selectedCategory">
+                <i class="bi bi-arrow-left-circle"></i>
+                <p>Veuillez sélectionner une catégorie</p>
+              </div>
+              <div class="empty-state" *ngIf="multiSelectionMode && selectedCategories.length === 0">
+                <i class="bi bi-collection"></i>
+                <p>Veuillez sélectionner au moins une catégorie</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Information Panel for Single Selection Mode -->
+    <div class="info-panel" *ngIf="!multiSelectionMode && selectedTerminal && selectedCategory && selectedEquipment">
+      <div class="info-header">
+        <h3><i class="bi bi-info-circle"></i> Information sur l'équipement sélectionné</h3>
+      </div>
+      <div class="info-body">
+        <div class="info-row">
+          <div class="info-label">Terminal:</div>
+          <div class="info-value">{{ selectedTerminal.name }}</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">Catégorie:</div>
+          <div class="info-value">{{ selectedCategory.name }}</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">Équipement:</div>
+          <div class="info-value">{{ selectedEquipment.name }}</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">ID:</div>
+          <div class="info-value">{{ selectedEquipment.id }}</div>
+        </div>
+      </div>
+      <div class="info-footer">
+        <button class="btn btn-primary" (click)="proceedToVisualization()">
+          <i class="bi-display"></i> Monitor
+        </button>
+      </div>
+    </div>
+  
+    <!-- Information Panel for Multi Selection Mode -->
+    <div class="info-panel multi-selection-panel" *ngIf="multiSelectionMode && canProceed()">
+      <div class="info-header">
+        <h3><i class="bi bi-collection"></i> Résumé des éléments sélectionnés</h3>
+      </div>
+      <div class="info-body">
+        <!-- Terminals Section -->
+        <div class="multi-section">
+          <div class="section-header">
+            <i class="bi bi-building"></i> Terminals ({{ selectedTerminals.length }})
+          </div>
+          <div class="section-items">
+            <div class="multi-item" *ngFor="let terminal of selectedTerminals">
+              <i class="bi bi-check-circle-fill"></i> {{ terminal.name }}
+            </div>
+          </div>
+        </div>
+  
+        <!-- Categories Section -->
+        <div class="multi-section">
+          <div class="section-header">
+            <i class="bi bi-collection"></i> Catégories ({{ selectedCategories.length }})
+          </div>
+          <div class="section-items">
+            <div class="multi-item" *ngFor="let category of selectedCategories">
+              <i class="bi bi-check-circle-fill"></i> {{ category.name }}
+            </div>
+          </div>
+        </div>
+  
+        <!-- Equipments Section -->
+        <div class="multi-section">
+          <div class="section-header">
+            <i class="bi bi-tools"></i> Équipements ({{ selectedEquipments.length }})
+          </div>
+          <div class="section-items">
+            <div class="multi-item" *ngFor="let equipment of selectedEquipments">
+              <i class="bi bi-check-circle-fill"></i> {{ equipment.name }}
+            </div>
+          </div>
+        </div>
+  
+        <div class="total-count">
+          <div class="count-badge">{{ getSelectedItemsCount() }}</div>
+          <div class="count-label">Total des éléments sélectionnés</div>
+        </div>
+      </div>
+      <div class="info-footer">
+        <button class="btn btn-primary" (click)="proceedToVisualization()">
+          <i class="bi-display"></i> monitor all
+        </button>
+      </div>
+    </div>
+  </div>
+  

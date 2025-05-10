@@ -1,0 +1,31 @@
+<div class="container-fluid ports-container">
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h1 class="ports-header">Ports Maritimes</h1>
+        <p class="ports-subtitle">Sélectionnez un port pour continuer</p>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-lg-10 offset-lg-1">
+        <div class="ports-grid">
+          <!-- Port Card -->
+          <div class="port-card" *ngFor="let port of ports; let i = index" (click)="navigateTo(port.route)">
+            <!-- Card Background with Image -->
+            <div class="card-background" [style.background-image]="'url(' + port.image + ')'" [style.background-size]="'cover'"></div>
+            
+            <!-- Card Overlay -->
+            <div class="card-overlay"></div>
+            
+            <!-- Card Content -->
+            <div class="card-content">
+              <div class="port-icon">
+                <i class="bi bi-geo-alt-fill"></i>
+              </div>
+              <h2 class="port-title">{{ port.title }}</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -9,60 +9,60 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-ports',
   imports: [CommonModule, RouterModule],
-  templateUrl: './ports.component.html',
-  styleUrl: './ports.component.css'
+  templateUrl: './port-supervision.component.html',
+  styleUrl: './port-supervision.component.css'
 })
-export class PortsComponent {
+export class PortSupervisionComponent {
  ports = [
     { 
       title: 'DEPJL', 
-      route: 'threedTempsReelPage', 
+      route: 'choixSupervision', 
       image: 'jerfLasfar.jpg'
     },
     { 
       title: 'DEPA', 
-      route: 'threedTempsReelPage', 
+      route: 'choixSupervision', 
       image: 'depa.png'
     },
     { 
       title: 'SMA', 
-      route: 'threedTempsReelPage', 
+      route: 'choixSupervision', 
       image: 'sma.jpg'
     },
     
     { 
       title: 'DEPT', 
-      route: 'threedTempsReelPage', 
+      route: 'choixSupervision', 
       image: 'dept.png'
     },
     { 
       title: 'TC3PC', 
-      route: 'threedTempsReelPage', 
+      route: 'choixSupervision', 
       image: 'tc3pc.png'
     },
     { 
       title: 'DEPL', 
-      route: 'threedTempsReelPage', 
+      route: 'choixSupervision', 
       image: 'depl.png'
     },
     { 
       title: 'DEPN', 
-      route: 'threedTempsReelPage', 
+      route: 'choixSupervision', 
       image: 'depn.png'
     },
     { 
       title: 'DEPS', 
-      route: 'threedTempsReelPage', 
+      route: 'choixSupervision', 
       image: 'deps.png'
     },
      { 
       title: 'DEPM', 
-      route: 'threedTempsReelPage', 
+      route: 'choixSupervision', 
       image: 'depm.png'
     },
     { 
       title: 'DEPD', 
-      route: 'threedTempsReelPage', 
+      route: 'choixSupervision', 
       image: 'depd.png'
     },
 

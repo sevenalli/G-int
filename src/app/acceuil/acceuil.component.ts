@@ -14,7 +14,7 @@ export class AcceuilComponent {
   menuItems = [
     { title: '3D Temps réel', route: 'ports' },
     { title: '3D Play Back', route: '#' },
-    { title: 'Monitoring des engins', route: '/enginesTypes' },
+    { title: 'Monitoring des engins', route: '/portSupervision' },
     { title: 'Maintenance', route: '#' },
     { title: 'Exploitation', route: '#' },
     { title: 'Performance', route: '#' },
