@@ -333,7 +333,7 @@ export class TestComponent implements OnInit {
     // Linear interpolation between initial and final states
     this.armLuffingAngle = this.lerp(40, 0, progress);
     this.flecheLuffingAngle = this.lerp(10, 5, progress);
-    this.flecheLuffingLeft = this.lerp(155, 65, progress);
+    this.flecheLuffingLeft = this.lerp(215, 65, progress);
     this.grabberLeftPos = this.lerp(75, -14, progress);  
     this.grabberTopPos = this.lerp(75, -10, progress); 
     this.ropeLeftPos = this.lerp(332, 245, progress); 

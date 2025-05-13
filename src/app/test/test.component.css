@@ -462,10 +462,11 @@
 
 .flech {
   position: absolute;
-  width: 270px;
-  height: 100px;
+  width: 120px;
+  height: 70px;
   transition: all 0.3s ease;
   z-index: 1008;
+
 }
 
 .arm {
