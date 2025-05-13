@@ -57,6 +57,24 @@
                     </div>
                 </div>
                 
+                <!-- Load/Unload Control -->
+                <div class="control-group">
+                    <h5 class="control-subtitle">Load Control</h5>
+                    <button 
+                        class="btn load-btn" 
+                        [ngClass]="isLoaded ? 'btn-danger' : 'btn-success'"
+                        (click)="toggleLoad()">
+                        <i class="bi" [ngClass]="isLoaded ? 'bi-unlock' : 'bi-lock'"></i>
+                        {{ isLoaded ? 'Release Load' : 'Attach Load' }}
+                    </button>
+                    <div class="load-status">
+                        <span>Status: </span>
+                        <span [ngClass]="isLoaded ? 'status-loaded' : 'status-unloaded'">
+                            {{ isLoaded ? 'LOADED' : 'UNLOADED' }}
+                        </span>
+                    </div>
+                </div>
+                
                 <!-- Return Button -->
                 <div class="control-group">
                     <button class="btn btn-secondary return-btn" [routerLink]="['/operations',engineCode]">

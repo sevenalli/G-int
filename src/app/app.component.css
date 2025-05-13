@@ -2,8 +2,9 @@
 @import url('../assets/theme.css');
 
 .app-container {
-  background-color: var(--body-bg, #f0f8ff);
-  min-height: 100vh;
+  background-color: var(--body-bg, #1a2035);
+  min-height: 100vh;  
+
   transition: background-color 0.3s ease, color 0.3s ease;
   color: var(--text-color);
 }

@@ -33,7 +33,17 @@ export class HoistingComponent implements OnInit {
   // Rope and grabber properties
   ropeHeight = 100;
   grabberPosition = 50;
-  grabberImage = 'grabber.svg';
+  isLoaded = false;
+  
+  // Get the appropriate grabber image based on loaded state
+  get grabberImage(): string {
+    return this.isLoaded ? 'opened.svg' : 'grabber.svg';
+  }
+  
+  // Toggle load state
+  toggleLoad(): void {
+    this.isLoaded = !this.isLoaded;
+  }
   
   // Grid properties
   gridMarkers = Array.from({ length: 21 }, (_, i) => i); // 0 to 20 meters
