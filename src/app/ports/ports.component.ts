@@ -45,11 +45,7 @@ export class PortsComponent {
       route: 'threedTempsReelPage', 
       image: 'depl.png'
     },
-    { 
-      title: 'DEPN', 
-      route: 'threedTempsReelPage', 
-      image: 'depn.png'
-    },
+    
     { 
       title: 'DEPS', 
       route: 'threedTempsReelPage', 

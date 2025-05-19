@@ -504,6 +504,7 @@
     z-index: 15; /* Higher z-index to appear in front of pieds */
 }
 
+
 .terminal-texture {
     flex-grow: 1; /* Allow terminal texture area to fill remaining space */
     /* Add other styles for terminal texture if needed */

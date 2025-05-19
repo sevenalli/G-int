@@ -14,6 +14,7 @@ import { ThreedTempsReelPageComponent } from './threed-temps-reel-page/threed-te
 import { PortSupervisionComponent } from './port-supervision/port-supervision.component';
 import { ChoixSupervisionComponent } from './choix-supervision/choix-supervision.component';
 import { TestComponent } from './test/test.component';
+import { SupervisionCranesComponent } from './supervision-cranes/supervision-cranes.component';
 
 
 export const routes: Routes = [
@@ -22,6 +23,7 @@ export const routes: Routes = [
   { path: 'rotation', component: RotationComponent },
   // { path: 'rotate/:engineCode', component: RotationComponent },
   { path: 'operations/:engineCode', component: OperationsComponent},
+
   { path: 'supension/:engineCode', component: SupensionComponent},
   {path:'ports' , component:PortsComponent},
   {path:'enginesTypes' , component:EnginesTypesComponent},
@@ -38,7 +40,8 @@ export const routes: Routes = [
   { path: 'supension', component: SupensionComponent },
   { path: 'threedTempsReelPage', component: ThreedTempsReelPageComponent },
   {path: 'test' , component: TestComponent},
-
+  {path: 'supervisionCranes' , component: SupervisionCranesComponent},
+  {path: 'supervisionCranes/:engineCode' , component: SupervisionCranesComponent},
 
   
   { path: '', redirectTo: 'accueil', pathMatch: 'full' }

@@ -55,11 +55,7 @@ export class PortSupervisionComponent {
       route: 'choixSupervision', 
       image: 'deps.png'
     },
-     { 
-      title: 'DEPM', 
-      route: 'choixSupervision', 
-      image: 'depm.png'
-    },
+    
     { 
       title: 'DEPD', 
       route: 'choixSupervision', 

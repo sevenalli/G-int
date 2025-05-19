@@ -23,7 +23,7 @@
 .dashboard-container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: auto;
     width: 100%;
     background-color: #f0f4f8;  /* Subtle blue tint */
     color: var(--text-primary);
