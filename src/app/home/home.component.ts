@@ -20,7 +20,8 @@ export class HomeComponent {
       status2: 'DRIVE',
       power: 'ON',
       hours: '43 889 H',
-      extra: 'EXTRA 1'
+      extra: 'EXTRA 1',
+      route: '/supervisionCranes'
     },
     {
       id: 'G400001',
@@ -31,7 +32,8 @@ export class HomeComponent {
       status2: 'PARK',
       power: 'ON',
       hours: '33 878 H',
-      extra: 'EXTRA 2'
+      extra: 'EXTRA 2',
+      route: '/supervisionCranes'
     },
     {
       id: 'G400005',
@@ -42,7 +44,8 @@ export class HomeComponent {
       status2: 'ANCRE',
       power: 'OFF',
       hours: '13 000 H',
-      extra: 'EXTRA 3'
+      extra: 'EXTRA 3',
+      route: '/supervisionCranes'
     },
     {
       id: 'M630001',
@@ -53,7 +56,8 @@ export class HomeComponent {
       status2: 'DRIVE',
       power: 'ON',
       hours: '46 389 H',
-      extra: 'EXTRA 4'
+      extra: 'EXTRA 4',
+      route: '/terexSupervision'
     },
     {
       id: 'G380003',
@@ -64,7 +68,8 @@ export class HomeComponent {
       status2: 'DRIVE',
       power: 'ON',
       hours: '43 889 H',
-      extra: 'EXTRA 1'
+      extra: 'EXTRA 1',
+      route: '/supervisionCranes'
     },
     {
       id: 'G400001',
@@ -75,7 +80,8 @@ export class HomeComponent {
       status2: 'PARK',
       power: 'ON',
       hours: '33 878 H',
-      extra: 'EXTRA 2'
+      extra: 'EXTRA 2',
+      route: '/supervisionCranes'
     },
     {
       id: 'G400005',
@@ -86,7 +92,8 @@ export class HomeComponent {
       status2: 'ANCRE',
       power: 'OFF',
       hours: '13 000 H',
-      extra: 'EXTRA 3'
+      extra: 'EXTRA 3',
+      route: '/supervisionCranes'
     },
     {
       id: 'M630001',
@@ -97,7 +104,8 @@ export class HomeComponent {
       status2: 'DRIVE',
       power: 'ON',
       hours: '46 389 H',
-      extra: 'EXTRA 4'
+      extra: 'EXTRA 4',
+      route: '/terexSupervision'
     },
   ];
 

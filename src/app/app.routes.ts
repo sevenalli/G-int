@@ -15,6 +15,7 @@ import { PortSupervisionComponent } from './port-supervision/port-supervision.co
 import { ChoixSupervisionComponent } from './choix-supervision/choix-supervision.component';
 import { TestComponent } from './test/test.component';
 import { SupervisionCranesComponent } from './supervision-cranes/supervision-cranes.component';
+import { TerexSupervisionComponent } from './terex-supervision/terex-supervision.component';
 
 
 export const routes: Routes = [
@@ -42,6 +43,9 @@ export const routes: Routes = [
   {path: 'test' , component: TestComponent},
   {path: 'supervisionCranes' , component: SupervisionCranesComponent},
   {path: 'supervisionCranes/:engineCode' , component: SupervisionCranesComponent},
+  {path: 'terexSupervision' , component: TerexSupervisionComponent},
+  {path: 'terexSupervision/:engineCode' , component: TerexSupervisionComponent},
+  
 
   
   { path: '', redirectTo: 'accueil', pathMatch: 'full' }
