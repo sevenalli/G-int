@@ -1,242 +1,69 @@
-<div class="test-component">
-  <div class="container-fluid p-2">
-    <!-- Header Bar -->
-    <div class="erp-header">
-      <h3 class="system-title">PORT CRANE MONITORING SYSTEM</h3>
+<div class="scada-interface">
+  <div class="scada-header">
+    <div class="header-content">
+      <div class="system-info">
+        <i class="bi bi-cpu"></i>
+        <h3>PORT CRANE MONITORING SYSTEM</h3>
+      </div>
       <div class="system-status">
-        <span class="status-indicator active"></span>
-        <span class="status-label">ONLINE</span>
-        <span class="system-time">{{getCurrentTime()}}</span>
+        <div class="status-indicator"></div>
+        <span class="status-label">System Status: Operational</span>
+        <span class="engine-code">{{engineCode}}</span>
+        <div class="system-time">{{ getCurrentTime() }}</div>
       </div>
     </div>
-
+  </div>
+  <div class="scada-container">
+    <div class="container-fluid p-3">
+   
     <div class="row g-2 mt-1">
-      <!-- Main Visualization Area -->
-      <div class="col-md-6">
+      <div class="col-md-12">
         <div class="visualization-container">
           <div class="view-row">
-            <!-- Side View (Luffing & Hoisting) -->
-            <div class="view-section side-view">
-              <div class="view-header">
-                <h4 class="view-title">CRANE OPERATION VIEW</h4>
-                <div class="view-controls">
-                  <button class="ctrl-btn" (click)="rotateLeft()"><i class="bi bi-arrow-counterclockwise"></i></button>
-                  <span class="value-display">{{rotationValue.toFixed(1)}}°</span>
-                  <button class="ctrl-btn" (click)="rotateRight()"><i class="bi bi-arrow-clockwise"></i></button>
+            <div class="view-item">
+              <div class="view-content">
+               
+              </div>
+            </div>
+         </div>
+         <div class="crane-visualization">
+          <div class="crane col-6 ">
+            <div class="upper-rotate" [style.transform]="'scaleX(' + currentScaleX + ')'">
+              <div class="checkpoint1"></div>
+              <div class="checkpoint2"></div>
+              <div class="checkpoint3"></div>
+              <div class="checkpoint4"></div>
+              <img src="tttower.svg" alt="Tower" class="tower">
+              <img src="armterex1.svg" alt="Arm" class="arm"  [ngStyle]="armStyle" >
+              
+              <div class="rope-grabber">
+                  <div class="rope" ></div>
+                  <div class="grabber-container">
+                    <img [src]="grabberImage" class="grabber" alt="grabber">
+                  </div>
                 </div>
-              </div>
-             
-              </div>
+            </div>
+            <div class="checkpoint5"></div>
+            <div class="checkpoint6"></div>
+            <div class="checkpoint7"></div>
+            <img src="baseterex.svg" alt="Base" class="base">
+          </div>
+          <div class="motors col-6">
+            <div class="motor" *ngFor="let motor of motors">
+              <img [src]="getMotorImage(motor.isOn)" 
+                   [class.greenMotor]="motor.isOn" 
+                   [class.redMotor]="!motor.isOn" 
+                   [alt]="'Motor ' + motor.id">
+              <button class="btn btn-outline-primary mt-2" 
+                      (click)="toggleMotor(motor.id)">
+                {{ motor.isOn ? 'Turn OFF' : 'Turn ON' }} ({{ motor.isOn ? 'ON' : 'OFF' }})
+              </button>
             </div>
           </div>
-        </div>
-      </div>
-      
-      <!-- Control Panel -->
-      <div class="col-md-6">
-        <div class="control-dashboard">
-          <div class="dashboard-section">
-            <div class="section-header">
-              <h5 class="section-title">CRANE CONTROL PANEL</h5>
-            </div>
-             <div class="crane-container">
-                <!-- Crane structure -->
-                <div class="crane">
-                  <div class="upper-rotate" [ngStyle]="upperRotateStyle">
-                    <img src="tower.svg" alt="Tower" class="tower">
-                    <img src="armterex.svg" alt="Arm" class="arm" [ngStyle]="armStyle">
-                    
-                    <!-- Rope and Grabber -->
-                    <div class="rope-grabber-container" [ngStyle]="ropeGrabberPositionStyle">
-                      <div class="rope" [ngStyle]="ropeStyle"></div>
-                      <div class="grabber-container" [ngStyle]="grabberStyle">
-                        <img [src]="grabberImage" class="grabber" alt="Grabber">
-                      </div>
-                    </div>
-                  </div>
-                  <img src="baseterex.svg" alt="Base" class="base">
-                </div>
-                
-                <!-- Terminal and Ocean -->
-                <div class="terminal-ocean">
-                  <div class="terminal-area"></div>
-                  <img src="bulker.svg" alt="Bulk Carrier" class="bulk">
-                  <div class="ocean"></div>
-                </div>
-            <div class="scada-control-panel">
-              <div class="control-grid">
-                <!-- Slewing Controls -->
-                <div class="control-module">
-                  <div class="module-header">
-                    <div class="module-icon"><i class="bi bi-arrow-repeat"></i></div>
-                    <div class="module-title">SLEWING</div>
-                    <div class="module-value">{{rotationValue.toFixed(1)}}°</div>
-                  </div>
-                  <div class="module-controls">
-                    <input type="range" class="slewing-range" min="0" max="360" step="5" [(ngModel)]="rotationValue">
-                  </div>
-                  <div class="module-progress">
-                    <div class="progress-bar" [style.width.%]="(rotationValue / 360) * 100"></div>
-                  </div>
-                </div>
-                
-                <!-- Luffing Controls -->
-                <div class="control-module">
-                  <div class="module-header">
-                    <div class="module-icon"><i class="bi bi-arrow-down-up"></i></div>
-                    <div class="module-title">LUFFING</div>
-                    <div class="module-value">{{luffingValue.toFixed(0)}}%</div>
-                  </div>
-                  <div class="module-controls">
-                    <button class="ctrl-btn advanced" (click)="luffUp()">
-                      <i class="bi bi-chevron-up"></i> UP
-                    </button>
-                    <button class="ctrl-btn advanced" (click)="luffDown()">
-                      DOWN <i class="bi bi-chevron-down"></i>
-                    </button>
-                  </div>
-                  <div class="module-progress">
-                    <div class="progress-bar" [style.width.%]="luffingValue"></div>
-                  </div>
-                </div>
-                
-                <!-- Hoisting Controls -->
-                <div class="control-module">
-                  <div class="module-header">
-                    <div class="module-icon"><i class="bi bi-arrow-up-down"></i></div>
-                    <div class="module-title">HOISTING</div>
-                    <div class="module-value">{{hookValue.toFixed(0)}}%</div>
-                  </div>
-                  <div class="module-controls">
-                    <button class="ctrl-btn advanced" (click)="raiseHook()">
-                      <i class="bi bi-chevron-double-up"></i> RAISE
-                    </button>
-                    <button class="ctrl-btn advanced" (click)="lowerHook()">
-                      LOWER <i class="bi bi-chevron-double-down"></i>
-                    </button>
-                  </div>
-                  <div class="module-progress">
-                    <div class="progress-bar" [style.width.%]="hookValue"></div>
-                  </div>
-                </div>
-                
-                <!-- Load Control -->
-                <div class="control-module">
-                  <div class="module-header">
-                    <div class="module-icon"><i class="bi bi-box-seam"></i></div>
-                    <div class="module-title">LOAD STATUS</div>
-                    <div class="module-value" [ngClass]="isLoaded ? 'value-active' : 'value-inactive'">
-                      {{ isLoaded ? 'ATTACHED' : 'DETACHED' }}
-                    </div>
-                  </div>
-                  <div class="module-controls single-control">
-                    <button class="ctrl-btn" [ngClass]="isLoaded ? 'danger-advanced' : 'success-advanced'" (click)="toggleLoad()">
-                      <i class="bi" [ngClass]="isLoaded ? 'bi-unlock' : 'bi-lock'"></i>
-                      {{ isLoaded ? 'RELEASE LOAD' : 'ATTACH LOAD' }}
-                    </button>
-                  </div>
-                  <div class="module-status">
-                    <div class="status-indicator" [ngClass]="isLoaded ? 'status-active' : 'status-inactive'"></div>
-                    <div class="status-label">{{ isLoaded ? 'LOAD SECURED' : 'AWAITING LOAD' }}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Monitoring Dashboard -->
-          <div class="monitoring-dashboard mt-3">
-            <div class="panel-header">
-              <h5><i class="bi bi-graph-up"></i> REAL-TIME MONITORING</h5>
-            </div>
-            
-            <!-- Hoisting Visualization Panel -->
-            <div class="hoisting-panel mb-3">
-              <div class="hoisting-container">
-                <!-- Vertical Scale Grid -->
-                <div class="scale-grid">
-                  <div class="meter-markers">
-                    <ng-container *ngFor="let i of [0, 5, 10, 15, 20]">
-                      <div class="meter-marker" [style.bottom.%]="(i / 20) * 100">
-                        <span class="marker-label">{{ i }}m</span>
-                        <div class="marker-line"></div>
-                      </div>
-                    </ng-container>
-                  </div>
-                  
-                  <!-- Rope and Grabber -->
-                  <div class="hoisting-mechanism">
-                    <div class="rope-vertical" [ngStyle]="ropeVerticalStyle"></div>
-                    <div class="grabber-container-vertical" [ngStyle]="grabberVerticalStyle">
-                      <img [src]="grabberImage" class="grabber-vertical" alt="grabber">
-                    </div>
-                  </div>
-                  
-                  <!-- Current Height Indicator -->
-                  <div class="height-indicator">
-                    <div class="current-height">
-                      <span>Height: {{ currentHeight | number:'1.1-1' }}m</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Metrics Grid -->            
-            <div class="metrics-grid">
-              <div class="metric-card">
-                <div class="metric-icon"><i class="bi bi-speedometer"></i></div>
-                <div class="metric-data">
-                  <div class="metric-title">HOISTING HEIGHT</div>
-                  <div class="metric-value">{{ currentHeight | number:'1.1-1' }} m</div>
-                </div>
-                <div class="metric-chart"></div>
-              </div>
-              
-              <div class="metric-card">
-                <div class="metric-icon"><i class="bi bi-arrow-left-right"></i></div>
-                <div class="metric-data">
-                  <div class="metric-title">SLEWING ANGLE</div>
-                  <div class="metric-value">{{ rotationValue | number:'1.1-1' }}°</div>
-                </div>
-                <div class="metric-chart"></div>
-              </div>
-              
-              <div class="metric-card">
-                <div class="metric-icon"><i class="bi bi-arrow-down-up"></i></div>
-                <div class="metric-data">
-                  <div class="metric-title">LUFFING ANGLE</div>
-                  <div class="metric-value">{{ luffingAngle | number:'1.1-1' }}°</div>
-                </div>
-                <div class="metric-chart"></div>
-              </div>
-              
-              <div class="metric-card">
-                <div class="metric-icon"><i class="bi bi-box"></i></div>
-                <div class="metric-data">
-                  <div class="metric-title">LOAD STATUS</div>
-                  <div class="metric-value">{{ isLoaded ? 'ATTACHED' : 'DETACHED' }}</div>
-                </div>
-                <div class="load-indicator" [ngClass]="isLoaded ? 'loaded' : 'unloaded'"></div>
-              </div>
-            </div>
-            
-            <!-- Alarms Section -->
-            <div class="alarms-section mt-3">
-              <div class="panel-header">
-                <h5><i class="bi bi-exclamation-triangle"></i> SYSTEM ALERTS</h5>
-              </div>
-              <div class="alarms-list">
-                <div class="alarm-item" *ngFor="let alarm of alarms" [ngClass]="alarm.severity">
-                  <div class="alarm-time">{{ alarm.time }}</div>
-                  <div class="alarm-message">{{ alarm.message }}</div>
-                  <div class="alarm-severity">{{ alarm.severity }}</div>
-                </div>
-              </div>
-            </div>
-          </div>
+         </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
