@@ -108,8 +108,84 @@ export class ChoixSupervisionComponent {
   
   // Selection mode flag
   multiSelectionMode = false;
+  
+  // Loading state for proceed button
+  isLoading = false;
 
   constructor(private router: Router) {}
+
+  // Check if all terminals are selected
+  areAllTerminalsSelected(): boolean {
+    return this.terminals.every(terminal => this.isTerminalSelected(terminal));
+  }
+
+  // Select/Deselect all terminals
+  selectAllTerminals(event: Event): void {
+    event.stopPropagation();
+    
+    if (this.areAllTerminalsSelected()) {
+      // Deselect all
+      this.selectedTerminals = [];
+    } else {
+      // Select all
+      this.selectedTerminals = [...this.terminals];
+    }
+    
+    // Update categories based on selected terminals
+    this.updateAllCategories();
+    
+    // If no terminals selected, clear categories and equipments
+    if (this.selectedTerminals.length === 0) {
+      this.selectedCategories = [];
+      this.selectedEquipments = [];
+      this.allEquipments = [];
+    }
+  }
+
+  // Check if all categories are selected
+  areAllCategoriesSelected(): boolean {
+    return this.allCategories.every(category => this.isCategorySelected(category));
+  }
+
+  // Select/Deselect all categories
+  selectAllCategories(event: Event): void {
+    event.stopPropagation();
+    
+    if (this.areAllCategoriesSelected()) {
+      // Deselect all
+      this.selectedCategories = [];
+    } else {
+      // Select all
+      this.selectedCategories = [...this.allCategories];
+    }
+    
+    // Update equipments based on selected categories
+    this.updateAllEquipments();
+    
+    // If no categories selected, clear equipments
+    if (this.selectedCategories.length === 0) {
+      this.selectedEquipments = [];
+      this.allEquipments = [];
+    }
+  }
+
+  // Check if all equipments are selected
+  areAllEquipmentsSelected(): boolean {
+    return this.allEquipments.every(equipment => this.isEquipmentSelected(equipment));
+  }
+
+  // Select/Deselect all equipments
+  selectAllEquipments(event: Event): void {
+    event.stopPropagation();
+    
+    if (this.areAllEquipmentsSelected()) {
+      // Deselect all
+      this.selectedEquipments = [];
+    } else {
+      // Select all
+      this.selectedEquipments = [...this.allEquipments];
+    }
+  }
 
   toggleSelectionMode(): void {
     this.multiSelectionMode = !this.multiSelectionMode;
@@ -259,33 +335,54 @@ export class ChoixSupervisionComponent {
   }
 
   proceedToVisualization(): void {
-    if (this.multiSelectionMode) {
-      // Multi-selection mode navigation
-      const terminalIds = this.selectedTerminals.map(t => t.id);
-      const categoryIds = this.selectedCategories.map(c => c.id);
-      const equipmentIds = this.selectedEquipments.map(e => e.id);
-      
-      this.router.navigate(['/home'], {
-        queryParams: {
-          multiSelection: true,
-          terminals: terminalIds.join(','),
-          categories: categoryIds.join(','),
-          equipments: equipmentIds.join(',')
-        }
+    // Set loading state
+    this.isLoading = true;
+    
+    // Simulate API call or data processing
+    setTimeout(() => {
+      // Implement navigation to visualization page with selected items
+      console.log('Proceeding to visualization with:', {
+        multiSelectionMode: this.multiSelectionMode,
+        selectedTerminal: this.selectedTerminal,
+        selectedCategory: this.selectedCategory,
+        selectedEquipment: this.selectedEquipment,
+        selectedTerminals: this.selectedTerminals,
+        selectedCategories: this.selectedCategories,
+        selectedEquipments: this.selectedEquipments
       });
-    } else {
-      // Single selection mode navigation
-      if (this.selectedTerminal && this.selectedCategory && this.selectedEquipment) {
+      
+      // Navigation based on selection mode
+      if (this.multiSelectionMode) {
+        // Multi-selection mode navigation
+        const terminalIds = this.selectedTerminals.map(t => t.id);
+        const categoryIds = this.selectedCategories.map(c => c.id);
+        const equipmentIds = this.selectedEquipments.map(e => e.id);
+        
         this.router.navigate(['/home'], {
           queryParams: {
-            multiSelection: false,
-            terminal: this.selectedTerminal.id,
-            category: this.selectedCategory.id,
-            equipment: this.selectedEquipment.id
+            multiSelection: true,
+            terminals: terminalIds.join(','),
+            categories: categoryIds.join(','),
+            equipments: equipmentIds.join(',')
           }
         });
+      } else {
+        // Single selection mode navigation
+        if (this.selectedTerminal && this.selectedCategory && this.selectedEquipment) {
+          this.router.navigate(['/home'], {
+            queryParams: {
+              multiSelection: false,
+              terminal: this.selectedTerminal.id,
+              category: this.selectedCategory.id,
+              equipment: this.selectedEquipment.id
+            }
+          });
+        }
       }
-    }
+      
+      // Reset loading state
+      this.isLoading = false;
+    }, 1500); // Simulate 1.5 second loading time
   }
 
   getSelectionSummary(): string {

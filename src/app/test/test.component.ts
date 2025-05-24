@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 interface MotorState {
   id: number;
@@ -26,14 +27,19 @@ export class TestComponent implements OnInit {
   grabberLeftPos: any;
   grabberImage: string;
   currentDate: Date | undefined;
-  engineCode: string = 'G012222';
+  engineCode: string = '';
   motors: MotorState[] = [];
 
-  constructor() {
+  constructor(private route: ActivatedRoute) {
     this.grabberImage = 'grabber.svg';
   }
 
   ngOnInit() {
+     // Get the engineCode from route parameters
+     this.engineCode = this.route.snapshot.paramMap.get('engineCode') || '';
+     console.log(this.engineCode);
+
+      // Here you would typically load engine-specific dat
     // Initialize motors with their corresponding checkpoint IDs and default states
     this.motors = [
       { id: 1, isOn: true, checkpointId: 'checkpoint1' },
@@ -47,6 +53,7 @@ export class TestComponent implements OnInit {
     
     // Update all checkpoints based on initial motor states
     this.updateAllCheckpoints();
+    
   }
 
   getCurrentTime(): string {
@@ -55,7 +62,9 @@ export class TestComponent implements OnInit {
   }
 
   navigateTo(engineCode: string): void {
+
     this.engineCode = engineCode;
+    console.log(this.engineCode);
   }
 
   toggleMotor(motorId: number): void {
@@ -91,4 +100,5 @@ export class TestComponent implements OnInit {
   getMotorImage(isOn: boolean): string {
     return isOn ? 'greenMotor.png' : 'redMotor.png';
   }
+
 }

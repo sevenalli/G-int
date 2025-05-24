@@ -16,7 +16,7 @@
         </div>
         <div class="selection-mode-toggle">
           <div class="toggle-label" [class.active]="!multiSelectionMode">Sélection unique</div>
-          <div class="toggle-switch" (click)="toggleSelectionMode()">
+          <div class="toggle-switch" (click)="toggleSelectionMode()" (keydown.enter)="toggleSelectionMode()" (keydown.space)="toggleSelectionMode()" tabindex="0" role="switch" [attr.aria-checked]="multiSelectionMode" aria-label="Toggle selection mode">
             <div class="toggle-slider" [class.active]="multiSelectionMode"></div>
           </div>
           <div class="toggle-label" [class.active]="multiSelectionMode">Sélection multiple</div>
@@ -38,8 +38,8 @@
           {{ getSelectedItemsCount() }}
         </div>
       </div>
-      <button class="btn proceed-btn" [disabled]="!canProceed()" (click)="proceedToVisualization()">
-        <i class="bi bi-arrow-right-circle"></i> Procéder à la visualisation
+      <button class="btn proceed-btn" [disabled]="!canProceed()" (click)="proceedToVisualization()" [class.loading]="isLoading" aria-label="Procéder à la visualisation">
+        <i class="bi" [ngClass]="{'bi-arrow-right-circle': !isLoading, 'bi-hourglass-split': isLoading}"></i> {{ isLoading ? 'Chargement...' : 'Procéder à la visualisation' }}
       </button>
     </div>
   
@@ -51,13 +51,35 @@
           <div class="selection-panel terminal-panel">
             <div class="panel-header">
               <h2><i class="bi bi-building"></i> Terminal</h2>
-              <div class="step-indicator">1</div>
+              <div class="panel-actions">
+                <div class="step-indicator">1</div>
+                <button *ngIf="multiSelectionMode" class="btn btn-sm select-all-btn" 
+                        [class.btn-outline-primary]="!areAllTerminalsSelected()"
+                        [class.btn-primary]="areAllTerminalsSelected()"
+                        (click)="selectAllTerminals($event)"
+                        [title]="areAllTerminalsSelected() ? 'Tout désélectionner' : 'Tout sélectionner'"
+                        [attr.aria-label]="areAllTerminalsSelected() ? 'Tout désélectionner les terminaux' : 'Tout sélectionner les terminaux'">
+                  <i class="bi" [ngClass]="areAllTerminalsSelected() ? 'bi-check2-square' : 'bi-square'"></i> 
+                  <span class="btn-text">{{ areAllTerminalsSelected() ? 'Tout désélectionner' : 'Tout sélectionner' }}</span>
+                  <span class="selected-count" *ngIf="selectedTerminals.length > 0">
+                    ({{ selectedTerminals.length }})
+                  </span>
+                </button>
+              </div>
             </div>
             <div class="panel-body">
               <div class="selection-list">
-                <div class="selection-item" *ngFor="let terminal of terminals" 
+                <div class="selection-item" *ngFor="let terminal of terminals; let i = index" 
                      [class.selected]="isTerminalSelected(terminal)"
-                     (click)="selectTerminal(terminal)">
+                     [class.disabled]="!multiSelectionMode && selectedTerminal && selectedTerminal.id !== terminal.id"
+                     (click)="selectTerminal(terminal)"
+                     (keydown.enter)="selectTerminal(terminal)"
+                     (keydown.space)="selectTerminal(terminal)"
+                     tabindex="0"
+                     role="option"
+                     [attr.aria-selected]="isTerminalSelected(terminal)"
+                     [attr.aria-disabled]="!multiSelectionMode && selectedTerminal && selectedTerminal.id !== terminal.id"
+                     [title]="!multiSelectionMode && selectedTerminal && selectedTerminal.id !== terminal.id ? 'Désélectionnez d\'abord l\'élément actuel' : ''">
                   <div class="item-icon">
                     <i class="bi bi-building"></i>
                   </div>
@@ -83,14 +105,35 @@
           <div class="selection-panel category-panel" [class.disabled]="!multiSelectionMode && !selectedTerminal">
             <div class="panel-header">
               <h2><i class="bi bi-collection"></i> Catégorie</h2>
-              <div class="step-indicator">2</div>
+              <div class="panel-actions">
+                <div class="step-indicator">2</div>
+                <button *ngIf="multiSelectionMode && allCategories.length > 0" 
+                        class="btn btn-sm select-all-btn"
+                        [class.btn-outline-primary]="!areAllCategoriesSelected()"
+                        [class.btn-primary]="areAllCategoriesSelected()"
+                        (click)="selectAllCategories($event)"
+                        [title]="areAllCategoriesSelected() ? 'Tout désélectionner' : 'Tout sélectionner'"
+                        [disabled]="selectedTerminals.length === 0"
+                        [attr.aria-label]="areAllCategoriesSelected() ? 'Tout désélectionner les catégories' : 'Tout sélectionner les catégories'">
+                  <i class="bi" [ngClass]="areAllCategoriesSelected() ? 'bi-check2-square' : 'bi-square'"></i>
+                  <span class="btn-text">{{ areAllCategoriesSelected() ? 'Tout désélectionner' : 'Tout sélectionner' }}</span>
+                  <span class="selected-count" *ngIf="selectedCategories.length > 0">
+                    ({{ selectedCategories.length }})
+                  </span>
+                </button>
+              </div>
             </div>
             <div class="panel-body">
               <!-- Single selection mode categories -->
               <div class="selection-list" *ngIf="!multiSelectionMode && selectedTerminal">
-                <div class="selection-item" *ngFor="let category of selectedTerminal.categories" 
+                <div class="selection-item" *ngFor="let category of selectedTerminal.categories; let i = index" 
                      [class.selected]="isCategorySelected(category)"
-                     (click)="selectCategory(category)">
+                     (click)="selectCategory(category)"
+                     (keydown.enter)="selectCategory(category)"
+                     (keydown.space)="selectCategory(category)"
+                     tabindex="0"
+                     role="option"
+                     [attr.aria-selected]="isCategorySelected(category)">
                   <div class="item-icon">
                     <i class="bi" [ngClass]="category.icon"></i>
                   </div>
@@ -110,9 +153,14 @@
               
               <!-- Multi selection mode categories from all selected terminals -->
               <div class="selection-list" *ngIf="multiSelectionMode && allCategories.length > 0">
-                <div class="selection-item" *ngFor="let category of allCategories" 
+                <div class="selection-item" *ngFor="let category of allCategories; let i = index" 
                      [class.selected]="isCategorySelected(category)"
-                     (click)="selectCategory(category)">
+                     (click)="selectCategory(category)"
+                     (keydown.enter)="selectCategory(category)"
+                     (keydown.space)="selectCategory(category)"
+                     tabindex="0"
+                     role="option"
+                     [attr.aria-selected]="isCategorySelected(category)">
                   <div class="item-icon">
                     <i class="bi" [ngClass]="category.icon"></i>
                   </div>
@@ -146,14 +194,35 @@
           <div class="selection-panel equipment-panel" [class.disabled]="!multiSelectionMode && !selectedCategory">
             <div class="panel-header">
               <h2><i class="bi bi-tools"></i> Équipement</h2>
-              <div class="step-indicator">3</div>
+              <div class="panel-actions">
+                <div class="step-indicator">3</div>
+                <button *ngIf="multiSelectionMode && allEquipments.length > 0" 
+                        class="btn btn-sm select-all-btn"
+                        [class.btn-outline-primary]="!areAllEquipmentsSelected()"
+                        [class.btn-primary]="areAllEquipmentsSelected()"
+                        (click)="selectAllEquipments($event)"
+                        [title]="areAllEquipmentsSelected() ? 'Tout désélectionner' : 'Tout sélectionner'"
+                        [disabled]="selectedCategories.length === 0"
+                        [attr.aria-label]="areAllEquipmentsSelected() ? 'Tout désélectionner les équipements' : 'Tout sélectionner les équipements'">
+                  <i class="bi" [ngClass]="areAllEquipmentsSelected() ? 'bi-check2-square' : 'bi-square'"></i>
+                  <span class="btn-text">{{ areAllEquipmentsSelected() ? 'Tout désélectionner' : 'Tout sélectionner' }}</span>
+                  <span class="selected-count" *ngIf="selectedEquipments.length > 0">
+                    ({{ selectedEquipments.length }})
+                  </span>
+                </button>
+              </div>
             </div>
             <div class="panel-body">
               <!-- Single selection mode equipment -->
               <div class="selection-list" *ngIf="!multiSelectionMode && selectedCategory">
-                <div class="selection-item" *ngFor="let equipment of selectedCategory.equipments" 
+                <div class="selection-item" *ngFor="let equipment of selectedCategory.equipments; let i = index" 
                      [class.selected]="isEquipmentSelected(equipment)"
-                     (click)="selectEquipment(equipment)">
+                     (click)="selectEquipment(equipment)"
+                     (keydown.enter)="selectEquipment(equipment)"
+                     (keydown.space)="selectEquipment(equipment)"
+                     tabindex="0"
+                     role="option"
+                     [attr.aria-selected]="isEquipmentSelected(equipment)">
                   <div class="item-icon">
                     <i class="bi" [ngClass]="equipment.icon || 'bi-gear'"></i>
                   </div>
@@ -173,9 +242,14 @@
               
               <!-- Multi selection mode equipment from all selected categories -->
               <div class="selection-list" *ngIf="multiSelectionMode && allEquipments.length > 0">
-                <div class="selection-item" *ngFor="let equipment of allEquipments" 
+                <div class="selection-item" *ngFor="let equipment of allEquipments; let i = index" 
                      [class.selected]="isEquipmentSelected(equipment)"
-                     (click)="selectEquipment(equipment)">
+                     (click)="selectEquipment(equipment)"
+                     (keydown.enter)="selectEquipment(equipment)"
+                     (keydown.space)="selectEquipment(equipment)"
+                     tabindex="0"
+                     role="option"
+                     [attr.aria-selected]="isEquipmentSelected(equipment)">
                   <div class="item-icon">
                     <i class="bi" [ngClass]="equipment.icon || 'bi-gear'"></i>
                   </div>

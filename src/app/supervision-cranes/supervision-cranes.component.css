@@ -400,15 +400,16 @@
      /* fallback solid color */
      background-color: #555;
      /* concrete-wall-2 from TransparentTextures, tiled */
-     background-image: url('https://www.transparenttextures.com/patterns/concrete-wall-2.png');
+     background-image: url('https://www.transparenttextures.com/patterns/black-linen.png');
      background-repeat: repeat;
   }
   
   .ocean {
     position: relative;
     width: 50%;
-    height: 100%;
+    height: 50%;
     overflow: visible;
+    top: 50%;
   }
   
   .ocean-gradient {
@@ -428,15 +429,15 @@
   
   .bulker {
     position: absolute;
-    right: 40%;
+    right: 29%;
     bottom: 20px;
     z-index: 5;
   }
   
-  .bulker-edit {
+  .bulker-img {
     position: relative;
-    width: 210px;
-    height: 210px;
+    width: 250px;
+    height: 250px;
     z-index: 2;
   }
   
@@ -448,6 +449,7 @@
     margin: 0 auto;
     z-index: 1000;
     left: 140px;
+    top: -30px;
   }
   
   .upperKran {
@@ -1221,7 +1223,7 @@
   
   .hooper-container {
     position: absolute;
-    bottom: 50%;
+    bottom: 92%;
     left: 65%;
     transform: translateX(-50%);
     z-index: 1;

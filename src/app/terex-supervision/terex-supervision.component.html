@@ -4,7 +4,10 @@
       <div class="floating-navbar">
         
         <div class="nav-item">
-          <button class="btn btn-warning suspension-btn" [routerLink]="['/supension', engineCode]" title="Supension"></button>
+          <button class="bi bi-gear-wide-connected" [routerLink]="['/supension', engineCode]" title="Supension"></button>
+        </div>
+        <div class="nav-item">
+          <button class="bi bi-circle-fill" [routerLink]="['/test', engineCode]" title="Supension"></button>
         </div>
       </div>
   
@@ -97,7 +100,7 @@
                         <!-- Crane structure -->
                         <div class="crane">
                           <div class="upper-rotate" [style.transform]="'scaleX(' + currentScaleX + ')'">
-                            <img src="tower.svg" alt="Tower" class="tower">
+                            <img src="tttower.svg" alt="Tower" class="tower">
                             <img src="armterex1.svg" alt="Arm" class="arm"  [ngStyle]="armStyle" >
                             
                             <!-- Rope and Grabber -->
@@ -129,7 +132,7 @@
                       
                     <div class="bulker">  
                       <div class="bulker-container">
-                        <img src="bulker.svg" alt="bulker">
+                        <img src="bulker.svg" alt="bulker" class="bulker-img">
                       </div>
                     </div>
                   </div>
@@ -141,7 +144,7 @@
         </div>
         
         <!-- Control Panel -->
-        <div class="col-5">
+        <div class="col-6">
           <div class="control-dashboard">
             <div class="dashboard-section">
               <div class="section-header">
@@ -241,7 +244,7 @@
              
       </div>
           </div>
-          <div class="col-5 hoisting-view px-2">
+          <div class="col-6 hoisting-view px-2">
             <!-- Advanced SCADA Interface Section -->
             <div class="scada-dashboard">
               <!-- Header with crane identification and status -->

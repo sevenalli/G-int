@@ -45,6 +45,7 @@ export const routes: Routes = [
   {path: 'supervisionCranes/:engineCode' , component: SupervisionCranesComponent},
   {path: 'terexSupervision' , component: TerexSupervisionComponent},
   {path: 'terexSupervision/:engineCode' , component: TerexSupervisionComponent},
+  {path: 'test/:engineCode' , component: TestComponent},
   
 
   
