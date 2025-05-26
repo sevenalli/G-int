@@ -1,37 +1,60 @@
-# Grue Interface - Crane Operations Management System
+# Grue Interface - Advanced Crane Operations Management System
 
 ## Overview
 
-Grue Interface is a modern web application built with Angular that provides real-time monitoring and control of crane operations in port and terminal environments. The application offers a comprehensive interface for managing crane movements, rotations, and operations with a focus on safety and efficiency.
+Grue Interface is a state-of-the-art web application built with Angular that provides comprehensive monitoring and control of crane operations in port and terminal environments. Featuring a modern, intuitive interface with neomorphic design elements, the application offers real-time visualization and management of crane operations with enhanced safety and efficiency.
 
 ## Features
 
-- **Real-time Crane Monitoring**
-  - Dynamic visualization of crane movements and rotations
-  - Scale X control for precise positioning
-  - Interactive grabber control with open/close states
+- **Modern UI/UX**
+  - Sleek, responsive design with neomorphic elements
+  - Animated welcome section with visual feedback
+  - Card-based interface with hover effects and smooth transitions
+  - Dark/light theme support
 
-- **Operation Controls**
-  - Scale adjustment with visual feedback
-  - Smooth animations for crane movements
-  - Intuitive user interface for operators
+- **Hierarchical Equipment Selection**
+  - Three-level selection interface (Terminal > Category > Equipment)
+  - Professional ERP/GMAO style interface
+  - Visual feedback for selections
+  - Summary panel for quick overview
 
-- **Visual Feedback**
-  - Real-time rope length adjustment
-  - Grabber position tracking
-  - Scale-dependent grabber state changes
+- **Advanced Crane Control**
+  - **Slewing Control**
+    - 360° rotation control with compass directions
+    - Visual grid for spatial orientation
+    - Luffing extension control with dynamic arm adjustment
+  
+  - **Real-time Monitoring**
+    - Dynamic visualization of crane movements
+    - Scale adjustment with visual feedback
+    - Interactive grabber control with open/close states
+
+- **Port Management**
+  - Visual port selection with location indicators
+  - Card-based interface with port images
+  - Gradient overlays for better text visibility
+  - Responsive design for all devices
 
 ## Technical Stack
 
 - **Frontend**
   - Angular 19.2.8
-  - TypeScript
-  - HTML5/CSS3
+  - TypeScript 5.0+
+  - HTML5/CSS3 with CSS Variables
+  - RxJS for reactive programming
+  - Angular Animations
+
+- **UI/UX**
+  - Neomorphic design principles
+  - Responsive layouts with Flexbox/Grid
+  - Interactive elements with hover/focus states
+  - Smooth CSS transitions and animations
 
 - **Development Tools**
   - Angular CLI
-  - Karma (Testing)
-  - ESLint (Code Quality)
+  - Karma & Jasmine (Testing)
+  - ESLint & Prettier (Code Quality)
+  - Git for version control
 
 ## Getting Started
 
@@ -65,13 +88,18 @@ Grue Interface is a modern web application built with Angular that provides real
 ```
 src/
 ├── app/
-│   ├── app-header/        # Header component
-│   ├── home/             # Home page
-│   ├── operations/       # Crane operations management
-│   ├── others/           # Additional components
-│   └── rotation/         # Rotation control
-├── assets/               # Static assets
-└── styles/              # Global styles
+│   ├── app-header/          # Header component with navigation
+│   ├── acceuil/             # Modern home page with dashboard
+│   ├── choix-supervision/   # Hierarchical equipment selection
+│   ├── ports/              # Port management interface
+│   ├── terex-supervision/   # Crane supervision controls
+│   ├── operations/         # Crane operations management
+│   └── rotation/           # 360° rotation control
+├── assets/                 # Static assets (images, icons, etc.)
+└── styles/                # Global styles and themes
+   ├── _variables.scss     # Design tokens and variables
+   ├── _mixins.scss       # Reusable style mixins
+   └── _animations.scss   # Animation definitions
 ```
 
 ## Development
@@ -108,13 +136,29 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Support
 
-For support, please open an issue in the GitHub repository.
+For support or to report issues, please open an issue in the [GitHub repository](https://github.com/sevenalli/G-int).
+
+## Best Practices
+
+- **Responsive Design**: Works on all device sizes from mobile to desktop
+- **Performance**: Optimized animations and lazy loading for better performance
+- **Accessibility**: Built with WCAG guidelines in mind
+- **Maintainability**: Clean, modular code with clear documentation
+
+## Future Enhancements
+
+- Real-time data integration
+- Advanced analytics dashboard
+- Multi-language support
+- User authentication and roles
+- Mobile application version
 
 ## Acknowledgments
 
 - Angular Team for the excellent framework
 - All contributors who have helped improve this project
+- The open-source community for valuable resources and inspiration
 
 ## Contact
 
-For any questions or feedback, please contact [sevenalli] at [sevenalli@gmail.com]
+For any questions or feedback, please contact [sevenalli](mailto:sevenalli@gmail.com) or visit [GitHub repository](https://github.com/sevenalli/G-int)
