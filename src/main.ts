@@ -4,5 +4,8 @@ import { AppComponent } from './app/app.component';
 import { ApplicationConfig } from '@angular/core';         // core config type
 import { provideRouter }        from '@angular/router';     // router provider
 
-bootstrapApplication(AppComponent, appConfig)
+bootstrapApplication(
+  AppComponent, 
+  appConfig,
+)
   .catch((err) => console.error(err));

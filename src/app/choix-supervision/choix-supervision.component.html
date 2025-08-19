@@ -71,15 +71,15 @@
               <div class="selection-list">
                 <div class="selection-item" *ngFor="let terminal of terminals; let i = index" 
                      [class.selected]="isTerminalSelected(terminal)"
-                     [class.disabled]="!multiSelectionMode && selectedTerminal && selectedTerminal.id !== terminal.id"
+                     [class.disabled]="!multiSelectionMode && selectedTerminal && selectedTerminal.terminalId"
                      (click)="selectTerminal(terminal)"
                      (keydown.enter)="selectTerminal(terminal)"
                      (keydown.space)="selectTerminal(terminal)"
                      tabindex="0"
                      role="option"
                      [attr.aria-selected]="isTerminalSelected(terminal)"
-                     [attr.aria-disabled]="!multiSelectionMode && selectedTerminal && selectedTerminal.id !== terminal.id"
-                     [title]="!multiSelectionMode && selectedTerminal && selectedTerminal.id !== terminal.id ? 'Désélectionnez d\'abord l\'élément actuel' : ''">
+                     [attr.aria-disabled]="!multiSelectionMode && selectedTerminal && selectedTerminal.terminalId"
+                     [title]="!multiSelectionMode && selectedTerminal && selectedTerminal.terminalId ? 'Désélectionnez d\'abord l\'élément actuel' : ''">
                   <div class="item-icon">
                     <i class="bi bi-building"></i>
                   </div>
@@ -300,7 +300,7 @@
         </div>
         <div class="info-row">
           <div class="info-label">ID:</div>
-          <div class="info-value">{{ selectedEquipment.id }}</div>
+          <div class="info-value">{{ selectedEquipment.engineTypeId }}</div>
         </div>
       </div>
       <div class="info-footer">
@@ -364,4 +364,3 @@
       </div>
     </div>
   </div>
-  

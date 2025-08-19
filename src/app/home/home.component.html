@@ -1,90 +1,82 @@
 <div class="container-fluid home-container p-3">
   <div class="row g-3">
-    <!-- Loop through each crane -->
-    <div class="col-lg-3 col-md-6 mb-3" *ngFor="let crane of cranes">
-      <div class="crane-panel d-flex flex-column h-100" >
+    <!-- Loop through each REAL engine -->
+    <div class="col-lg-3 col-md-6 mb-3" *ngFor="let engine of engines">
+      <div class="crane-panel d-flex flex-column h-100">
         <div class="row g-1 flex-grow-1">
           <!-- Row 1 -->
-          <!-- Header Card -->
-          <div class="col-12" [routerLink]="[crane.route, crane.id]" style="cursor: pointer;">
+          <!-- Header Card: Uses engine.code and a dynamic route -->
+          <div class="col-12" [routerLink]="['/supervisionCranes', engine.code]" style="cursor: pointer;">
             <div class="card text-primary header-card h-100">
               <div class="card-body justify-content-start align-items-center flex-row">
-                <!-- Directly use img as getCranIconClass only returns images now -->
-                <img class="icon-placeholder-crane me-2" [src]="getCranIconClass(crane.craneType).value" alt="Crane Icon">
-                <h6 class="card-title mb-0 fw-bold">{{ crane.id }}</h6>
+                <img class="icon-placeholder-crane me-2" [src]="getCranIconClass(engine.name).value" alt="Crane Icon">
+                <h6 class="card-title mb-0 fw-bold">{{ engine.code }}</h6>
               </div>
             </div>
           </div>
 
-          <!-- Notification Card -->
+          <!-- Notification Card: Uses engine.notifications (placeholder) -->
           <div class="col-6">
-            <div class="card data-card h-100" [routerLink]="['/notifications', crane.id]" style="cursor: pointer;" (click)="$event.stopPropagation()">
+            <div class="card data-card h-100" style="cursor: pointer;">
               <div class="card-body p-1">
                 <p class="card-text label-text mb-0">Notifications</p>
-                <p class="card-text value-text" [ngClass]="{'text-danger': hasNotifications(crane.notifications)}">
-                  <i class="bi bi-bell-fill me-1" *ngIf="hasNotifications(crane.notifications)"></i>
-                  {{ crane.notifications }}
+                <p class="card-text value-text" [ngClass]="{'text-danger': hasNotifications(engine)}">
+                  <i class="bi bi-bell-fill me-1" *ngIf="hasNotifications(engine)"></i>
+                  {{ engine.notifications ?? 0 }} <!-- Use ?? 0 as a fallback -->
                 </p>
               </div>
             </div>
           </div>
 
-          <!-- Hook Icon Card -->
+          <!-- Hook Icon Card: Uses placeholder logic -->
           <div class="col-6">
             <div class="card data-card h-100">
               <div class="card-body">
-                <!-- Use ng-container to avoid adding extra elements -->
-                <ng-container *ngIf="getHookIconInfo(crane.hookType) as iconInfo">
-                    <i *ngIf="iconInfo.type === 'icon'" class="icon-placeholder" [ngClass]="iconInfo.value"></i>
-                    <img *ngIf="iconInfo.type === 'image'" class="icon-placeholder" [src]="iconInfo.value" alt="Hook/Grabber">
-                </ng-container>
+                <img class="icon-placeholder" [src]="getHookIconInfo(engine).value" alt="Hook/Grabber">
               </div>
             </div>
           </div>
 
           <!-- Row 2 -->
-          <!-- Status 1 Button Card -->
+          <!-- Status 1 Button Card: Placeholder data -->
           <div class="col-12">
             <div class="card action-card h-100">
               <div class="card-body">
-                {{ crane.status1 }}
+                AFFECTE <!-- Placeholder, as 'status1' doesn't exist on Engine -->
               </div>
             </div>
           </div>
 
-          <!-- Status 2 Button Card -->
+          <!-- Status 2 Button Card: Placeholder data -->
           <div class="col-12">
             <div class="card action-card h-100">
               <div class="card-body">
-                {{ crane.status2 }}
+                DRIVE <!-- Placeholder, as 'status2' doesn't exist on Engine -->
               </div>
             </div>
           </div>
 
           <!-- Row 3 -->
-          <!-- Power Button Card -->
+          <!-- Power Button Card: Uses real engine.isActive data -->
           <div class="col-12">
             <div class="card action-card h-100">
               <div class="card-body flex-row">
-                <i class="icon-placeholder me-2" [ngClass]="getPowerIconClass(crane.power)"></i> {{ crane.power }}
+                <i class="icon-placeholder me-2" [ngClass]="getPowerStatus(engine.isActive).icon"></i> 
+                {{ getPowerStatus(engine.isActive).text }}
               </div>
             </div>
           </div>
 
-          <!-- Hours Card -->
-          <div class="col-12" [routerLink]="['/supension', crane.id]" style="cursor: pointer;">
+          <!-- Hours Card: Uses real engine.hours data -->
+          <div class="col-12" style="cursor: pointer;">
             <div class="card data-card h-100">
               <div class="card-body value-text large-value">
-                {{ crane.hours }}
+                {{ engine.hours || 'N/A' }} H <!-- Use || 'N/A' as a fallback -->
               </div>
             </div>
           </div>
-
-           <!-- Row 4 (Extra Card - Spans full width of panel) -->
-        
-
-        </div> <!-- End inner row g-1 -->
-      </div> <!-- End crane-panel -->
-    </div> <!-- End col-* -->
-  </div> <!-- End outer row g-3 -->
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

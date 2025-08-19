@@ -10,10 +10,10 @@
       <div class="col-lg-10 offset-lg-1">
         <div class="ports-grid">
           <!-- Port Card -->
-          <div class="port-card" *ngFor="let port of ports; let i = index" (click)="navigateTo(port.route)">
+          <div class="port-card" *ngFor="let port of ports; let i = index" (click)="navigateTo(port)">
             <!-- Card Background with Image -->
-            <div class="card-background" [style.background-image]="'url(' + port.image + ')'" [style.background-size]="'cover'"></div>
-            
+            <div class="card-background" [style.background-image]="'url(' + 'https://boursenews.ma/uploads/actualites/6697e81abbc7b_1721218924583.jpg' + ')'" [style.background-size]="'cover'"></div>
+
             <!-- Card Overlay -->
             <div class="card-overlay"></div>
             
@@ -22,7 +22,7 @@
               <div class="port-icon">
                 <i class="bi bi-geo-alt-fill"></i>
               </div>
-              <h2 class="port-title">{{ port.title }}</h2>
+              <h2 class="port-title">{{ port.name }}</h2>
             </div>
           </div>
         </div>
