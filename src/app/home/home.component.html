@@ -22,7 +22,7 @@
                 <p class="card-text label-text mb-0">Notifications</p>
                 <p class="card-text value-text" [ngClass]="{'text-danger': hasNotifications(engine)}">
                   <i class="bi bi-bell-fill me-1" *ngIf="hasNotifications(engine)"></i>
-                  {{ engine.notifications ?? 0 }} <!-- Use ?? 0 as a fallback -->
+                  {{ engine.notificationCount ?? 0 }} <!-- Use ?? 0 as a fallback -->
                 </p>
               </div>
             </div>
@@ -61,8 +61,8 @@
           <div class="col-12">
             <div class="card action-card h-100">
               <div class="card-body flex-row">
-                <i class="icon-placeholder me-2" [ngClass]="getPowerStatus(engine.isActive).icon"></i> 
-                {{ getPowerStatus(engine.isActive).text }}
+                <i class="icon-placeholder me-2" [ngClass]="getPowerStatus(engine.active).icon"></i> 
+                {{ getPowerStatus(engine.active).text }}
               </div>
             </div>
           </div>

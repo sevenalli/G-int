@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environment';
 
 // export interface Port {
 //   portId: number;
@@ -54,7 +55,7 @@ export interface Engine {
   code: string; // e.g., "bed78dc"
   name: string; // e.g., "terex"
   ipAddress: string; // e.g., "192.168.1.1"
-  isActive: boolean;
+  active: boolean;
   lastSeen: string; // ISO-8601 string
   manufacturer: string;
   engineTypeId: number; // ID of the engine type
@@ -64,7 +65,7 @@ export interface Engine {
   hours: number
   extra?: string; // Optional extra information
   route?: string; // e.g., '/supervisionCranes'
-  notifications?: number; // Can be a number or 'M' for maintenance
+  notificationCount?: number; // Can be a number or 'M' for maintenance
 }
 
 @Injectable({
@@ -72,6 +73,7 @@ export interface Engine {
 })
 export class EnginesService {
   private apiUrl = 'http://localhost:8080/api/v1/engines';
+  private sseUrl = 'http://localhost:8080/engines-sse';
 
   constructor(private http: HttpClient) {}
 
@@ -79,6 +81,7 @@ export class EnginesService {
     return this.http.get<Engine[]>(this.apiUrl);
   }
 
+  //postgresql
   getEnginesByCriteria(terminalIds: string[], equipmentIds: string[]): Observable<Engine[]> {
     let params = new HttpParams();
     terminalIds.forEach(id => {
@@ -88,5 +91,23 @@ export class EnginesService {
       params = params.append('engineTypeIds', id); // Changed from 'equipmentIds'
     });
     return this.http.get<Engine[]>(`${this.apiUrl}/terminal-engine-type`, { params });
+  }
+
+  // influxdb sse
+  subscribeToEngineUpdates(terminalIds: string[] = [], engineTypeIds: string[] = []): EventSource {
+    let queryParams = new HttpParams();
+    if (terminalIds.length || engineTypeIds.length) {
+      terminalIds.forEach(id => {
+        queryParams = queryParams.append('terminalIds', id);
+      });
+      engineTypeIds.forEach(id => {
+        queryParams = queryParams.append('engineTypeIds', id);
+      });
+    }
+    if(queryParams) queryParams = queryParams.append(`sseApiKey`, environment.apiKey);
+
+
+    //event source does not go through Angular’s interceptors like HttpClient, so no headers are attached
+    return new EventSource(`${this.sseUrl}?${queryParams}`);
   }
 }

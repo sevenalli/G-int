@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Engine, EnginesService } from '../services/engines.service';
@@ -10,9 +10,10 @@ import { Engine, EnginesService } from '../services/engines.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit, OnDestroy {
 
   engines: Engine[] = [];
+  private sse: EventSource | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,19 +32,47 @@ export class HomeComponent {
       console.log('Normalized Terminal IDs:', terminalIds);
       console.log('Normalized Engine Type IDs:', engineTypeIds);
 
-      if (terminalIds.length > 0 && engineTypeIds.length > 0) {
-        this.enginesService.getEnginesByCriteria(terminalIds, engineTypeIds)
-          .subscribe({
-            next: (data) => {
-              this.engines = data;
-              console.log('Engines loaded:', this.engines);
-            },
-            error: (err) => {
-              console.error('Failed to load engines by criteria', err);
-            }
-          });
-      }
+      // load via rest
+      // if (terminalIds.length > 0 && engineTypeIds.length > 0) {
+      //   this.enginesService.getEnginesByCriteria(terminalIds, engineTypeIds)
+      //     .subscribe({
+      //       next: (data) => {
+      //         this.engines = data;
+      //         console.log('Engines loaded:', this.engines);
+      //       },
+      //       error: (err) => {
+      //         console.error('Failed to load engines by criteria', err);
+      //       }
+      //     });
+      // }
+
+      // load via sse
+      this.sse = this.enginesService.subscribeToEngineUpdates(terminalIds, engineTypeIds);
+      this.sse.addEventListener('init', (event) => {
+        const parsedEngines = JSON.parse(event.data);
+        this.engines = parsedEngines.engines;
+        console.log('SSE Initial engines load:', this.engines);
+      });
+      this.sse.addEventListener('engineUpdate', (event) => {
+        const parsedEngines = JSON.parse(event.data);
+        const updatedEngines: Engine[] = parsedEngines.engines;
+        this.mergeEngines(updatedEngines);
+        console.log('SSE Engines update:', this.engines);
+      });
+      this.sse.onerror = (error) => {
+        console.error('SSE error:', error);
+        if (this.sse) {
+          this.sse.close();
+        }
+      };
+
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.sse) {
+      this.sse.close();
+    }
   }
 
   private normalizeQueryParam(param: any): string[] {
@@ -176,8 +205,8 @@ export class HomeComponent {
   }
 
   // Helper to get the power status. This uses the 'isActive' property from your Engine.
-  getPowerStatus(isActive: boolean): { icon: string; text: string } {
-    if (isActive) {
+  getPowerStatus(active: boolean): { icon: string; text: string } {
+    if (active) {
       return { icon: 'bi bi-power text-success', text: 'ON' };
     } else {
       return { icon: 'bi bi-power text-danger', text: 'OFF' };
@@ -186,7 +215,18 @@ export class HomeComponent {
   
   // Helper to check if there are notifications (handles both number and string values)
   hasNotifications(engine: Engine): boolean {
-    return engine.notifications ? engine.notifications > 0 : false;
+    return engine.notificationCount ? engine.notificationCount > 0 : false;
+  }
+
+  private mergeEngines(updatedEngines: Engine[]): void {
+    updatedEngines.forEach(update => {
+      const index = this.engines.findIndex(e => e.engineId === update.engineId);
+      if (index > -1) {
+        this.engines[index] = update; // Replace existing engine
+      } else {
+        this.engines.push(update); // Add new engine if it didn’t exist
+      }
+    });
   }
 
 }
