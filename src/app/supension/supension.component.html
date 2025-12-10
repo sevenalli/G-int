@@ -1,209 +1,676 @@
 <div class="dashboard-container">
-    <!-- Dashboard Header -->
     <div class="dashboard-header">
-        <h2>Suspension Control Panel</h2>
+        <h2><i class="bi bi-speedometer2"></i> Crane Telemetry Dashboard</h2>
         <div class="system-status">
             <span class="status-indicator online"></span>
-            System Online
-            <span class="last-update">Last update: {{currentDate | date:'medium'}}</span>
+            <span>{{currentDate | date:'HH:mm:ss'}}</span>
+            <span class="engine-code-badge" *ngIf="engineCode">{{ engineCode }}</span>
         </div>
     </div>
-    
-    <!-- Dashboard Content -->
-    <div class="dashboard-content">
-        <!-- Left Column - Motor Status and Gauges -->
-        <div class="dashboard-column main-column">
-            <!-- Motor Status Card -->
-            <div class="dashboard-card motor-status-card">
-                <div class="card-header">
-                    <h4><i class="fas fa-cog fa-spin-pulse"></i> Motor Status</h4>
-                    <div class="header-right">
-                        <span class="status-badge operational">Operational</span>
-                        <span class="engine-code-badge">Engine: {{ engineCode || 'Main' }}</span>
-                    </div>
+
+    <!-- LOAD & SAFETY -->
+    <div class="category-section">
+        <h3 class="category-title"><i class="bi bi-shield-check"></i> Load & Safety</h3>
+        <div class="widgets-row">
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Charge Nette</span><span
+                        class="widget-unit">t</span></div>
+                <div class="widget-body">
+                    <ngx-gauge [type]="'full'" [value]="chargeNette" [min]="0" [max]="41"
+                        [thresholds]="chargeNetteThresholds" [thick]="10" [size]="100"></ngx-gauge>
                 </div>
-                <div class="card-content">
-                    <div class="motor-display">
-                        <div class="motor-image-container">
-                            <img [src]="motorImage" alt="Motor Status" class="motor">
-                            <div class="motor-overlay" [class.active]="motorImage === 'red.jpg'">
-                                <div class="motor-status-indicator" [class.warning]="motorImage === 'red.jpg'">
-                                    <i class="fas" [class.fa-check-circle]="motorImage === 'green.png'" [class.fa-exclamation-triangle]="motorImage === 'red.jpg'"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="motor-controls">
-                            <button 
-                                class="status-toggle-btn"
-                                (click)="toggleMotorImage()"
-                            >
-                                <i class="fas fa-sync-alt"></i> Simulate Issue
-                            </button>
-                            <div class="motor-status-text" [class.warning-text]="motorImage === 'red.jpg'">
-                                {{ motorImage === 'green.png' ? 'System Normal' : 'Warning: Issue Detected' }}
-                            </div>
-                        </div>
+            </div>
+            <div class="widget-card badge-widget" [ngClass]="getWindClass()">
+                <div class="widget-header"><span class="widget-title">Vitesse Vent</span><span
+                        class="widget-unit">m/s</span></div>
+                <div class="widget-body digital-display"><i class="bi bi-wind"></i><span class="digital-value">{{
+                        vitesseVent | number:'1.1-1' }}</span></div>
+                <div class="widget-footer"><span class="status-text" [ngClass]="getWindClass()">{{ vitesseVent >= 15 ?
+                        'DANGER' : (vitesseVent >= 8 ? 'WARNING' : 'SAFE') }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Hauteur Levage</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body">
+                    <div class="vertical-progress">
+                        <div class="progress-fill" [style.height.%]="hauteurLevageAdmissible"></div><span
+                            class="progress-value">{{ hauteurLevageAdmissible | number:'1.0-0' }}%</span>
                     </div>
                 </div>
             </div>
-            
-            <!-- Gauges Card -->
-            <div class="dashboard-card gauges-card">
-                <div class="card-header">
-                    <h4><i class="fas fa-tachometer-alt"></i> Motor Parameters</h4>
-                    <div class="refresh-indicator">
-                        <span class="refresh-text">Auto-refresh</span>
-                        <span class="blink">●</span>
-                        <span class="refresh-interval">2s</span>
-                    </div>
-                </div>
-                <div class="card-content">
-                    <div class="gauges-row">
-                        <!-- Current Gauge -->
-                        <div class="gauge-container">
-                            <h5>COURANT D'INDUIT</h5>
-                            <ngx-gauge 
-                                [type]="'semi'"
-                                [value]="currentValue"
-                                [min]="currentMin"
-                                [max]="currentMax"
-                                [thresholds]="currentThresholdConfig"
-                                [label]="'Current'"
-                                [append]="'A'"
-                                [thick]="15"
-                                [size]="200"
-                                [foregroundColor]="'rgba(0, 150, 136, 1)'"
-                                [backgroundColor]="'rgba(0, 0, 0, 0.1)'"
-                            ></ngx-gauge>
-                        </div>
-                        
-                        <!-- Voltage Gauge -->
-                        <div class="gauge-container">
-                            <h5>TENSION D'INDUIT</h5>
-                            <ngx-gauge 
-                                [type]="'semi'"
-                                [value]="voltageValue"
-                                [min]="voltageMin"
-                                [max]="voltageMax"
-                                [thresholds]="voltageThresholdConfig"
-                                [label]="'Voltage'"
-                                [append]="'V'"
-                                [thick]="15"
-                                [size]="200"
-                                [foregroundColor]="'rgba(33, 150, 243, 1)'"
-                                [backgroundColor]="'rgba(0, 0, 0, 0.1)'"
-                            ></ngx-gauge>
-                        </div>
-                    </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Compteur Spectre</span><span
+                        class="widget-unit">SWP</span></div>
+                <div class="widget-body">
+                    <div class="odometer-display">{{ compteurSpectre | number:'1.0-0' }}</div>
                 </div>
             </div>
         </div>
-        
-        <!-- Right Column - Charts and Analytics -->
-        <div class="dashboard-column side-column">
-            <!-- Load Monitoring Card -->
-            <div class="dashboard-card chart-card">
-                <div class="card-header">
-                    <h4><i class="fas fa-chart-line"></i> Load Monitoring</h4>
-                    <div class="time-controls-wrapper">
-                        <div class="time-label">Time Range:</div>
-                        <div class="time-controls">
-                            <button
-                                (click)="updateOptions('1m')"
-                                [class.active]="activeOptionButton=='1m'"
-                                title="Show data for April 2025"
-                            >
-                                <i class="fas fa-calendar-week"></i> 1M
-                            </button>
-                            <button
-                                (click)="updateOptions('6m')"
-                                [class.active]="activeOptionButton=='6m'"
-                                title="Show data from January to May 2025"
-                            >
-                                <i class="fas fa-calendar-alt"></i> 6M
-                            </button>
-                            <button
-                                (click)="updateOptions('1y')"
-                                [class.active]="activeOptionButton=='1y'"
-                                title="Show data for the entire year"
-                            >
-                                <i class="fas fa-calendar"></i> 1Y
-                            </button>
-                            <button
-                                (click)="updateOptions('YTD')"
-                                [class.active]="activeOptionButton=='YTD'"
-                                title="Show data from January to current date"
-                            >
-                                <i class="fas fa-calendar-day"></i> YTD
-                            </button>
-                            <button
-                                (click)="updateOptions('all')"
-                                [class.active]="activeOptionButton=='all'"
-                                title="Show all available data"
-                            >
-                                <i class="fas fa-expand-alt"></i> All
-                            </button>
-                        </div>
-                    </div>
+    </div>
+
+    <!-- SPEED & MOTION -->
+    <div class="category-section">
+        <h3 class="category-title"><i class="bi bi-speedometer"></i> Speed & Motion</h3>
+        <div class="widgets-row">
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Vitesse Mec Levage</span><span
+                        class="widget-unit">m/min</span></div>
+                <div class="widget-body">
+                    <ngx-gauge [type]="'semi'" [value]="vitesseMecLevage" [min]="-105" [max]="105" [thick]="8"
+                        [size]="100" [foregroundColor]="vitesseMecLevage >= 0 ? '#00E396' : '#FF4560'"></ngx-gauge>
                 </div>
-                <div class="card-content">
-                    <div class="chart-container">
-                        <apx-chart
-                            *ngIf="chartOptions"
-                            #chart
-                            [series]="chartOptions.series"
-                            [chart]="chartOptions.chart"
-                            [colors]="chartOptions.colors"
-                            [yaxis]="chartOptions.yaxis"
-                            [dataLabels]="chartOptions.dataLabels"
-                            [markers]="chartOptions.markers"
-                            [stroke]="chartOptions.stroke"
-                            [fill]="chartOptions.fill"
-                            [xaxis]="chartOptions.xaxis"
-                            [tooltip]="chartOptions.tooltip"
-                            [annotations]="chartOptions.annotations"
-                        ></apx-chart>
-                        <div *ngIf="!chartOptions" class="loading-chart">
-                            Loading chart data...
-                        </div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Vitesse Orientation</span><span
+                        class="widget-unit">rpm</span></div>
+                <div class="widget-body">
+                    <ngx-gauge [type]="'full'" [value]="vitesseOrientation" [min]="0" [max]="1.6" [thick]="8"
+                        [size]="100" [foregroundColor]="'#008FFB'"></ngx-gauge>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ENGINE & ENERGY -->
+    <div class="category-section">
+        <h3 class="category-title"><i class="bi bi-lightning-charge"></i> Engine & Energy</h3>
+        <div class="widgets-row">
+            <div class="widget-card fuel-widget" [ngClass]="getFuelClass()">
+                <div class="widget-header"><span class="widget-title">Niveau Carburant</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body">
+                    <div class="fuel-tank">
+                        <div class="fuel-level" [style.height.%]="niveauCarburant"></div><i
+                            class="bi bi-fuel-pump"></i><span class="fuel-value">{{ niveauCarburant | number:'1.0-0'
+                            }}%</span>
                     </div>
                 </div>
             </div>
-            
-            <!-- System Info Card -->
-            <div class="dashboard-card info-card">
-                <div class="card-header">
-                    <h4><i class="fas fa-info-circle"></i> System Information</h4>
-                    <button class="refresh-info-btn" title="Refresh system information">
-                        <i class="fas fa-sync-alt"></i>
-                    </button>
-                </div>
-                <div class="card-content">
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <span class="info-label"><i class="fas fa-tools"></i> Last Maintenance:</span>
-                            <span class="info-value info-date">2025-04-15</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label"><i class="fas fa-calendar-check"></i> Next Inspection:</span>
-                            <span class="info-value info-date">2025-07-15</span>
-                            <span class="info-badge">Scheduled</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label"><i class="fas fa-clock"></i> Operating Hours:</span>
-                            <span class="info-value">1,245 hrs</span>
-                            <div class="progress-bar">
-                                <div class="progress" style="width: 62%;"></div>
-                            </div>
-                            <span class="progress-text">62% of service interval</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label"><i class="fas fa-heartbeat"></i> System Health:</span>
-                            <span class="info-value health-good"><i class="fas fa-check-circle"></i> Good</span>
-                            <span class="health-details">All systems nominal</span>
-                        </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Temp. Moteur</span><span
+                        class="widget-unit">°C</span></div>
+                <div class="widget-body">
+                    <div class="thermometer">
+                        <div class="thermo-fill" [style.height.%]="(temperatureMoteur / 110) * 100"
+                            [style.background]="getTempColor(temperatureMoteur, 110)"></div><span
+                            class="thermo-value">{{ temperatureMoteur | number:'1.0-0' }}°</span>
                     </div>
                 </div>
+            </div>
+            <div class="widget-card wide">
+                <div class="widget-header"><span class="widget-title">Puissance Mesurée</span><span
+                        class="widget-value">{{ puissanceMesuree | number:'1.0-0' }} kW</span></div>
+                <div class="widget-body sparkline"><apx-chart *ngIf="puissanceChartOptions"
+                        [series]="puissanceChartOptions.series" [chart]="puissanceChartOptions.chart"
+                        [stroke]="puissanceChartOptions.stroke" [fill]="puissanceChartOptions.fill"
+                        [colors]="puissanceChartOptions.colors"></apx-chart></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Courant Apparent</span><span
+                        class="widget-unit">A</span></div>
+                <div class="widget-body digital-display large"><span class="digital-value">{{ courantApparent |
+                        number:'1.0-0' }}</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ELECTRICAL -->
+    <div class="category-section">
+        <h3 class="category-title"><i class="bi bi-plug"></i> Electrical</h3>
+        <div class="widgets-row">
+            <div class="widget-card wide">
+                <div class="widget-header"><span class="widget-title">Courant Réel</span><span class="widget-value">{{
+                        courantReel | number:'1.0-0' }} A</span></div>
+                <div class="widget-body sparkline"><apx-chart *ngIf="courantChartOptions"
+                        [series]="courantChartOptions.series" [chart]="courantChartOptions.chart"
+                        [stroke]="courantChartOptions.stroke" [fill]="courantChartOptions.fill"
+                        [colors]="courantChartOptions.colors"></apx-chart></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Tension Moteur</span><span
+                        class="widget-unit">V</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ tensionMoteur | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card" [ngClass]="getFreqClass()">
+                <div class="widget-header"><span class="widget-title">Fréquence Réseau</span><span
+                        class="widget-unit">Hz</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ frequenceReseau | number:'1.1-1'
+                        }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Tension Freinage</span><span
+                        class="widget-unit">V</span></div>
+                <div class="widget-body">
+                    <div class="horizontal-bar">
+                        <div class="bar-fill" [style.width.%]="(tensionReseauFreinage / 600) * 100"></div><span
+                            class="bar-value">{{ tensionReseauFreinage | number:'1.0-0' }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Couple Entrainement</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body"><ngx-gauge [type]="'full'" [value]="coupleEntrainement" [min]="0" [max]="100"
+                        [thick]="8" [size]="80" [foregroundColor]="'#775DD0'"></ngx-gauge></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TEMPERATURES -->
+    <div class="category-section">
+        <h3 class="category-title"><i class="bi bi-thermometer-half"></i> Temperatures</h3>
+        <div class="widgets-row">
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Huile Réducteur</span><span
+                        class="widget-unit">°C</span></div>
+                <div class="widget-body">
+                    <div class="thermometer">
+                        <div class="thermo-fill" [style.height.%]="((tempHuileReducteur - 20) / 70) * 100"
+                            [style.background]="getTempColor(tempHuileReducteur, 90)"></div><span
+                            class="thermo-value">{{ tempHuileReducteur | number:'1.0-0' }}°</span>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Moteur Levage</span><span
+                        class="widget-unit">°C</span></div>
+                <div class="widget-body">
+                    <div class="linear-bar">
+                        <div class="bar-fill temp" [style.width.%]="((tempMoteurLevage - 20) / 90) * 100"
+                            [style.background]="getTempColor(tempMoteurLevage, 110)"></div><span class="bar-value">{{
+                            tempMoteurLevage | number:'1.0-0' }}°</span>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Moteur Orient.</span><span
+                        class="widget-unit">°C</span></div>
+                <div class="widget-body">
+                    <div class="linear-bar">
+                        <div class="bar-fill temp" [style.width.%]="((tempMoteurOrientation - 20) / 80) * 100"
+                            [style.background]="getTempColor(tempMoteurOrientation, 100)"></div><span
+                            class="bar-value">{{ tempMoteurOrientation | number:'1.0-0' }}°</span>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Alternateur T1</span><span
+                        class="widget-unit">°C</span></div>
+                <div class="widget-body"><span class="badge-value"
+                        [style.color]="getTempColor(tempAlternateur1, 100)">{{ tempAlternateur1 | number:'1.0-0'
+                        }}°C</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Alternateur T2</span><span
+                        class="widget-unit">°C</span></div>
+                <div class="widget-body"><span class="badge-value"
+                        [style.color]="getTempColor(tempAlternateur2, 100)">{{ tempAlternateur2 | number:'1.0-0'
+                        }}°C</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HYDRAULICS -->
+    <div class="category-section">
+        <h3 class="category-title"><i class="bi bi-droplet"></i> Hydraulics</h3>
+        <div class="widgets-row">
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Temp. Hydraulique</span><span
+                        class="widget-unit">°C</span></div>
+                <div class="widget-body"><ngx-gauge [type]="'full'" [value]="tempHydraulique" [min]="10" [max]="90"
+                        [thick]="8" [size]="80" [foregroundColor]="getTempColor(tempHydraulique, 90)"></ngx-gauge></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Pression Pompe</span><span
+                        class="widget-unit">Bar</span></div>
+                <div class="widget-body"><ngx-gauge [type]="'semi'" [value]="pressionPompe" [min]="0" [max]="350"
+                        [thick]="8" [size]="90" [foregroundColor]="'#775DD0'"></ngx-gauge></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Pression Volée</span><span
+                        class="widget-unit">Bar</span></div>
+                <div class="widget-body"><ngx-gauge [type]="'semi'" [value]="pressionVolee" [min]="0" [max]="400"
+                        [thick]="8" [size]="90" [foregroundColor]="'#00D9E9'"></ngx-gauge></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Frein Levage</span><span
+                        class="widget-unit">Bar</span></div>
+                <div class="widget-body"><ngx-gauge [type]="'full'" [value]="pressionFreinLevage" [min]="0" [max]="150"
+                        [thick]="6" [size]="70" [foregroundColor]="'#FF4560'"></ngx-gauge></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Frein Orient.</span><span
+                        class="widget-unit">Bar</span></div>
+                <div class="widget-body"><ngx-gauge [type]="'full'" [value]="pressionFreinOrientation" [min]="0"
+                        [max]="150" [thick]="6" [size]="70" [foregroundColor]="'#FF4560'"></ngx-gauge></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Pression Niv. 2</span><span
+                        class="widget-unit">Bar</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ pressionNiveau2 | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Druckstufe 7</span><span
+                        class="widget-unit">Bar</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ pressionDruckstufe7 |
+                        number:'1.0-0' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Angle Pivot Pompe</span><span
+                        class="widget-unit">°</span></div>
+                <div class="widget-body"><ngx-gauge [type]="'semi'" [value]="anglePivotPompe" [min]="-20" [max]="20"
+                        [thick]="6" [size]="80"
+                        [foregroundColor]="anglePivotPompe >= 0 ? '#00E396' : '#FF4560'"></ngx-gauge></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOAD MECHANICS -->
+    <div class="category-section">
+        <h3 class="category-title"><i class="bi bi-gear"></i> Load Mechanics</h3>
+        <div class="widgets-row">
+            <div class="widget-card wide">
+                <div class="widget-header"><span class="widget-title">Couple de Charge</span><span
+                        class="widget-unit">mt</span></div>
+                <div class="widget-body">
+                    <div class="horizontal-bar wide">
+                        <div class="bar-fill" [style.width.%]="(coupleCharge / 3000) * 100"></div><span
+                            class="bar-value">{{ coupleCharge | number:'1.0-0' }} mt</span>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">DMS 1</span><span class="widget-unit">t</span>
+                </div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ chargeBruteDMS1 | number:'1.1-1'
+                        }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">DMS 2</span><span class="widget-unit">t</span>
+                </div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ chargeBruteDMS2 | number:'1.1-1'
+                        }}</span></div>
+            </div>
+            <div class="widget-card wide">
+                <div class="widget-header"><span class="widget-title">Lastmessbolzen DMS 1</span><span
+                        class="widget-value">{{ lastmessbolzenDMS1 | number:'1.0-0' }} Raw</span></div>
+                <div class="widget-body sparkline"><apx-chart *ngIf="dms1ChartOptions"
+                        [series]="dms1ChartOptions.series" [chart]="dms1ChartOptions.chart"
+                        [stroke]="dms1ChartOptions.stroke" [fill]="dms1ChartOptions.fill"
+                        [colors]="dms1ChartOptions.colors"></apx-chart></div>
+            </div>
+            <div class="widget-card wide">
+                <div class="widget-header"><span class="widget-title">Lastmessbolzen DMS 2</span><span
+                        class="widget-value">{{ lastmessbolzenDMS2 | number:'1.0-0' }} Raw</span></div>
+                <div class="widget-body sparkline"><apx-chart *ngIf="dms2ChartOptions"
+                        [series]="dms2ChartOptions.series" [chart]="dms2ChartOptions.chart"
+                        [stroke]="dms2ChartOptions.stroke" [fill]="dms2ChartOptions.fill"
+                        [colors]="dms2ChartOptions.colors"></apx-chart></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- POSITION & GEOMETRY -->
+    <div class="category-section">
+        <h3 class="category-title"><i class="bi bi-geo-alt"></i> Position & Geometry</h3>
+        <div class="widgets-row">
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Portée</span><span class="widget-unit">m</span>
+                </div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ porteeMetres | number:'1.2-2'
+                        }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Angle Orientation</span><span
+                        class="widget-unit">°</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ angleOrientation |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Hauteur Levage</span><span
+                        class="widget-unit">m</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ hauteurLevage | number:'1.2-2'
+                        }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Calage X</span><span class="widget-unit">°</span>
+                </div>
+                <div class="widget-body digital-display"><span class="digital-value"
+                        [style.color]="calageAngleX > 0.5 || calageAngleX < -0.5 ? '#FF4560' : '#00E396'">{{
+                        calageAngleX | number:'1.2-2' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Calage Y</span><span class="widget-unit">°</span>
+                </div>
+                <div class="widget-body digital-display"><span class="digital-value"
+                        [style.color]="calageAngleY > 0.5 || calageAngleY < -0.5 ? '#FF4560' : '#00E396'">{{
+                        calageAngleY | number:'1.2-2' }}</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GROSS LOAD -->
+    <div class="category-section">
+        <h3 class="category-title"><i class="bi bi-box-seam"></i> Gross Load</h3>
+        <div class="widgets-row">
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Charge Brute</span><span
+                        class="widget-unit">t</span></div>
+                <div class="widget-body"><ngx-gauge [type]="'full'" [value]="chargeBrute" [min]="0"
+                        [max]="chargeBruteAdmissible || 50" [thick]="8" [size]="80"
+                        [foregroundColor]="'#008FFB'"></ngx-gauge></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Charge Admissible</span><span
+                        class="widget-unit">t</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ chargeBruteAdmissible |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Charge Relative</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body">
+                    <div class="vertical-progress">
+                        <div class="progress-fill" [style.height.%]="chargeBruteRelative"
+                            [style.background]="chargeBruteRelative > 80 ? '#FF4560' : (chargeBruteRelative > 60 ? '#FEB019' : '#00E396')">
+                        </div><span class="progress-value">{{ chargeBruteRelative | number:'1.0-0' }}%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Nette Admissible</span><span
+                        class="widget-unit">t</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ chargeNetteAdmissible |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Couple Nominal</span><span
+                        class="widget-unit">mt</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ coupleChargeNominal |
+                        number:'1.0-0' }}</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SPEED LIMITS -->
+    <div class="category-section">
+        <h3 class="category-title"><i class="bi bi-speedometer2"></i> Speed Limits</h3>
+        <div class="widgets-row">
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">V. Levage Admis.</span><span
+                        class="widget-unit">m/min</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ vitesseLevageAdmissible |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">V. Périphérie</span><span
+                        class="widget-unit">m/min</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ vitesseMaxiPeripherie |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">V. Maxi Grue</span><span
+                        class="widget-unit">rpm</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ vitesseMaxiGrue | number:'1.2-2'
+                        }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Temps Accélération</span><span
+                        class="widget-unit">s</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ tempsAcceleration |
+                        number:'1.1-1' }}</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CYLINDER PRESSURES (Additional) -->
+    <div class="category-section">
+        <h3 class="category-title"><i class="bi bi-arrow-down-up"></i> Cylinder & Pump</h3>
+        <div class="widgets-row">
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Pression Tige</span><span
+                        class="widget-unit">Bar</span></div>
+                <div class="widget-body"><ngx-gauge [type]="'semi'" [value]="pressionVoleeTige" [min]="0" [max]="400"
+                        [thick]="6" [size]="80" [foregroundColor]="'#775DD0'"></ngx-gauge></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Frein Orient. 2</span><span
+                        class="widget-unit">Bar</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ pressionFreinOrientation2 |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Consigne Pompe</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ consignePompe | number:'1.1-1'
+                        }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Pivot Pompe 2</span><span
+                        class="widget-unit">°</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ anglePivotPompe2 |
+                        number:'1.2-2' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Pivot Pompe 3</span><span
+                        class="widget-unit">°</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ anglePivotPompe3 |
+                        number:'1.2-2' }}</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- OPERATIONAL STATUS -->
+    <div class="category-section">
+        <h3 class="category-title"><i class="bi bi-toggles"></i> Status Indicators</h3>
+        <div class="widgets-row">
+            <div class="widget-card" [class.status-on]="dieselEnMarche">
+                <div class="widget-header"><span class="widget-title">Diesel Motor</span></div>
+                <div class="widget-body digital-display"><i class="bi"
+                        [ngClass]="dieselEnMarche ? 'bi-check-circle-fill text-success' : 'bi-x-circle-fill text-danger'"></i><span
+                        class="status-label">{{ dieselEnMarche ? 'RUNNING' : 'OFF' }}</span></div>
+            </div>
+            <div class="widget-card" [class.status-on]="kranHauptschalter">
+                <div class="widget-header"><span class="widget-title">Main Switch</span></div>
+                <div class="widget-body digital-display"><i class="bi"
+                        [ngClass]="kranHauptschalter ? 'bi-power text-success' : 'bi-power text-danger'"></i><span
+                        class="status-label">{{ kranHauptschalter ? 'ON' : 'OFF' }}</span></div>
+            </div>
+            <div class="widget-card" [class.status-on]="spreaderConnected">
+                <div class="widget-header"><span class="widget-title">Spreader</span></div>
+                <div class="widget-body digital-display"><i class="bi"
+                        [ngClass]="spreaderConnected ? 'bi-box-fill text-success' : 'bi-box text-secondary'"></i><span
+                        class="status-label">{{ spreaderConnected ? 'CONNECTED' : 'DETACHED' }}</span></div>
+            </div>
+            <div class="widget-card" [class.status-on]="twinliftConnected">
+                <div class="widget-header"><span class="widget-title">Twinlift</span></div>
+                <div class="widget-body digital-display"><i class="bi"
+                        [ngClass]="twinliftConnected ? 'bi-boxes text-success' : 'bi-boxes text-secondary'"></i><span
+                        class="status-label">{{ twinliftConnected ? 'CONNECTED' : 'DETACHED' }}</span></div>
+            </div>
+            <div class="widget-card" [class.status-on]="containerVerrouille">
+                <div class="widget-header"><span class="widget-title">Container Lock</span></div>
+                <div class="widget-body digital-display"><i class="bi"
+                        [ngClass]="containerVerrouille ? 'bi-lock-fill text-success' : 'bi-unlock text-warning'"></i><span
+                        class="status-label">{{ containerVerrouille ? 'LOCKED' : 'UNLOCKED' }}</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GEAR & TRANSMISSION -->
+    <div class="category-section">
+        <h3 class="category-title"><i class="bi bi-gear-wide-connected"></i> Gear & Transmission</h3>
+        <div class="widgets-row">
+            <div class="widget-card" [class.active-gear]="getriebeStufeI">
+                <div class="widget-header"><span class="widget-title">Gear I (Slow)</span></div>
+                <div class="widget-body digital-display"><span class="gear-indicator"
+                        [class.active]="getriebeStufeI">I</span></div>
+            </div>
+            <div class="widget-card" [class.active-gear]="getriebeStufeII">
+                <div class="widget-header"><span class="widget-title">Gear II (Medium)</span></div>
+                <div class="widget-body digital-display"><span class="gear-indicator"
+                        [class.active]="getriebeStufeII">II</span></div>
+            </div>
+            <div class="widget-card" [class.active-gear]="getriebeStufeIII">
+                <div class="widget-header"><span class="widget-title">Gear III (Fast)</span></div>
+                <div class="widget-body digital-display"><span class="gear-indicator"
+                        [class.active]="getriebeStufeIII">III</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">V. Rapide</span><span
+                        class="widget-unit">m/min</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ vitesseTranslationRapide |
+                        number:'1.0-0' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">V. Moyenne</span><span
+                        class="widget-unit">m/min</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ vitesseTranslationMoyenne |
+                        number:'1.0-0' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">V. Lente</span><span
+                        class="widget-unit">m/min</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ vitesseTranslationLente |
+                        number:'1.0-0' }}</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAINTENANCE -->
+    <div class="category-section">
+        <h3 class="category-title"><i class="bi bi-wrench-adjustable"></i> Maintenance</h3>
+        <div class="widgets-row">
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Heures Totales</span><span
+                        class="widget-unit">h</span></div>
+                <div class="widget-body">
+                    <div class="odometer-display">{{ heuresService | number:'1.0-0' }}</div>
+                </div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Depuis Entretien</span><span
+                        class="widget-unit">h</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ heuresDepuisEntretien |
+                        number:'1.0-0' }}</span></div>
+            </div>
+            <div class="widget-card" [class.warning]="heuresAvantEntretien < 100"
+                [class.danger]="heuresAvantEntretien < 50">
+                <div class="widget-header"><span class="widget-title">Avant Entretien</span><span
+                        class="widget-unit">h</span></div>
+                <div class="widget-body digital-display"><span class="digital-value"
+                        [style.color]="heuresAvantEntretien < 50 ? '#FF4560' : (heuresAvantEntretien < 100 ? '#FEB019' : '#00E396')">{{
+                        heuresAvantEntretien | number:'1.0-0' }}</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOOM ANGLE -->
+    <div class="category-section">
+        <h3 class="category-title"><i class="bi bi-arrow-up-right"></i> Boom Angle</h3>
+        <div class="widgets-row">
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Angle Flèche</span><span
+                        class="widget-unit">°</span></div>
+                <div class="widget-body"><ngx-gauge [type]="'semi'" [value]="angleFleche" [min]="0" [max]="90"
+                        [thick]="8" [size]="100" [foregroundColor]="'#00E396'"></ngx-gauge></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Portée (Codeur)</span><span
+                        class="widget-unit">m</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ porteeCodeurAbsolu |
+                        number:'1.2-2' }}</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ENGINE SENSORS -->
+    <div class="category-section">
+        <h3 class="category-title"><i class="bi bi-fan"></i> Engine Sensors</h3>
+        <div class="widgets-row">
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Temp. Eau Radiateur</span><span
+                        class="widget-unit">°C</span></div>
+                <div class="widget-body digital-display"><span class="digital-value"
+                        [style.color]="tempEauRadiateur > 100 ? '#FF4560' : (tempEauRadiateur > 85 ? '#FEB019' : '#00E396')">{{
+                        tempEauRadiateur | number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Temp. Air Turbo</span><span
+                        class="widget-unit">°C</span></div>
+                <div class="widget-body digital-display"><span class="digital-value"
+                        [style.color]="tempAirTurbo > 60 ? '#FF4560' : (tempAirTurbo > 45 ? '#FEB019' : '#00E396')">{{
+                        tempAirTurbo | number:'1.1-1' }}</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DRIVES -->
+    <div class="category-section">
+        <h3 class="category-title"><i class="bi bi-lightning-charge"></i> Drives</h3>
+        <div class="widgets-row">
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Tension Bus DC</span><span
+                        class="widget-unit">V</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ tensionBusDC | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Puissance Active</span><span
+                        class="widget-unit">kW</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ puissanceActive | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Consigne V. Moteur</span><span
+                        class="widget-unit">rpm</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ consigneVitesseMoteur |
+                        number:'1.0-0' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Vitesse Moteur</span><span
+                        class="widget-unit">rpm</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ vitesseMoteurReelle |
+                        number:'1.0-0' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Temp. Moteur Orient. 2</span><span
+                        class="widget-unit">°C</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ tempMoteurOrient2 |
+                        number:'1.1-1' }}</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADDITIONAL HYDRAULICS -->
+    <div class="category-section">
+        <h3 class="category-title"><i class="bi bi-droplet-half"></i> Hydraulics (Sensors)</h3>
+        <div class="widgets-row">
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Pivot Pompe 4</span><span
+                        class="widget-unit">°</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ anglePivotPompe4 |
+                        number:'1.2-2' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Frein Orient. 3</span><span
+                        class="widget-unit">bar</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ pressionFreinOrientation3 |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Capteur Fond M2</span><span
+                        class="widget-unit">raw</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ pressionCapteurFondM2 |
+                        number:'1.0-0' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Capteur Tige M3</span><span
+                        class="widget-unit">raw</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ pressionCapteurTigeM3 |
+                        number:'1.0-0' }}</span></div>
             </div>
         </div>
     </div>
