@@ -156,6 +156,166 @@ export class SupensionComponent implements OnInit, OnDestroy {
   pressionCapteurFondM2: number = 0;  // Luffing sensor M2 (raw)
   pressionCapteurTigeM3: number = 0;  // Luffing sensor M3 (raw)
 
+  // ===================== HOIST TELEMETRY (Extended) =====================
+  consigneManipFermeture: number = 0;  // Manipulator setpoint for closing
+  consigneManipLevage: number = 0;  // Manipulator setpoint for hoisting
+  pressionFreinFermeture: number = 0;  // Closing mechanism brake pressure
+  chargeBruteDiffDMS12: number = 0;  // DMS 1-2 difference hoist 1
+  chargeBrutePorteeMetres: number = 0;  // Gross load at radius x meters
+  chargeBruteLevage2DiffDMS12: number = 0;  // DMS 1-2 difference hoist 2
+  hauteurLevageAdmCalc1: number = 0;  // Allowable hoist height calc 1
+  hauteurLevageAdmCalc2: number = 0;  // Allowable hoist height calc 2
+  hauteurLevageAdmCalculee: number = 0;  // Calculated allowable hoist height
+  consigneVitesseRotationCharge: number = 0;  // Speed setpoint based on load
+  vitesseLevageAdmTMin: number = 0;  // Allowable hoist speed t/min
+  rapportTransmissionRapide: number = 0;  // Fast gear transmission ratio
+  betriebsdruckHW1: number = 0;  // Operating pressure HW1 brake
+  betriebsdruckHW2: number = 0;  // Operating pressure HW2 brake
+  lastmessbolzenHW1DMS2: number = 0;  // Load pin HW1 DMS2
+  lastmessbolzenHW1DMS1: number = 0;  // Load pin HW1 DMS1
+  // Hoist calibration values
+  cu1Pzd4Hoist1Dms1P1: number = 0;
+  cu1Pzd5Hoist1Dms2P1: number = 0;
+  cu1Pzd6Hoist1Dms1P2: number = 0;
+  cu1Pzd7Hoist1Dms2P2: number = 0;
+  cu1Pzd8Hoist2Dms1P1: number = 0;
+  cu1Pzd9Hoist2Dms2P1: number = 0;
+  cu1Pzd10Hoist2Dms1P2: number = 0;
+  cu1Pzd11Hoist2Dms2P2: number = 0;
+  // Hoist torque values
+  levageCoupleAccelRapide: number = 0;
+  levageCoupleFreinRapide: number = 0;
+  levageCoupleAccelMoyen: number = 0;
+  levageCoupleFreinMoyen: number = 0;
+  levageCoupleAccelLent: number = 0;
+  levageCoupleFreinLent: number = 0;
+  // Hoist DMS test load values
+  apiLevage1Dms1Charge1: number = 0;
+  apiLevage1Dms2Charge1: number = 0;
+  apiLevage1Dms1Charge2: number = 0;
+  apiLevage1Dms2Charge2: number = 0;
+  apiLevage2Dms1Charge1: number = 0;
+  apiLevage2Dms2Charge1: number = 0;
+  apiLevage2Dms1Charge2: number = 0;
+  apiLevage2Dms2Charge2: number = 0;
+
+  // ===================== SLEW TELEMETRY (Extended) =====================
+  consigneManipOrientation: number = 0;  // Manipulator setpoint for slewing
+  consigneVitesseOrientPortee: number = 0;  // Speed setpoint based on radius
+  betriebsdruckDrehwerk1: number = 0;  // Operating pressure slew brake 1
+  consigneFixeOrientDroite: number = 0;  // Fixed setpoint jog right
+  consigneFixeOrientGauche: number = 0;  // Fixed setpoint jog left
+
+  // ===================== LUFFING TELEMETRY (Extended) =====================
+  vitesseReelleCylindre: number = 0;  // Actual cylinder speed
+  consigneManipVolee: number = 0;  // Manipulator setpoint for luffing
+  porteeAdmissibleCharge: number = 0;  // Allowable radius based on load
+  relevageCalculerPorteeAdm: number = 0;  // Raise boom - calculate allowable radius
+  abaissementCalculerPorteeAdm: number = 0;  // Lower boom - calculate allowable radius
+  porteeAdmRelevageCalc1: number = 0;  // Allowable radius raise calc 1
+  porteeAdmRelevageCalc2: number = 0;  // Allowable radius raise calc 2
+  reductionConsigneEtranglementVolee: number = 0;  // Throttle valve setpoint reduction
+  pressionNiv2RelevagePorteeMin: number = 0;  // Pressure level 2 raise at min radius
+  pressionNiv2RelevagePorteeMax: number = 0;  // Pressure level 2 raise at max radius
+  pressionNiv3AbaissPorteeMin: number = 0;  // Pressure level 3 lower at min radius
+  pressionNiv3AbaissPorteeMax: number = 0;  // Pressure level 3 lower at max radius
+  pressionNiv6AbaissPorteeMinLourde: number = 0;  // Pressure level 6 lower at min radius heavy
+  pressionNiv6AbaissPorteeMaxLourde: number = 0;  // Pressure level 6 lower at max radius heavy
+  druckwertStufe7Wartung: number = 0;  // Pressure level 7 maintenance
+  // Luffing torque values
+  abaissCouplAccelRapide: number = 0;
+  abaissCouplFreinRapide: number = 0;
+  relevageCouplAccelRapide: number = 0;
+  relevageCouplFreinRapide: number = 0;
+  abaissCouplAccelMoyen: number = 0;
+  abaissCouplFreinMoyen: number = 0;
+  relevageCouplAccelMoyen: number = 0;
+  relevageCouplFreinMoyen: number = 0;
+  abaissCouplAccelLent: number = 0;
+  abaissCouplFreinLent: number = 0;
+  relevageCouplAccelLent: number = 0;
+  relevageCouplFreinLent: number = 0;
+  // Luffing valve setpoints (Tandemlift)
+  sollwerteDrosselTandemliftYminP: number = 0;
+  sollwerteDrosselTandemliftYmaxP: number = 0;
+  sollwerteDrosselTandemliftYminN: number = 0;
+  sollwerteDrosselTandemliftYmaxN: number = 0;
+  // Luffing slow speed setpoints
+  consignePompeVoleeLenteYminP: number = 0;
+  consignePompeVoleeLenteYmaxP: number = 0;
+  consignePompeVoleeLenteYminN: number = 0;
+  consignePompeVoleeLenteYmaxN: number = 0;
+  sollwerteDrosselLangsamYminP: number = 0;
+  sollwerteDrosselLangsamYmaxP: number = 0;
+  sollwerteDrosselLangsamYminN: number = 0;
+  sollwerteDrosselLangsamYmaxN: number = 0;
+  // Luffing personnel transport setpoints
+  sollwerteDrosselPersonenYminP: number = 0;
+  sollwerteDrosselPersonenYmaxP: number = 0;
+  sollwerteDrosselPersonenYminN: number = 0;
+  sollwerteDrosselPersonenYmaxN: number = 0;
+  // Luffing medium speed setpoints
+  sollwertePumpeMittelYminP: number = 0;
+  sollwertePumpeMittelYmaxP: number = 0;
+  sollwertePumpeMittelYminN: number = 0;
+  sollwertePumpeMittelYmaxN: number = 0;
+  sollwerteDrosselMittelYminP: number = 0;
+  sollwerteDrosselMittelYmaxP: number = 0;
+  sollwerteDrosselMittelYminN: number = 0;
+  sollwerteDrosselMittelYmaxN: number = 0;
+  // Luffing fast speed setpoints
+  consignePompeVoleeRapideYminP: number = 0;
+  consignePompeVoleeRapideYmaxP: number = 0;
+  consignePompeVoleeRapideYminN: number = 0;
+  consignePompeVoleeRapideYmaxN: number = 0;
+  consigneEtranglementRapideYminP: number = 0;
+  consigneEtranglementRapideYmaxP: number = 0;
+  consigneEtranglementRapideYminN: number = 0;
+  consigneEtranglementRapideYmaxN: number = 0;
+  // Luffing reduction and mA values
+  reductionVitesse3Mouvements: number = 0;
+  mANiveau2RelevagePorteeMax: number = 0;
+  mANiveau2RelevagePorteeMin: number = 0;
+  mANiveau3AbaissPorteeMin: number = 0;
+  mANiveau3AbaissPorteeMax: number = 0;
+  mANiveau4CalageRelever: number = 0;
+  mANiveau6AbaissPorteeMinLourde: number = 0;
+  mANiveau6AbaissPorteeMaxLourde: number = 0;
+  mANiveau7RelevageMaintenance: number = 0;
+
+  // ===================== TRANSLATION TELEMETRY (Extended) =====================
+  consigneTranslation: number = 0;  // Translation setpoint
+  translationValeurConsigne: number = 0;  // Translation value setpoint
+  sollwertDruckLenkpumpe1: number = 0;  // Steering pump 1 pressure cutoff
+  sollwertDruckLenkpumpe2: number = 0;  // Steering pump 2 pressure cutoff
+  // Translation fast speed pump setpoints
+  consignePompeTranslRapideYminP: number = 0;
+  consignePompeTranslRapideYmaxP: number = 0;
+  consignePompeTranslRapideYminN: number = 0;
+  consignePompeTranslRapideYmaxN: number = 0;
+  consigneSoupapeTranslRapideYminP: number = 0;
+  consigneSoupapeTranslRapideYmaxP: number = 0;
+  consigneSoupapeTranslRapideYminN: number = 0;
+  consigneSoupapeTranslRapideYmaxN: number = 0;
+  // Translation medium speed pump setpoints
+  sollwertePumpeTranslMittelYminP: number = 0;
+  sollwertePumpeTranslMittelYmaxP: number = 0;
+  sollwertePumpeTranslMittelYminN: number = 0;
+  sollwertePumpeTranslMittelYmaxN: number = 0;
+  sollwerteVentilTranslMittelYminP: number = 0;
+  sollwerteVentilTranslMittelYmaxP: number = 0;
+  sollwerteVentilTranslMittelYminN: number = 0;
+  sollwerteVentilTranslMittelYmaxN: number = 0;
+  // Translation slow speed pump setpoints
+  sollwertePumpeTranslLangsamYminP: number = 0;
+  sollwertePumpeTranslLangsamYmaxP: number = 0;
+  sollwertePumpeTranslLangsamYminN: number = 0;
+  sollwertePumpeTranslLangsamYmaxN: number = 0;
+  sollwerteTranslLangsamYminP: number = 0;
+  sollwerteTranslLangsamYmaxP: number = 0;
+  sollwerteTranslLangsamYminN: number = 0;
+  sollwerteTranslLangsamYmaxN: number = 0;
+
   // Thresholds
   chargeNetteThresholds = { '0': { color: '#00E396' }, '20': { color: '#FEB019' }, '30': { color: '#FF4560' } };
 
@@ -324,6 +484,166 @@ export class SupensionComponent implements OnInit, OnDestroy {
     if (data.Pression_de_service_du_frein_dorientation_3 !== undefined) this.pressionFreinOrientation3 = Number(data.Pression_de_service_du_frein_dorientation_3);
     if (data.Wippwerk_Drucksensor_Bodenseite_M2 !== undefined) this.pressionCapteurFondM2 = Number(data.Wippwerk_Drucksensor_Bodenseite_M2);
     if (data.Wippwerk_Drucksensor_Stangenseite_M3 !== undefined) this.pressionCapteurTigeM3 = Number(data.Wippwerk_Drucksensor_Stangenseite_M3);
+
+    // HOIST TELEMETRY (Extended)
+    if (data.Valeur_de_consigne_manipulateur_pour_fermeture !== undefined) this.consigneManipFermeture = Number(data.Valeur_de_consigne_manipulateur_pour_fermeture);
+    if (data.Valeur_de_consigne_manipulateur_pour_levage !== undefined) this.consigneManipLevage = Number(data.Valeur_de_consigne_manipulateur_pour_levage);
+    if (data.Pression_de_service_pour_le_frein_du_mec_de_fermeture !== undefined) this.pressionFreinFermeture = Number(data.Pression_de_service_pour_le_frein_du_mec_de_fermeture);
+    if (data.Charge_brute_mec_levage_1_difference_jauges_DMS_1_2 !== undefined) this.chargeBruteDiffDMS12 = Number(data.Charge_brute_mec_levage_1_difference_jauges_DMS_1_2);
+    if (data.Charge_brute_en_tonnes_en_portee_x_metres !== undefined) this.chargeBrutePorteeMetres = Number(data.Charge_brute_en_tonnes_en_portee_x_metres);
+    if (data.Charge_brute_mec_levage_2_difference_jauges_DMS_1_2 !== undefined) this.chargeBruteLevage2DiffDMS12 = Number(data.Charge_brute_mec_levage_2_difference_jauges_DMS_1_2);
+    if (data.Mec_levage_1_levage_hauteur_de_levage_admiss_calcul_1 !== undefined) this.hauteurLevageAdmCalc1 = Number(data.Mec_levage_1_levage_hauteur_de_levage_admiss_calcul_1);
+    if (data.Mec_levage_1_levage_hauteur_de_levage_admiss_calcul_2 !== undefined) this.hauteurLevageAdmCalc2 = Number(data.Mec_levage_1_levage_hauteur_de_levage_admiss_calcul_2);
+    if (data.Hauteur_de_levage_admissible_pour_le_levage_calculee !== undefined) this.hauteurLevageAdmCalculee = Number(data.Hauteur_de_levage_admissible_pour_le_levage_calculee);
+    if (data.Calculer_valeur_consigne_vitesse_rotation_du_mec_levage_suivant_la_charge !== undefined) this.consigneVitesseRotationCharge = Number(data.Calculer_valeur_consigne_vitesse_rotation_du_mec_levage_suivant_la_charge);
+    if (data.Mecanisme_de_levage_vitesse_admissible_en_t_min !== undefined) this.vitesseLevageAdmTMin = Number(data.Mecanisme_de_levage_vitesse_admissible_en_t_min);
+    if (data.Rapport_de_transmission_reducteur_pour_mec_de_levage_vitesse_rapide !== undefined) this.rapportTransmissionRapide = Number(data.Rapport_de_transmission_reducteur_pour_mec_de_levage_vitesse_rapide);
+    if (data.Betriebsdruck_HW1_Bremse !== undefined) this.betriebsdruckHW1 = Number(data.Betriebsdruck_HW1_Bremse);
+    if (data.Betriebsdruck_HW2_Bremse !== undefined) this.betriebsdruckHW2 = Number(data.Betriebsdruck_HW2_Bremse);
+    if (data.Lastmessbolzen_Hubwerk_1_DMS_2 !== undefined) this.lastmessbolzenHW1DMS2 = Number(data.Lastmessbolzen_Hubwerk_1_DMS_2);
+    if (data.Lastmessbolzen_Hubwerk_1_DMS_1 !== undefined) this.lastmessbolzenHW1DMS1 = Number(data.Lastmessbolzen_Hubwerk_1_DMS_1);
+    // Hoist calibration
+    if (data.CU1_PZD4_Hoist1_DMS1_P1_Abgleich !== undefined) this.cu1Pzd4Hoist1Dms1P1 = Number(data.CU1_PZD4_Hoist1_DMS1_P1_Abgleich);
+    if (data.CU1_PZD5_Hoist1_DMS2_P1_Abgleich !== undefined) this.cu1Pzd5Hoist1Dms2P1 = Number(data.CU1_PZD5_Hoist1_DMS2_P1_Abgleich);
+    if (data.CU1_PZD6_Hoist1_DMS1_P2_Abgleich !== undefined) this.cu1Pzd6Hoist1Dms1P2 = Number(data.CU1_PZD6_Hoist1_DMS1_P2_Abgleich);
+    if (data.CU1_PZD7_Hoist1_DMS2_P2_Abgleich !== undefined) this.cu1Pzd7Hoist1Dms2P2 = Number(data.CU1_PZD7_Hoist1_DMS2_P2_Abgleich);
+    if (data.CU1_PZD8_Hoist2_DMS1_P1_Abgleich !== undefined) this.cu1Pzd8Hoist2Dms1P1 = Number(data.CU1_PZD8_Hoist2_DMS1_P1_Abgleich);
+    if (data.CU1_PZD9_Hoist2_DMS2_P1_Abgleich !== undefined) this.cu1Pzd9Hoist2Dms2P1 = Number(data.CU1_PZD9_Hoist2_DMS2_P1_Abgleich);
+    if (data.CU1_PZD10_Hoist2_DMS1_P2_Abgleich !== undefined) this.cu1Pzd10Hoist2Dms1P2 = Number(data.CU1_PZD10_Hoist2_DMS1_P2_Abgleich);
+    if (data.CU1_PZD11_Hoist2_DMS2_P2_Abgleich !== undefined) this.cu1Pzd11Hoist2Dms2P2 = Number(data.CU1_PZD11_Hoist2_DMS2_P2_Abgleich);
+    // Hoist torque
+    if (data.Levage_couple_d_acceleration_vitesse_rapide !== undefined) this.levageCoupleAccelRapide = Number(data.Levage_couple_d_acceleration_vitesse_rapide);
+    if (data.Levage_couple_de_freinage_vitesse_rapide !== undefined) this.levageCoupleFreinRapide = Number(data.Levage_couple_de_freinage_vitesse_rapide);
+    if (data.Levage_couple_d_acceleration_vitesse_moyenne !== undefined) this.levageCoupleAccelMoyen = Number(data.Levage_couple_d_acceleration_vitesse_moyenne);
+    if (data.Levage_couple_de_freinage_vitesse_moyenne !== undefined) this.levageCoupleFreinMoyen = Number(data.Levage_couple_de_freinage_vitesse_moyenne);
+    if (data.Levage_couple_d_acceleration_vitesse_lente !== undefined) this.levageCoupleAccelLent = Number(data.Levage_couple_d_acceleration_vitesse_lente);
+    if (data.Levage_couple_de_freinage_vitesse_lente !== undefined) this.levageCoupleFreinLent = Number(data.Levage_couple_de_freinage_vitesse_lente);
+    // Hoist DMS test values
+    if (data.API_mec_levage_1_jauge_DMS_1_valeur_de_capteur_charge_dessai_1 !== undefined) this.apiLevage1Dms1Charge1 = Number(data.API_mec_levage_1_jauge_DMS_1_valeur_de_capteur_charge_dessai_1);
+    if (data.API_mec_levage_1_jauge_DMS_2_valeur_de_capteur_charge_dessai_1 !== undefined) this.apiLevage1Dms2Charge1 = Number(data.API_mec_levage_1_jauge_DMS_2_valeur_de_capteur_charge_dessai_1);
+    if (data.API_mec_levage_1_jauge_DMS_1_valeur_de_capteur_charge_dessai_2 !== undefined) this.apiLevage1Dms1Charge2 = Number(data.API_mec_levage_1_jauge_DMS_1_valeur_de_capteur_charge_dessai_2);
+    if (data.API_mec_levage_1_jauge_DMS_2_valeur_de_capteur_charge_dessai_2 !== undefined) this.apiLevage1Dms2Charge2 = Number(data.API_mec_levage_1_jauge_DMS_2_valeur_de_capteur_charge_dessai_2);
+    if (data.API_mec_levage_2_jauge_DMS_1_valeur_de_capteur_charge_dessai_1 !== undefined) this.apiLevage2Dms1Charge1 = Number(data.API_mec_levage_2_jauge_DMS_1_valeur_de_capteur_charge_dessai_1);
+    if (data.API_mec_levage_2_jauge_DMS_2_valeur_de_capteur_charge_dessai_1 !== undefined) this.apiLevage2Dms2Charge1 = Number(data.API_mec_levage_2_jauge_DMS_2_valeur_de_capteur_charge_dessai_1);
+    if (data.API_mec_levage_2_jauge_DMS_1_valeur_de_capteur_charge_dessai_2 !== undefined) this.apiLevage2Dms1Charge2 = Number(data.API_mec_levage_2_jauge_DMS_1_valeur_de_capteur_charge_dessai_2);
+    if (data.API_mec_levage_2_jauge_DMS_2_valeur_de_capteur_charge_dessai_2 !== undefined) this.apiLevage2Dms2Charge2 = Number(data.API_mec_levage_2_jauge_DMS_2_valeur_de_capteur_charge_dessai_2);
+
+    // SLEW TELEMETRY (Extended)
+    if (data.Valeur_de_consigne_manipulateur_pour_orientation !== undefined) this.consigneManipOrientation = Number(data.Valeur_de_consigne_manipulateur_pour_orientation);
+    if (data.Calculer_val_consigne_vitesse_du_mec_orientation_suivant_la_portee !== undefined) this.consigneVitesseOrientPortee = Number(data.Calculer_val_consigne_vitesse_du_mec_orientation_suivant_la_portee);
+    if (data.Betriebsdruck_Drehwerksbremse_1 !== undefined) this.betriebsdruckDrehwerk1 = Number(data.Betriebsdruck_Drehwerksbremse_1);
+    if (data.Valeur_cons_fixe_pour_actionnement_par_a_coups_superstr_orientation_a_droite !== undefined) this.consigneFixeOrientDroite = Number(data.Valeur_cons_fixe_pour_actionnement_par_a_coups_superstr_orientation_a_droite);
+    if (data.Valeur_cons_fixe_pour_actionnement_par_a_coups_superstr_orientation_a_gauche !== undefined) this.consigneFixeOrientGauche = Number(data.Valeur_cons_fixe_pour_actionnement_par_a_coups_superstr_orientation_a_gauche);
+
+    // LUFFING TELEMETRY (Extended)
+    if (data.Vitesse_reelle_du_cylindre_de_variation_de_volee !== undefined) this.vitesseReelleCylindre = Number(data.Vitesse_reelle_du_cylindre_de_variation_de_volee);
+    if (data.Valeur_de_consigne_manipulateur_pour_volee !== undefined) this.consigneManipVolee = Number(data.Valeur_de_consigne_manipulateur_pour_volee);
+    if (data.Portee_regime_admissible_en_fonction_de_la_charge !== undefined) this.porteeAdmissibleCharge = Number(data.Portee_regime_admissible_en_fonction_de_la_charge);
+    if (data.Relevage_fleche_calculer_la_portee_admissible !== undefined) this.relevageCalculerPorteeAdm = Number(data.Relevage_fleche_calculer_la_portee_admissible);
+    if (data.Abaissement_fleche_calculer_la_portee_admissible !== undefined) this.abaissementCalculerPorteeAdm = Number(data.Abaissement_fleche_calculer_la_portee_admissible);
+    if (data.Portee_admissible_relevage_fleche_sans_limitation_calcul_1 !== undefined) this.porteeAdmRelevageCalc1 = Number(data.Portee_admissible_relevage_fleche_sans_limitation_calcul_1);
+    if (data.Portee_admissible_relevage_fleche_sans_limitation_calcul_2 !== undefined) this.porteeAdmRelevageCalc2 = Number(data.Portee_admissible_relevage_fleche_sans_limitation_calcul_2);
+    if (data.Reduction_valeur_de_consigne_de_la_soupape_detranglement_du_mec_de_volee !== undefined) this.reductionConsigneEtranglementVolee = Number(data.Reduction_valeur_de_consigne_de_la_soupape_detranglement_du_mec_de_volee);
+    if (data.Valeur_pression_pr_niv_de_press_2_en_bars_lors_relev_fleche_en_portee_min !== undefined) this.pressionNiv2RelevagePorteeMin = Number(data.Valeur_pression_pr_niv_de_press_2_en_bars_lors_relev_fleche_en_portee_min);
+    if (data.Valeur_pression_pr_niv_de_press_2_en_bars_lors_relev_fleche_en_portee_maxi !== undefined) this.pressionNiv2RelevagePorteeMax = Number(data.Valeur_pression_pr_niv_de_press_2_en_bars_lors_relev_fleche_en_portee_maxi);
+    if (data.Valeur_pression_pr_niv_de_press_3_en_bars_lors_abaiss_fleche_en_portee_mini !== undefined) this.pressionNiv3AbaissPorteeMin = Number(data.Valeur_pression_pr_niv_de_press_3_en_bars_lors_abaiss_fleche_en_portee_mini);
+    if (data.Valeur_pression_pr_niv_de_press_3_en_bars_lors_abaiss_fleche_en_portee_maxi !== undefined) this.pressionNiv3AbaissPorteeMax = Number(data.Valeur_pression_pr_niv_de_press_3_en_bars_lors_abaiss_fleche_en_portee_maxi);
+    if (data.Val_press_pr_niv_press_6_en_bars_lors_abaiss_fleche_portee_mini_charge_lourde !== undefined) this.pressionNiv6AbaissPorteeMinLourde = Number(data.Val_press_pr_niv_press_6_en_bars_lors_abaiss_fleche_portee_mini_charge_lourde);
+    if (data.Val_press_pr_niv_press_6_en_bars_lors_abaiss_fleche_portee_maxi_charge_lourde !== undefined) this.pressionNiv6AbaissPorteeMaxLourde = Number(data.Val_press_pr_niv_press_6_en_bars_lors_abaiss_fleche_portee_maxi_charge_lourde);
+    if (data.Druckwert_fur_Druckstufe_7_in_bar_fur_Ausleger_Anheben_Wartungsbetrieb !== undefined) this.druckwertStufe7Wartung = Number(data.Druckwert_fur_Druckstufe_7_in_bar_fur_Ausleger_Anheben_Wartungsbetrieb);
+    // Luffing torque
+    if (data.Abaisser_la_fleche_couple_d_acceleration_vitesse_rapide !== undefined) this.abaissCouplAccelRapide = Number(data.Abaisser_la_fleche_couple_d_acceleration_vitesse_rapide);
+    if (data.Abaisser_la_fleche_couple_de_freinage_vitesse_rapide !== undefined) this.abaissCouplFreinRapide = Number(data.Abaisser_la_fleche_couple_de_freinage_vitesse_rapide);
+    if (data.Relevage_de_la_fleche_couple_d_acceleration_vitesse_rapide !== undefined) this.relevageCouplAccelRapide = Number(data.Relevage_de_la_fleche_couple_d_acceleration_vitesse_rapide);
+    if (data.Relevage_de_la_fleche_couple_de_freinage_vitesse_rapide !== undefined) this.relevageCouplFreinRapide = Number(data.Relevage_de_la_fleche_couple_de_freinage_vitesse_rapide);
+    if (data.Abaisser_la_fleche_couple_d_acceleration_vitesse_moyenne !== undefined) this.abaissCouplAccelMoyen = Number(data.Abaisser_la_fleche_couple_d_acceleration_vitesse_moyenne);
+    if (data.Abaisser_la_fleche_couple_de_freinage_vitesse_moyenne !== undefined) this.abaissCouplFreinMoyen = Number(data.Abaisser_la_fleche_couple_de_freinage_vitesse_moyenne);
+    if (data.Relevage_de_la_fleche_couple_d_acceleration_vitesse_moyenne !== undefined) this.relevageCouplAccelMoyen = Number(data.Relevage_de_la_fleche_couple_d_acceleration_vitesse_moyenne);
+    if (data.Relevage_de_la_fleche_couple_de_freinage_vitesse_moyenne !== undefined) this.relevageCouplFreinMoyen = Number(data.Relevage_de_la_fleche_couple_de_freinage_vitesse_moyenne);
+    if (data.Abaisser_la_fleche_couple_d_acceleration_vitesse_lente !== undefined) this.abaissCouplAccelLent = Number(data.Abaisser_la_fleche_couple_d_acceleration_vitesse_lente);
+    if (data.Abaisser_la_fleche_couple_de_freinage_vitesse_lente !== undefined) this.abaissCouplFreinLent = Number(data.Abaisser_la_fleche_couple_de_freinage_vitesse_lente);
+    if (data.Relevage_de_la_fleche_couple_d_acceleration_vitesse_lente !== undefined) this.relevageCouplAccelLent = Number(data.Relevage_de_la_fleche_couple_d_acceleration_vitesse_lente);
+    if (data.Relevage_de_la_fleche_couple_de_freinage_vitesse_lente !== undefined) this.relevageCouplFreinLent = Number(data.Relevage_de_la_fleche_couple_de_freinage_vitesse_lente);
+    // Luffing valve setpoints (Tandemlift)
+    if (data.Sollwerte_Drosselventil_Wippzylinder_Tandemlift_YMINP !== undefined) this.sollwerteDrosselTandemliftYminP = Number(data.Sollwerte_Drosselventil_Wippzylinder_Tandemlift_YMINP);
+    if (data.Sollwerte_Drosselventil_Wippzylinder_Tandemlift_YMAXP !== undefined) this.sollwerteDrosselTandemliftYmaxP = Number(data.Sollwerte_Drosselventil_Wippzylinder_Tandemlift_YMAXP);
+    if (data.Sollwerte_Drosselventil_Wippzylinder_Tandemlift_YMINN !== undefined) this.sollwerteDrosselTandemliftYminN = Number(data.Sollwerte_Drosselventil_Wippzylinder_Tandemlift_YMINN);
+    if (data.Sollwerte_Drosselventil_Wippzylinder_Tandemlift_YMAXN !== undefined) this.sollwerteDrosselTandemliftYmaxN = Number(data.Sollwerte_Drosselventil_Wippzylinder_Tandemlift_YMAXN);
+    // Luffing slow speed
+    if (data.Valeurs_cons_pompe_hydr_variation_de_volee_lente_YMINP !== undefined) this.consignePompeVoleeLenteYminP = Number(data.Valeurs_cons_pompe_hydr_variation_de_volee_lente_YMINP);
+    if (data.Valeurs_cons_pompe_hydr_variation_de_volee_lente_YMAXP !== undefined) this.consignePompeVoleeLenteYmaxP = Number(data.Valeurs_cons_pompe_hydr_variation_de_volee_lente_YMAXP);
+    if (data.Valeurs_cons_pompe_hydr_variation_de_volee_lente_YMINN !== undefined) this.consignePompeVoleeLenteYminN = Number(data.Valeurs_cons_pompe_hydr_variation_de_volee_lente_YMINN);
+    if (data.Valeurs_cons_pompe_hydr_variation_de_volee_lente_YMAXN !== undefined) this.consignePompeVoleeLenteYmaxN = Number(data.Valeurs_cons_pompe_hydr_variation_de_volee_lente_YMAXN);
+    if (data.Sollwerte_Drosselventil_Wippzylinder_langsame_Wippstufe_YMINP !== undefined) this.sollwerteDrosselLangsamYminP = Number(data.Sollwerte_Drosselventil_Wippzylinder_langsame_Wippstufe_YMINP);
+    if (data.Sollwerte_Drosselventil_Wippzylinder_langsame_Wippstufe_YMAXP !== undefined) this.sollwerteDrosselLangsamYmaxP = Number(data.Sollwerte_Drosselventil_Wippzylinder_langsame_Wippstufe_YMAXP);
+    if (data.Sollwerte_Drosselventil_Wippzylinder_langsame_Wippstufe_YMINN !== undefined) this.sollwerteDrosselLangsamYminN = Number(data.Sollwerte_Drosselventil_Wippzylinder_langsame_Wippstufe_YMINN);
+    if (data.Sollwerte_Drosselventil_Wippzylinder_langsame_Wippstufe_YMAXN !== undefined) this.sollwerteDrosselLangsamYmaxN = Number(data.Sollwerte_Drosselventil_Wippzylinder_langsame_Wippstufe_YMAXN);
+    // Luffing personnel transport
+    if (data.Sollwerte_Drosselventil_Wippzylinder_Personentransport_YMINP !== undefined) this.sollwerteDrosselPersonenYminP = Number(data.Sollwerte_Drosselventil_Wippzylinder_Personentransport_YMINP);
+    if (data.Sollwerte_Drosselventil_Wippzylinder_Personentransport_YMAXP !== undefined) this.sollwerteDrosselPersonenYmaxP = Number(data.Sollwerte_Drosselventil_Wippzylinder_Personentransport_YMAXP);
+    if (data.Sollwerte_Drosselventil_Wippzylinder_Personentransport_YMINN !== undefined) this.sollwerteDrosselPersonenYminN = Number(data.Sollwerte_Drosselventil_Wippzylinder_Personentransport_YMINN);
+    if (data.Sollwerte_Drosselventil_Wippzylinder_Personentransport_YMAXN !== undefined) this.sollwerteDrosselPersonenYmaxN = Number(data.Sollwerte_Drosselventil_Wippzylinder_Personentransport_YMAXN);
+    // Luffing medium speed
+    if (data.Sollwerte_Haupthydraulikpumpe_mittlere_Wippstufe_YMINP !== undefined) this.sollwertePumpeMittelYminP = Number(data.Sollwerte_Haupthydraulikpumpe_mittlere_Wippstufe_YMINP);
+    if (data.Sollwerte_Haupthydraulikpumpe_mittlere_Wippstufe_YMAXP !== undefined) this.sollwertePumpeMittelYmaxP = Number(data.Sollwerte_Haupthydraulikpumpe_mittlere_Wippstufe_YMAXP);
+    if (data.Sollwerte_Haupthydraulikpumpe_mittlere_Wippstufe_YMINN !== undefined) this.sollwertePumpeMittelYminN = Number(data.Sollwerte_Haupthydraulikpumpe_mittlere_Wippstufe_YMINN);
+    if (data.Sollwerte_Haupthydraulikpumpe_mittlere_Wippstufe_YMAXN !== undefined) this.sollwertePumpeMittelYmaxN = Number(data.Sollwerte_Haupthydraulikpumpe_mittlere_Wippstufe_YMAXN);
+    if (data.Sollwerte_Drosselventil_mittlere_Wippstufe_YMINP !== undefined) this.sollwerteDrosselMittelYminP = Number(data.Sollwerte_Drosselventil_mittlere_Wippstufe_YMINP);
+    if (data.Sollwerte_Drosselventil_mittlere_Wippstufe_YMAXP !== undefined) this.sollwerteDrosselMittelYmaxP = Number(data.Sollwerte_Drosselventil_mittlere_Wippstufe_YMAXP);
+    if (data.Sollwerte_Drosselventil_mittlere_Wippstufe_YMINN !== undefined) this.sollwerteDrosselMittelYminN = Number(data.Sollwerte_Drosselventil_mittlere_Wippstufe_YMINN);
+    if (data.Sollwerte_Drosselventil_mittlere_Wippstufe_YMAXN !== undefined) this.sollwerteDrosselMittelYmaxN = Number(data.Sollwerte_Drosselventil_mittlere_Wippstufe_YMAXN);
+    // Luffing fast speed
+    if (data.Valeurs_de_consigne_pompe_hydraulique_ppale_var_de_volee_rapide_YMINP !== undefined) this.consignePompeVoleeRapideYminP = Number(data.Valeurs_de_consigne_pompe_hydraulique_ppale_var_de_volee_rapide_YMINP);
+    if (data.Valeurs_de_consigne_pompe_hydraulique_ppale_var_de_volee_rapide_YMAXP !== undefined) this.consignePompeVoleeRapideYmaxP = Number(data.Valeurs_de_consigne_pompe_hydraulique_ppale_var_de_volee_rapide_YMAXP);
+    if (data.Valeurs_de_consigne_pompe_hydraulique_ppale_var_de_volee_rapide_YMINN !== undefined) this.consignePompeVoleeRapideYminN = Number(data.Valeurs_de_consigne_pompe_hydraulique_ppale_var_de_volee_rapide_YMINN);
+    if (data.Valeurs_de_consigne_pompe_hydraulique_ppale_var_de_volee_rapide_YMAXN !== undefined) this.consignePompeVoleeRapideYmaxN = Number(data.Valeurs_de_consigne_pompe_hydraulique_ppale_var_de_volee_rapide_YMAXN);
+    if (data.Valeurs_cons_soupape_d_etranglement_variation_de_volee_rapide_YMINP !== undefined) this.consigneEtranglementRapideYminP = Number(data.Valeurs_cons_soupape_d_etranglement_variation_de_volee_rapide_YMINP);
+    if (data.Valeurs_cons_soupape_d_etranglement_variation_de_volee_rapide_YMAXP !== undefined) this.consigneEtranglementRapideYmaxP = Number(data.Valeurs_cons_soupape_d_etranglement_variation_de_volee_rapide_YMAXP);
+    if (data.Valeurs_cons_soupape_d_etranglement_variation_de_volee_rapide_YMINN !== undefined) this.consigneEtranglementRapideYminN = Number(data.Valeurs_cons_soupape_d_etranglement_variation_de_volee_rapide_YMINN);
+    if (data.Valeurs_cons_soupape_d_etranglement_variation_de_volee_rapide_YMAXN !== undefined) this.consigneEtranglementRapideYmaxN = Number(data.Valeurs_cons_soupape_d_etranglement_variation_de_volee_rapide_YMAXN);
+    // Luffing mA values
+    if (data.Reduction_vitesse_var_de_volee_lors_du_relevage_de_fleche_et_trois_mouvements !== undefined) this.reductionVitesse3Mouvements = Number(data.Reduction_vitesse_var_de_volee_lors_du_relevage_de_fleche_et_trois_mouvements);
+    if (data.mA_pour_niveau_de_pression_2_xxx_bars_relevage_de_fleche_en_portee_maxi !== undefined) this.mANiveau2RelevagePorteeMax = Number(data.mA_pour_niveau_de_pression_2_xxx_bars_relevage_de_fleche_en_portee_maxi);
+    if (data.mA_pour_niveau_de_pression_2_xxx_bars_relevage_de_fleche_en_portee_min !== undefined) this.mANiveau2RelevagePorteeMin = Number(data.mA_pour_niveau_de_pression_2_xxx_bars_relevage_de_fleche_en_portee_min);
+    if (data.mA_pour_niveau_de_pression_3_xxx_bars_abaissement_de_fleche_en_portee_mini !== undefined) this.mANiveau3AbaissPorteeMin = Number(data.mA_pour_niveau_de_pression_3_xxx_bars_abaissement_de_fleche_en_portee_mini);
+    if (data.mA_pour_niveau_de_pression_3_xxx_bars_abaissement_de_fleche_en_portee_maxi !== undefined) this.mANiveau3AbaissPorteeMax = Number(data.mA_pour_niveau_de_pression_3_xxx_bars_abaissement_de_fleche_en_portee_maxi);
+    if (data.mA_pour_pression_4_280_bars_calage_relever_fleche !== undefined) this.mANiveau4CalageRelever = Number(data.mA_pour_pression_4_280_bars_calage_relever_fleche);
+    if (data.mA_pr_niveau_press_6_xxx_bars_abaissement_fleche_en_portee_mini_charge_lourde !== undefined) this.mANiveau6AbaissPorteeMinLourde = Number(data.mA_pr_niveau_press_6_xxx_bars_abaissement_fleche_en_portee_mini_charge_lourde);
+    if (data.mA_pr_niveau_press_6_xxx_bars_abaissement_fleche_en_portee_maxi_charge_lourde !== undefined) this.mANiveau6AbaissPorteeMaxLourde = Number(data.mA_pr_niveau_press_6_xxx_bars_abaissement_fleche_en_portee_maxi_charge_lourde);
+    if (data.mA_pr_niveau_press_7_xxx_bars_relevage_fleche_mode_entretien !== undefined) this.mANiveau7RelevageMaintenance = Number(data.mA_pr_niveau_press_7_xxx_bars_relevage_fleche_mode_entretien);
+
+    // TRANSLATION TELEMETRY (Extended)
+    if (data.Valeur_de_consigne_translation !== undefined) this.consigneTranslation = Number(data.Valeur_de_consigne_translation);
+    if (data.Translation_valeur_de_consigne !== undefined) this.translationValeurConsigne = Number(data.Translation_valeur_de_consigne);
+    if (data.Sollwert_Druckabschneidung_Lenkpumpe_1 !== undefined) this.sollwertDruckLenkpumpe1 = Number(data.Sollwert_Druckabschneidung_Lenkpumpe_1);
+    if (data.Sollwert_Druckabschneidung_Lenkpumpe_2 !== undefined) this.sollwertDruckLenkpumpe2 = Number(data.Sollwert_Druckabschneidung_Lenkpumpe_2);
+    // Translation fast speed
+    if (data.Valeurs_de_cons_pompe_hydraul_ppale_pour_mec_translation_rapide_YMINP !== undefined) this.consignePompeTranslRapideYminP = Number(data.Valeurs_de_cons_pompe_hydraul_ppale_pour_mec_translation_rapide_YMINP);
+    if (data.Valeurs_de_cons_pompe_hydraul_ppale_pour_mec_translation_rapide_YMAXP !== undefined) this.consignePompeTranslRapideYmaxP = Number(data.Valeurs_de_cons_pompe_hydraul_ppale_pour_mec_translation_rapide_YMAXP);
+    if (data.Valeurs_de_cons_pompe_hydraul_ppale_pour_mec_translation_rapide_YMINN !== undefined) this.consignePompeTranslRapideYminN = Number(data.Valeurs_de_cons_pompe_hydraul_ppale_pour_mec_translation_rapide_YMINN);
+    if (data.Valeurs_de_cons_pompe_hydraul_ppale_pour_mec_translation_rapide_YMAXN !== undefined) this.consignePompeTranslRapideYmaxN = Number(data.Valeurs_de_cons_pompe_hydraul_ppale_pour_mec_translation_rapide_YMAXN);
+    if (data.Valeurs_de_consigne_pour_la_soupape_de_translation_rapide_YMINP !== undefined) this.consigneSoupapeTranslRapideYminP = Number(data.Valeurs_de_consigne_pour_la_soupape_de_translation_rapide_YMINP);
+    if (data.Valeurs_de_consigne_pour_la_soupape_de_translation_rapide_YMAXP !== undefined) this.consigneSoupapeTranslRapideYmaxP = Number(data.Valeurs_de_consigne_pour_la_soupape_de_translation_rapide_YMAXP);
+    if (data.Valeurs_de_consigne_pour_la_soupape_de_translation_rapide_YMINN !== undefined) this.consigneSoupapeTranslRapideYminN = Number(data.Valeurs_de_consigne_pour_la_soupape_de_translation_rapide_YMINN);
+    if (data.Valeurs_de_consigne_pour_la_soupape_de_translation_rapide_YMAXN !== undefined) this.consigneSoupapeTranslRapideYmaxN = Number(data.Valeurs_de_consigne_pour_la_soupape_de_translation_rapide_YMAXN);
+    // Translation medium speed
+    if (data.Sollwerte_Haupthydraulikpumpe_fur_Fahrwerk_mittel_YMINP !== undefined) this.sollwertePumpeTranslMittelYminP = Number(data.Sollwerte_Haupthydraulikpumpe_fur_Fahrwerk_mittel_YMINP);
+    if (data.Sollwerte_Haupthydraulikpumpe_fur_Fahrwerk_mittel_YMAXP !== undefined) this.sollwertePumpeTranslMittelYmaxP = Number(data.Sollwerte_Haupthydraulikpumpe_fur_Fahrwerk_mittel_YMAXP);
+    if (data.Sollwerte_Haupthydraulikpumpe_fur_Fahrwerk_mittel_YMINN !== undefined) this.sollwertePumpeTranslMittelYminN = Number(data.Sollwerte_Haupthydraulikpumpe_fur_Fahrwerk_mittel_YMINN);
+    if (data.Sollwerte_Haupthydraulikpumpe_fur_Fahrwerk_mittel_YMAXN !== undefined) this.sollwertePumpeTranslMittelYmaxN = Number(data.Sollwerte_Haupthydraulikpumpe_fur_Fahrwerk_mittel_YMAXN);
+    if (data.Sollwerte_fur_Fahren_Ventil_mittel_YMINP !== undefined) this.sollwerteVentilTranslMittelYminP = Number(data.Sollwerte_fur_Fahren_Ventil_mittel_YMINP);
+    if (data.Sollwerte_fur_Fahren_Ventil_mittel_YMAXP !== undefined) this.sollwerteVentilTranslMittelYmaxP = Number(data.Sollwerte_fur_Fahren_Ventil_mittel_YMAXP);
+    if (data.Sollwerte_fur_Fahren_Ventil_mittel_YMINN !== undefined) this.sollwerteVentilTranslMittelYminN = Number(data.Sollwerte_fur_Fahren_Ventil_mittel_YMINN);
+    if (data.Sollwerte_fur_Fahren_Ventil_mittel_YMAXN !== undefined) this.sollwerteVentilTranslMittelYmaxN = Number(data.Sollwerte_fur_Fahren_Ventil_mittel_YMAXN);
+    // Translation slow speed
+    if (data.Sollwerte_Haupthydraulikpumpe_fur_Fahren_langsam_YMINP !== undefined) this.sollwertePumpeTranslLangsamYminP = Number(data.Sollwerte_Haupthydraulikpumpe_fur_Fahren_langsam_YMINP);
+    if (data.Sollwerte_Haupthydraulikpumpe_fur_Fahren_langsam_YMAXP !== undefined) this.sollwertePumpeTranslLangsamYmaxP = Number(data.Sollwerte_Haupthydraulikpumpe_fur_Fahren_langsam_YMAXP);
+    if (data.Sollwerte_Haupthydraulikpumpe_fur_Fahren_langsam_YMINN !== undefined) this.sollwertePumpeTranslLangsamYminN = Number(data.Sollwerte_Haupthydraulikpumpe_fur_Fahren_langsam_YMINN);
+    if (data.Sollwerte_Haupthydraulikpumpe_fur_Fahren_langsam_YMAXN !== undefined) this.sollwertePumpeTranslLangsamYmaxN = Number(data.Sollwerte_Haupthydraulikpumpe_fur_Fahren_langsam_YMAXN);
+    if (data.Sollwerte_fur_Fahren_langsam_YMINP !== undefined) this.sollwerteTranslLangsamYminP = Number(data.Sollwerte_fur_Fahren_langsam_YMINP);
+    if (data.Sollwerte_fur_Fahren_langsam_YMAXP !== undefined) this.sollwerteTranslLangsamYmaxP = Number(data.Sollwerte_fur_Fahren_langsam_YMAXP);
+    if (data.Sollwerte_fur_Fahren_langsam_YMINN !== undefined) this.sollwerteTranslLangsamYminN = Number(data.Sollwerte_fur_Fahren_langsam_YMINN);
+    if (data.Sollwerte_fur_Fahren_langsam_YMAXN !== undefined) this.sollwerteTranslLangsamYmaxN = Number(data.Sollwerte_fur_Fahren_langsam_YMAXN);
 
     this.updateCharts();
     this.cdr.detectChanges();

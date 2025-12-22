@@ -674,4 +674,851 @@
             </div>
         </div>
     </div>
+
+    <!-- HOIST TELEMETRY (Extended) -->
+    <div class="category-section">
+        <h3 class="category-title"><i class="bi bi-arrow-up-circle"></i> Levage - Télémétrie Étendue</h3>
+        <div class="widgets-row">
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Consigne Manipulateur Fermeture</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ consigneManipFermeture |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Consigne Manipulateur Levage</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ consigneManipLevage |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Pression Frein Fermeture</span><span
+                        class="widget-unit">Bar</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ pressionFreinFermeture |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Charge Brute Différence Jauges 1-2</span><span
+                        class="widget-unit">t</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ chargeBruteDiffDMS12 |
+                        number:'1.2-2' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Charge Brute en Portée</span><span
+                        class="widget-unit">t·m</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ chargeBrutePorteeMetres |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Levage 2 Différence Jauges</span><span
+                        class="widget-unit">t</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ chargeBruteLevage2DiffDMS12 |
+                        number:'1.2-2' }}</span></div>
+            </div>
+        </div>
+        <div class="widgets-row">
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Hauteur Admissible Calcul 1</span><span
+                        class="widget-unit">m</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ hauteurLevageAdmCalc1 |
+                        number:'1.2-2' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Hauteur Admissible Calcul 2</span><span
+                        class="widget-unit">m</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ hauteurLevageAdmCalc2 |
+                        number:'1.2-2' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Hauteur Admissible Calculée</span><span
+                        class="widget-unit">m</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ hauteurLevageAdmCalculee |
+                        number:'1.2-2' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Consigne Vitesse selon Charge</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ consigneVitesseRotationCharge |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Vitesse Levage Admissible</span><span
+                        class="widget-unit">t/min</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ vitesseLevageAdmTMin |
+                        number:'1.2-2' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Rapport Transmission Rapide</span><span
+                        class="widget-unit">ratio</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ rapportTransmissionRapide |
+                        number:'1.2-2' }}</span></div>
+            </div>
+        </div>
+        <div class="widgets-row">
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Pression Service Frein Levage 1</span><span
+                        class="widget-unit">Bar</span></div>
+                <div class="widget-body"><ngx-gauge [type]="'semi'" [value]="betriebsdruckHW1" [min]="0" [max]="150"
+                        [thick]="6" [size]="70" [foregroundColor]="'#FF4560'"></ngx-gauge></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Pression Service Frein Levage 2</span><span
+                        class="widget-unit">Bar</span></div>
+                <div class="widget-body"><ngx-gauge [type]="'semi'" [value]="betriebsdruckHW2" [min]="0" [max]="150"
+                        [thick]="6" [size]="70" [foregroundColor]="'#FF4560'"></ngx-gauge></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Capteur Charge Levage 1 Jauge 1</span><span
+                        class="widget-unit">raw</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ lastmessbolzenHW1DMS1 |
+                        number:'1.0-0' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Capteur Charge Levage 1 Jauge 2</span><span
+                        class="widget-unit">raw</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ lastmessbolzenHW1DMS2 |
+                        number:'1.0-0' }}</span></div>
+            </div>
+        </div>
+        <!-- Calibration Values -->
+        <div class="widgets-row">
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Calib. Levage 1 Jauge 1 Point 1</span></div>
+                <div class="widget-body"><span class="badge-value">{{ cu1Pzd4Hoist1Dms1P1 | number:'1.0-0' }}</span>
+                </div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Calib. Levage 1 Jauge 2 Point 1</span></div>
+                <div class="widget-body"><span class="badge-value">{{ cu1Pzd5Hoist1Dms2P1 | number:'1.0-0' }}</span>
+                </div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Calib. Levage 1 Jauge 1 Point 2</span></div>
+                <div class="widget-body"><span class="badge-value">{{ cu1Pzd6Hoist1Dms1P2 | number:'1.0-0' }}</span>
+                </div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Calib. Levage 1 Jauge 2 Point 2</span></div>
+                <div class="widget-body"><span class="badge-value">{{ cu1Pzd7Hoist1Dms2P2 | number:'1.0-0' }}</span>
+                </div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Calib. Levage 2 Jauge 1 Point 1</span></div>
+                <div class="widget-body"><span class="badge-value">{{ cu1Pzd8Hoist2Dms1P1 | number:'1.0-0' }}</span>
+                </div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Calib. Levage 2 Jauge 2 Point 1</span></div>
+                <div class="widget-body"><span class="badge-value">{{ cu1Pzd9Hoist2Dms2P1 | number:'1.0-0' }}</span>
+                </div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Calib. Levage 2 Jauge 1 Point 2</span></div>
+                <div class="widget-body"><span class="badge-value">{{ cu1Pzd10Hoist2Dms1P2 | number:'1.0-0' }}</span>
+                </div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Calib. Levage 2 Jauge 2 Point 2</span></div>
+                <div class="widget-body"><span class="badge-value">{{ cu1Pzd11Hoist2Dms2P2 | number:'1.0-0' }}</span>
+                </div>
+            </div>
+        </div>
+        <!-- Torque Values -->
+        <div class="widgets-row">
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Couple Accélération Vitesse Rapide</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ levageCoupleAccelRapide |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Couple Freinage Vitesse Rapide</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ levageCoupleFreinRapide |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Couple Accélération Vitesse Moyenne</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ levageCoupleAccelMoyen |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Couple Freinage Vitesse Moyenne</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ levageCoupleFreinMoyen |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Couple Accélération Vitesse Lente</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ levageCoupleAccelLent |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Couple Freinage Vitesse Lente</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ levageCoupleFreinLent |
+                        number:'1.1-1' }}</span></div>
+            </div>
+        </div>
+        <!-- API Test Load Values -->
+        <div class="widgets-row">
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Test Lev.1 Jauge1 Charge1</span></div>
+                <div class="widget-body"><span class="badge-value">{{ apiLevage1Dms1Charge1 | number:'1.0-0' }}</span>
+                </div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Test Lev.1 Jauge2 Charge1</span></div>
+                <div class="widget-body"><span class="badge-value">{{ apiLevage1Dms2Charge1 | number:'1.0-0' }}</span>
+                </div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Test Lev.1 Jauge1 Charge2</span></div>
+                <div class="widget-body"><span class="badge-value">{{ apiLevage1Dms1Charge2 | number:'1.0-0' }}</span>
+                </div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Test Lev.1 Jauge2 Charge2</span></div>
+                <div class="widget-body"><span class="badge-value">{{ apiLevage1Dms2Charge2 | number:'1.0-0' }}</span>
+                </div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Test Lev.2 Jauge1 Charge1</span></div>
+                <div class="widget-body"><span class="badge-value">{{ apiLevage2Dms1Charge1 | number:'1.0-0' }}</span>
+                </div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Test Lev.2 Jauge2 Charge1</span></div>
+                <div class="widget-body"><span class="badge-value">{{ apiLevage2Dms2Charge1 | number:'1.0-0' }}</span>
+                </div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Test Lev.2 Jauge1 Charge2</span></div>
+                <div class="widget-body"><span class="badge-value">{{ apiLevage2Dms1Charge2 | number:'1.0-0' }}</span>
+                </div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Test Lev.2 Jauge2 Charge2</span></div>
+                <div class="widget-body"><span class="badge-value">{{ apiLevage2Dms2Charge2 | number:'1.0-0' }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLEW TELEMETRY (Extended) -->
+    <div class="category-section">
+        <h3 class="category-title"><i class="bi bi-arrow-repeat"></i> Orientation - Télémétrie Étendue</h3>
+        <div class="widgets-row">
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Consigne Orientation</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body"><ngx-gauge [type]="'semi'" [value]="consigneManipOrientation" [min]="-100"
+                        [max]="100" [thick]="8" [size]="90"
+                        [foregroundColor]="consigneManipOrientation >= 0 ? '#00E396' : '#FF4560'"></ngx-gauge></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Consigne Vitesse selon Portée</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ consigneVitesseOrientPortee |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Pression Frein Orientation 1</span><span
+                        class="widget-unit">Bar</span></div>
+                <div class="widget-body"><ngx-gauge [type]="'semi'" [value]="betriebsdruckDrehwerk1" [min]="0"
+                        [max]="150" [thick]="6" [size]="70" [foregroundColor]="'#775DD0'"></ngx-gauge></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Consigne Impulse Droite</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ consigneFixeOrientDroite |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Consigne Impulse Gauche</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ consigneFixeOrientGauche |
+                        number:'1.1-1' }}</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LUFFING TELEMETRY (Extended) -->
+    <div class="category-section">
+        <h3 class="category-title"><i class="bi bi-arrow-bar-up"></i> Volée - Télémétrie Étendue</h3>
+        <div class="widgets-row">
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Vitesse Réelle Cylindre Volée</span><span
+                        class="widget-unit">m/s</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ vitesseReelleCylindre |
+                        number:'1.3-3' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Consigne Manipulateur Volée</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body"><ngx-gauge [type]="'semi'" [value]="consigneManipVolee" [min]="-100"
+                        [max]="100" [thick]="8" [size]="90"
+                        [foregroundColor]="consigneManipVolee >= 0 ? '#00E396' : '#FF4560'"></ngx-gauge></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Portée Admissible selon Charge</span><span
+                        class="widget-unit">m</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ porteeAdmissibleCharge |
+                        number:'1.2-2' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Portée Admissible Relevage</span><span
+                        class="widget-unit">m</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ relevageCalculerPorteeAdm |
+                        number:'1.2-2' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Portée Admissible Abaissement</span><span
+                        class="widget-unit">m</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ abaissementCalculerPorteeAdm |
+                        number:'1.2-2' }}</span></div>
+            </div>
+        </div>
+        <div class="widgets-row">
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Portée Admissible Calcul 1</span><span
+                        class="widget-unit">m</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ porteeAdmRelevageCalc1 |
+                        number:'1.2-2' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Portée Admissible Calcul 2</span><span
+                        class="widget-unit">m</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ porteeAdmRelevageCalc2 |
+                        number:'1.2-2' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Réduction Étranglement Volée</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{
+                        reductionConsigneEtranglementVolee | number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Pression Niveau 7 Maintenance</span><span
+                        class="widget-unit">Bar</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ druckwertStufe7Wartung |
+                        number:'1.0-0' }}</span></div>
+            </div>
+        </div>
+        <!-- Pressure Levels -->
+        <div class="widgets-row">
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Pression Niveau 2 Relevage Min</span><span
+                        class="widget-unit">Bar</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ pressionNiv2RelevagePorteeMin |
+                        number:'1.0-0' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Pression Niveau 2 Relevage Max</span><span
+                        class="widget-unit">Bar</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ pressionNiv2RelevagePorteeMax |
+                        number:'1.0-0' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Pression Niveau 3 Abaissement Min</span><span
+                        class="widget-unit">Bar</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ pressionNiv3AbaissPorteeMin |
+                        number:'1.0-0' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Pression Niveau 3 Abaissement Max</span><span
+                        class="widget-unit">Bar</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ pressionNiv3AbaissPorteeMax |
+                        number:'1.0-0' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Pression Niveau 6 Abaiss. Min Lourde</span><span
+                        class="widget-unit">Bar</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{
+                        pressionNiv6AbaissPorteeMinLourde | number:'1.0-0' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Pression Niveau 6 Abaiss. Max Lourde</span><span
+                        class="widget-unit">Bar</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{
+                        pressionNiv6AbaissPorteeMaxLourde | number:'1.0-0' }}</span></div>
+            </div>
+        </div>
+        <!-- Luffing Torque -->
+        <div class="widgets-row">
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Abaissement Couple Accél. Rapide</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ abaissCouplAccelRapide |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Abaissement Couple Frein Rapide</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ abaissCouplFreinRapide |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Relevage Couple Accél. Rapide</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ relevageCouplAccelRapide |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Relevage Couple Frein Rapide</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ relevageCouplFreinRapide |
+                        number:'1.1-1' }}</span></div>
+            </div>
+        </div>
+        <div class="widgets-row">
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Abaissement Couple Accél. Moyen</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ abaissCouplAccelMoyen |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Abaissement Couple Frein Moyen</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ abaissCouplFreinMoyen |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Relevage Couple Accél. Moyen</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ relevageCouplAccelMoyen |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Relevage Couple Frein Moyen</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ relevageCouplFreinMoyen |
+                        number:'1.1-1' }}</span></div>
+            </div>
+        </div>
+        <div class="widgets-row">
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Abaissement Couple Accél. Lent</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ abaissCouplAccelLent |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Abaissement Couple Frein Lent</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ abaissCouplFreinLent |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Relevage Couple Accél. Lent</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ relevageCouplAccelLent |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Relevage Couple Frein Lent</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ relevageCouplFreinLent |
+                        number:'1.1-1' }}</span></div>
+            </div>
+        </div>
+        <!-- Valve Setpoints Tandemlift -->
+        <div class="widgets-row">
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Tandem Étrangl. Min Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwerteDrosselTandemliftYminP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Tandem Étrangl. Max Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwerteDrosselTandemliftYmaxP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Tandem Étrangl. Min Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwerteDrosselTandemliftYminN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Tandem Étrangl. Max Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwerteDrosselTandemliftYmaxN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+        </div>
+        <!-- Slow Speed Setpoints -->
+        <div class="widgets-row">
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Lent Pompe Min Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ consignePompeVoleeLenteYminP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Lent Pompe Max Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ consignePompeVoleeLenteYmaxP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Lent Pompe Min Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ consignePompeVoleeLenteYminN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Lent Pompe Max Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ consignePompeVoleeLenteYmaxN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Lent Étrangl. Min Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwerteDrosselLangsamYminP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Lent Étrangl. Max Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwerteDrosselLangsamYmaxP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Lent Étrangl. Min Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwerteDrosselLangsamYminN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Lent Étrangl. Max Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwerteDrosselLangsamYmaxN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+        </div>
+        <!-- Personnel Transport Setpoints -->
+        <div class="widgets-row">
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Personnel Min Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwerteDrosselPersonenYminP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Personnel Max Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwerteDrosselPersonenYmaxP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Personnel Min Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwerteDrosselPersonenYminN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Personnel Max Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwerteDrosselPersonenYmaxN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+        </div>
+        <!-- Medium Speed Setpoints -->
+        <div class="widgets-row">
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Moyen Pompe Min Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwertePumpeMittelYminP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Moyen Pompe Max Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwertePumpeMittelYmaxP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Moyen Pompe Min Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwertePumpeMittelYminN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Moyen Pompe Max Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwertePumpeMittelYmaxN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Moyen Étrangl. Min Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwerteDrosselMittelYminP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Moyen Étrangl. Max Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwerteDrosselMittelYmaxP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Moyen Étrangl. Min Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwerteDrosselMittelYminN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Moyen Étrangl. Max Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwerteDrosselMittelYmaxN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+        </div>
+        <!-- Fast Speed Setpoints -->
+        <div class="widgets-row">
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Rapide Pompe Min Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ consignePompeVoleeRapideYminP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Rapide Pompe Max Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ consignePompeVoleeRapideYmaxP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Rapide Pompe Min Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ consignePompeVoleeRapideYminN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Rapide Pompe Max Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ consignePompeVoleeRapideYmaxN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Rapide Étrangl. Min Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ consigneEtranglementRapideYminP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Rapide Étrangl. Max Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ consigneEtranglementRapideYmaxP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Rapide Étrangl. Min Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ consigneEtranglementRapideYminN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Rapide Étrangl. Max Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ consigneEtranglementRapideYmaxN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+        </div>
+        <!-- mA Values -->
+        <div class="widgets-row">
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Réduction Vitesse 3 Mouvements</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ reductionVitesse3Mouvements |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Courant Niv.2 Relevage Max</span><span
+                        class="widget-unit">mA</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ mANiveau2RelevagePorteeMax |
+                        number:'1.0-0' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Courant Niv.2 Relevage Min</span><span
+                        class="widget-unit">mA</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ mANiveau2RelevagePorteeMin |
+                        number:'1.0-0' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Courant Niv.3 Abaiss. Min</span><span
+                        class="widget-unit">mA</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ mANiveau3AbaissPorteeMin |
+                        number:'1.0-0' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Courant Niv.3 Abaiss. Max</span><span
+                        class="widget-unit">mA</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ mANiveau3AbaissPorteeMax |
+                        number:'1.0-0' }}</span></div>
+            </div>
+        </div>
+        <div class="widgets-row">
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Courant Niv.4 Calage Relevage</span><span
+                        class="widget-unit">mA</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ mANiveau4CalageRelever |
+                        number:'1.0-0' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Courant Niv.6 Abaiss. Min Lourde</span><span
+                        class="widget-unit">mA</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ mANiveau6AbaissPorteeMinLourde |
+                        number:'1.0-0' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Courant Niv.6 Abaiss. Max Lourde</span><span
+                        class="widget-unit">mA</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ mANiveau6AbaissPorteeMaxLourde |
+                        number:'1.0-0' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Courant Niv.7 Maintenance</span><span
+                        class="widget-unit">mA</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ mANiveau7RelevageMaintenance |
+                        number:'1.0-0' }}</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TRANSLATION TELEMETRY (Extended) -->
+    <div class="category-section">
+        <h3 class="category-title"><i class="bi bi-arrow-left-right"></i> Translation - Télémétrie Étendue</h3>
+        <div class="widgets-row">
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Consigne Translation</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body"><ngx-gauge [type]="'semi'" [value]="consigneTranslation" [min]="-100"
+                        [max]="100" [thick]="8" [size]="90"
+                        [foregroundColor]="consigneTranslation >= 0 ? '#00E396' : '#FF4560'"></ngx-gauge></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Translation Valeur Consigne</span><span
+                        class="widget-unit">%</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ translationValeurConsigne |
+                        number:'1.1-1' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Pression Pompe Direction 1</span><span
+                        class="widget-unit">Bar</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ sollwertDruckLenkpumpe1 |
+                        number:'1.0-0' }}</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-header"><span class="widget-title">Pression Pompe Direction 2</span><span
+                        class="widget-unit">Bar</span></div>
+                <div class="widget-body digital-display"><span class="digital-value">{{ sollwertDruckLenkpumpe2 |
+                        number:'1.0-0' }}</span></div>
+            </div>
+        </div>
+        <!-- Fast Speed -->
+        <div class="widgets-row">
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Transl. Rapide Pompe Min Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ consignePompeTranslRapideYminP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Transl. Rapide Pompe Max Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ consignePompeTranslRapideYmaxP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Transl. Rapide Pompe Min Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ consignePompeTranslRapideYminN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Transl. Rapide Pompe Max Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ consignePompeTranslRapideYmaxN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Transl. Rapide Soupape Min Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ consigneSoupapeTranslRapideYminP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Transl. Rapide Soupape Max Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ consigneSoupapeTranslRapideYmaxP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Transl. Rapide Soupape Min Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ consigneSoupapeTranslRapideYminN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Transl. Rapide Soupape Max Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ consigneSoupapeTranslRapideYmaxN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+        </div>
+        <!-- Medium Speed -->
+        <div class="widgets-row">
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Transl. Moyen Pompe Min Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwertePumpeTranslMittelYminP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Transl. Moyen Pompe Max Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwertePumpeTranslMittelYmaxP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Transl. Moyen Pompe Min Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwertePumpeTranslMittelYminN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Transl. Moyen Pompe Max Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwertePumpeTranslMittelYmaxN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Transl. Moyen Soupape Min Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwerteVentilTranslMittelYminP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Transl. Moyen Soupape Max Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwerteVentilTranslMittelYmaxP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Transl. Moyen Soupape Min Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwerteVentilTranslMittelYminN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Transl. Moyen Soupape Max Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwerteVentilTranslMittelYmaxN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+        </div>
+        <!-- Slow Speed -->
+        <div class="widgets-row">
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Transl. Lent Pompe Min Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwertePumpeTranslLangsamYminP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Transl. Lent Pompe Max Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwertePumpeTranslLangsamYmaxP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Transl. Lent Pompe Min Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwertePumpeTranslLangsamYminN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Transl. Lent Pompe Max Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwertePumpeTranslLangsamYmaxN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Transl. Lent Valve Min Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwerteTranslLangsamYminP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Transl. Lent Valve Max Pos.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwerteTranslLangsamYmaxP | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Transl. Lent Valve Min Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwerteTranslLangsamYminN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+            <div class="widget-card mini-badge">
+                <div class="widget-header"><span class="widget-title">Transl. Lent Valve Max Nég.</span></div>
+                <div class="widget-body"><span class="badge-value">{{ sollwerteTranslLangsamYmaxN | number:'1.0-0'
+                        }}</span></div>
+            </div>
+        </div>
+    </div>
 </div>
